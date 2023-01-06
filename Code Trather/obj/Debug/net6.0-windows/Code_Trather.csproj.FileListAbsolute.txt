@@ -1,0 +1,7 @@
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.csproj.AssemblyReference.cache
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.Form1.resources
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.csproj.GenerateResource.cache
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.AssemblyInfoInputs.cache
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.AssemblyInfo.cs
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.csproj.CoreCompileInputs.cache

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj": {}
+    "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\Code Trather\\Code_Trather.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj": {
+    "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\Code Trather\\Code_Trather.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj",
+        "projectUniqueName": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\Code Trather\\Code_Trather.csproj",
         "projectName": "Code_Trather",
-        "projectPath": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj",
+        "projectPath": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\Code Trather\\Code_Trather.csproj",
         "packagesPath": "C:\\Users\\jonet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\obj\\",
+        "outputPath": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\Code Trather\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
