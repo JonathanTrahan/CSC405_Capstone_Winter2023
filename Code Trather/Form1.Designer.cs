@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textInput = new System.Windows.Forms.RichTextBox();
             this.textOutput = new System.Windows.Forms.TextBox();
+            this.saveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,11 +99,22 @@
             this.textOutput.Size = new System.Drawing.Size(410, 643);
             this.textOutput.TabIndex = 0;
             // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(1253, 12);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(94, 29);
+            this.saveButton.TabIndex = 3;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1359, 729);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -124,5 +136,6 @@
         private SplitContainer splitContainer1;
         private RichTextBox textInput;
         private TextBox textOutput;
+        private Button saveButton;
     }
 }
