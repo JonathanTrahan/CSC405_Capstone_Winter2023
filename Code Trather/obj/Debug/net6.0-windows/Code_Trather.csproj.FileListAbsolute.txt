@@ -5,3 +5,13 @@ C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Wint
 C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.AssemblyInfoInputs.cache
 C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.AssemblyInfo.cs
 C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.csproj.CoreCompileInputs.cache
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\bin\Debug\net6.0-windows\Code_Trather.exe
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\bin\Debug\net6.0-windows\Code_Trather.deps.json
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\bin\Debug\net6.0-windows\Code_Trather.runtimeconfig.json
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\bin\Debug\net6.0-windows\Code_Trather.dll
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\bin\Debug\net6.0-windows\Code_Trather.pdb
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.dll
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\refint\Code_Trather.dll
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.pdb
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\Code_Trather.genruntimeconfig.cache
+C:\Users\jonet\Desktop\current classes\CSC 405\code trather\CSC405_Capstone_Winter2023\Code Trather\obj\Debug\net6.0-windows\ref\Code_Trather.dll

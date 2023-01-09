@@ -43,26 +43,26 @@ namespace TextEditor
             openMenuItem.Click += (sender, args) => OpenFile();
             fileMenu.DropDownItems.Add(openMenuItem);
 
-            //// File > Save
-            //ToolStripMenuItem saveMenuItem = new ToolStripMenuItem("Save");
-            //saveMenuItem.ShortcutKeys = Keys.Control | Keys.S;
-            //saveMenuItem.Click += (sender, args) => SaveFile();
-            //fileMenu.DropDownItems.Add(saveMenuItem);
+            // File > Save
+            ToolStripMenuItem saveMenuItem = new ToolStripMenuItem("Save");
+            saveMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            saveMenuItem.Click += (sender, args) => SaveFile();
+            fileMenu.DropDownItems.Add(saveMenuItem);
 
-            //// File > Save As...
-            //ToolStripMenuItem saveAsMenuItem = new ToolStripMenuItem("Save As...");
-            //saveAsMenuItem.Click += (sender, args) => SaveFileAs();
-            //fileMenu.DropDownItems.Add(saveAsMenuItem);
+            // File > Save As...
+            ToolStripMenuItem saveAsMenuItem = new ToolStripMenuItem("Save As...");
+            saveAsMenuItem.Click += (sender, args) => SaveFileAs();
+            fileMenu.DropDownItems.Add(saveAsMenuItem);
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
-            /*            openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";*/
+            //openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";
             openFileDialog.Filter = "Python Files (*.py)|*.py";
 
 
-            /*// Set up the save file dialog
+            // Set up the save file dialog
             saveFileDialog = new SaveFileDialog();
-            //saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";*/
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
         }
 
         private void NewFile()
@@ -82,7 +82,7 @@ namespace TextEditor
             }
         }
 
-        /*private void SaveFile()
+        private void SaveFile()
         {
             if (fileName == null)
             {
@@ -104,13 +104,13 @@ namespace TextEditor
                 System.IO.File.WriteAllText(saveFileDialog.FileName, textBox.Text);
                 fileName = saveFileDialog.FileName;
             }
-        }*/
+        }
 
         // Set up the open file dialog
         private OpenFileDialog openFileDialog;
 
-        /* // Set up the save file dialog
-         private SaveFileDialog saveFileDialog;*/
+        // Set up the save file dialog
+        private SaveFileDialog saveFileDialog;
 
         [STAThread]
         static void Main()
