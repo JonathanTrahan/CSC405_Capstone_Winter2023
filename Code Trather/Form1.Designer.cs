@@ -91,6 +91,7 @@
             this.textInput.Size = new System.Drawing.Size(795, 483);
             this.textInput.TabIndex = 3;
             this.textInput.Text = "";
+            this.textInput.AcceptsTab = true;
             // 
             // textOutput
             // 

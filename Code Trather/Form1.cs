@@ -5,7 +5,8 @@ namespace Code_Trather
         public Form1()
         {
             InitializeComponent();
-            string download = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/file.py";
+            // path that file will be saved at
+            string download = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/assignment.py";
             File.Create(download).Close();
         }
 
@@ -20,15 +21,19 @@ namespace Code_Trather
         }
 
         private void saveButton_Click(object sender, EventArgs e) {
-            File.WriteAllText(Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/file.py", textInput.Text);
+            // write to file at this path, overwrites what is currently in there
+            File.WriteAllText(Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/assignment.py", textInput.Text);
         }
 
         private void button1_Click(object sender, EventArgs e) {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+            // compile through the command prompt
             pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/file.py";
+            pProcess.StartInfo.Arguments = "/C python " + Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/assignment.py";
+            // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
+            // start the command prompt
             pProcess.Start();
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
