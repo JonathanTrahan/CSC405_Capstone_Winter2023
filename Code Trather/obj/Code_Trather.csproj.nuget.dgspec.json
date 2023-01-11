@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj": {}
+    "C:\\Users\\meaga\\Desktop\\CSC405_Capstone_Winter2023-main\\Code Trather\\Code_Trather.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj": {
+    "C:\\Users\\meaga\\Desktop\\CSC405_Capstone_Winter2023-main\\Code Trather\\Code_Trather.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj",
+        "projectUniqueName": "C:\\Users\\meaga\\Desktop\\CSC405_Capstone_Winter2023-main\\Code Trather\\Code_Trather.csproj",
         "projectName": "Code_Trather",
-        "projectPath": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\Code_Trather.csproj",
-        "packagesPath": "C:\\Users\\jonet\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonet\\Desktop\\current classes\\CSC 405\\code trather\\CSC405_Capstone_Winter2023\\text_editor\\obj\\",
+        "projectPath": "C:\\Users\\meaga\\Desktop\\CSC405_Capstone_Winter2023-main\\Code Trather\\Code_Trather.csproj",
+        "packagesPath": "C:\\Users\\meaga\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\meaga\\Desktop\\CSC405_Capstone_Winter2023-main\\Code Trather\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jonet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\meaga\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
