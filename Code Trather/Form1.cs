@@ -30,7 +30,7 @@ namespace Code_Trather
             // compile through the command prompt
             pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
-            pProcess.StartInfo.FileName = "cmd.exe";
+            pProcess.StartInfo.FileName = "python.exe";
             pProcess.StartInfo.Arguments = "/C python " + Program.download;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
