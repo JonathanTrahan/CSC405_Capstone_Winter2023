@@ -6,8 +6,8 @@ namespace Code_Trather
         {
             InitializeComponent();
             // path that file will be saved at
-            string download = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/assignment.py";
-            File.Create(download).Close();
+            Directory.CreateDirectory(Program.filePath);
+            File.Create(Program.download).Close();
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -22,14 +22,16 @@ namespace Code_Trather
 
         private void saveButton_Click(object sender, EventArgs e) {
             // write to file at this path, overwrites what is currently in there
-            File.WriteAllText(Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/assignment.py", textInput.Text);
+            File.WriteAllText(Program.download, textInput.Text);
         }
 
         private void button1_Click(object sender, EventArgs e) {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
             // compile through the command prompt
+            pProcess.StartInfo.CreateNoWindow = true;
+            pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/assignment.py";
+            pProcess.StartInfo.Arguments = "/C python " + Program.download;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
