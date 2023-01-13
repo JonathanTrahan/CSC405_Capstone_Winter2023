@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textInput = new System.Windows.Forms.RichTextBox();
             this.textOutput = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,6 +84,7 @@
             // 
             // textInput
             // 
+            this.textInput.AcceptsTab = true;
             this.textInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -91,7 +94,6 @@
             this.textInput.Size = new System.Drawing.Size(795, 483);
             this.textInput.TabIndex = 3;
             this.textInput.Text = "";
-            this.textInput.AcceptsTab = true;
             // 
             // textOutput
             // 
@@ -116,6 +118,10 @@
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -146,5 +152,6 @@
         private RichTextBox textInput;
         private TextBox textOutput;
         private Button saveButton;
+        private System.Windows.Forms.Timer timer1;
     }
 }

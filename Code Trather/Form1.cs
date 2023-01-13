@@ -1,7 +1,10 @@
+using System.Diagnostics.Metrics;
+
 namespace Code_Trather
 {
     public partial class Form1 : Form
     {
+        private int counter = 0;
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +33,7 @@ namespace Code_Trather
             // compile through the command prompt
             pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
-            pProcess.StartInfo.FileName = "python.exe";
+            pProcess.StartInfo.FileName = "cmd.exe";
             pProcess.StartInfo.Arguments = "/C python " + Program.download;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
@@ -39,8 +42,12 @@ namespace Code_Trather
             pProcess.Start();
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
-            pProcess.WaitForExit();
+            pProcess.WaitForExit(50);
             textOutput.Text = output + error;
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) {
 
         }
     }
