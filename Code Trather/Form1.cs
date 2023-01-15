@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
 namespace Code_Trather
@@ -28,9 +29,13 @@ namespace Code_Trather
             File.WriteAllText(Program.download, textInput.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private async void button1_Click(object sender, EventArgs e) {
+            string result = await Task.Run(() =>  runProcess());
+            textOutput.Text = result;
+
+        }
+        private string runProcess() {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            // compile through the command prompt
             pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
@@ -42,8 +47,9 @@ namespace Code_Trather
             pProcess.Start();
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
-            pProcess.WaitForExit(50);
-            textOutput.Text = output + error;
+            pProcess.WaitForExit(10);
+            return output + error;
+
 
         }
 
