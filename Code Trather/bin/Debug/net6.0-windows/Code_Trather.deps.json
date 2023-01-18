@@ -7,8 +7,19 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Code_Trather/1.0.0": {
+        "dependencies": {
+          "UIAutomationClientsideProviders": "3.0.0.0"
+        },
         "runtime": {
           "Code_Trather.dll": {}
+        }
+      },
+      "UIAutomationClientsideProviders/3.0.0.0": {
+        "runtime": {
+          "UIAutomationClientsideProviders.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.6920.9141"
+          }
         }
       }
     }
@@ -16,6 +27,11 @@
   "libraries": {
     "Code_Trather/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UIAutomationClientsideProviders/3.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }
