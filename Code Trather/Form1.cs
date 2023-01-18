@@ -30,6 +30,7 @@ namespace Code_Trather
         }
 
         private async void button1_Click(object sender, EventArgs e) {
+            textOutput.Text = "";
             string result = await Task.Run(() =>  runProcess());
             textOutput.Text = result;
 
@@ -49,7 +50,6 @@ namespace Code_Trather
             string error = pProcess.StandardError.ReadToEnd();
             pProcess.WaitForExit(10);
             return output + error;
-
 
         }
 
