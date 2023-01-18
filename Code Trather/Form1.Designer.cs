@@ -82,6 +82,7 @@
             // 
             // textInput
             // 
+            this.textInput.AcceptsTab = true;
             this.textInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -91,7 +92,6 @@
             this.textInput.Size = new System.Drawing.Size(795, 483);
             this.textInput.TabIndex = 3;
             this.textInput.Text = "";
-            this.textInput.AcceptsTab = true;
             // 
             // textOutput
             // 
