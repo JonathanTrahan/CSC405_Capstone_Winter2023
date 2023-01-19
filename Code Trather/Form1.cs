@@ -10,8 +10,8 @@ namespace Code_Trather
         {
             InitializeComponent();
             // path that file will be saved at
-            Directory.CreateDirectory(Program.filePath);
-            File.Create(Program.download).Close();
+            Directory.CreateDirectory(Globals.filePath);
+            File.Create(Globals.downloadAddress).Close();
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -26,7 +26,7 @@ namespace Code_Trather
 
         private void saveButton_Click(object sender, EventArgs e) {
             // write to file at this path, overwrites what is currently in there
-            File.WriteAllText(Program.download, textInput.Text);
+            File.WriteAllText(Globals.downloadAddress, textInput.Text);
         }
 
         private async void button1_Click(object sender, EventArgs e) {
@@ -40,7 +40,7 @@ namespace Code_Trather
             pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Program.download;
+            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
@@ -53,8 +53,11 @@ namespace Code_Trather
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e) {
-
+        private void UpdateTime(object sender, EventArgs e)
+        {
+            WriteTo.writeToSnapshot(textInput.Text);
+            WriteTo.writeToClipboard(Clipboard.GetText());
+            Clipboard.Clear();
         }
     }
 }
