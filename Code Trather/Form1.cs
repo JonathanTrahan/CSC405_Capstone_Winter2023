@@ -4,6 +4,9 @@ namespace Code_Trather
     {
         public Form1()
         {
+            this.TopMost = true;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
         }
 

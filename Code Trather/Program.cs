@@ -1,5 +1,7 @@
 using System.Windows.Automation;
 using System.Diagnostics;
+using System.Xml.Linq;
+using System;
 
 namespace Code_Trather
 {
@@ -43,15 +45,22 @@ namespace Code_Trather
         {
             System.Diagnostics.Debug.WriteLine("Focus changed at " + DateTime.Now.ToString("HH:mm:ss"));
             AutomationElement? element = src as AutomationElement;
-            if (element != null)
+            try
             {
-                string name = element.Current.Name;
-                string id = element.Current.AutomationId;
-                int processId = element.Current.ProcessId;
-                using (Process process = Process.GetProcessById(processId))
+                if (element != null)
                 {
-                    System.Diagnostics.Debug.WriteLine("  Name: {0}, Id: {1}, Process: {2}", name, id, process.ProcessName);
+                    string name = element.Current.Name;
+                    string id = element.Current.AutomationId;
+                    int processId = element.Current.ProcessId;
+                    using (Process process = Process.GetProcessById(processId))
+                    {
+                        System.Diagnostics.Debug.WriteLine("  Name: {0}, Id: {1}, Process: {2}", name, id, process.ProcessName);
+                    }
                 }
+            }
+            // some focus changes have elements with no information, this catches those execptions and logs them as unknowns
+            catch(System.Windows.Automation.ElementNotAvailableException) {
+                System.Diagnostics.Debug.WriteLine("  Name: Unknown, Id: Unknown, Process: Unknown");
             }
         }
     }
