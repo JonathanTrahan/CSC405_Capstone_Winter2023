@@ -104,12 +104,14 @@
             this.textInput_old.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textInput_old.Enabled = false;
             this.textInput_old.Location = new System.Drawing.Point(3, 2);
             this.textInput_old.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textInput_old.Name = "textInput_old";
             this.textInput_old.Size = new System.Drawing.Size(908, 642);
             this.textInput_old.TabIndex = 3;
             this.textInput_old.Text = "";
+            this.textInput_old.Visible = false;
             this.textInput_old.TextChanged += new System.EventHandler(this.textInput_TextChanged);
             // 
             // textOutput
@@ -122,7 +124,7 @@
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(403, 642);
+            this.textOutput.Size = new System.Drawing.Size(402, 642);
             this.textOutput.TabIndex = 0;
             // 
             // saveButton
