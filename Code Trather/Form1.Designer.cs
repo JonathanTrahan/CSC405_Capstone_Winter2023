@@ -32,7 +32,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.textInput = new System.Windows.Forms.RichTextBox();
+            this.textInput = new ScintillaNET.Scintilla();
+            this.textInput_old = new System.Windows.Forms.RichTextBox();
             this.textOutput = new System.Windows.Forms.TextBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
@@ -73,6 +74,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.textInput);
+            this.splitContainer1.Panel1.Controls.Add(this.textInput_old);
             // 
             // splitContainer1.Panel2
             // 
@@ -86,17 +88,29 @@
             // 
             // textInput
             // 
-            this.textInput.AcceptsTab = true;
-            this.textInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textInput.AutoCMaxHeight = 9;
+            this.textInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
+            this.textInput.Location = new System.Drawing.Point(0, 0);
+            this.textInput.Name = "textInput";
+            this.textInput.Size = new System.Drawing.Size(914, 650);
+            this.textInput.TabIndents = true;
+            this.textInput.TabIndex = 4;
+            this.textInput.Text = "scintilla1";
+            // 
+            // textInput_old
+            // 
+            this.textInput_old.AcceptsTab = true;
+            this.textInput_old.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textInput.Location = new System.Drawing.Point(3, 2);
-            this.textInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textInput.Name = "textInput";
-            this.textInput.Size = new System.Drawing.Size(908, 642);
-            this.textInput.TabIndex = 3;
-            this.textInput.Text = "";
-            this.textInput.TextChanged += new System.EventHandler(this.textInput_TextChanged);
+            this.textInput_old.Location = new System.Drawing.Point(3, 2);
+            this.textInput_old.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textInput_old.Name = "textInput_old";
+            this.textInput_old.Size = new System.Drawing.Size(908, 642);
+            this.textInput_old.TabIndex = 3;
+            this.textInput_old.Text = "";
+            this.textInput_old.TextChanged += new System.EventHandler(this.textInput_TextChanged);
             // 
             // textOutput
             // 
@@ -108,7 +122,7 @@
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(405, 642);
+            this.textOutput.Size = new System.Drawing.Size(403, 642);
             this.textOutput.TabIndex = 0;
             // 
             // saveButton
@@ -166,10 +180,11 @@
         private Button button1;
         private Button button2;
         private SplitContainer splitContainer1;
-        private RichTextBox textInput;
+        private RichTextBox textInput_old;
         private TextBox textOutput;
         private Button saveButton;
         private System.Windows.Forms.Timer UpdateTimer;
         private Button OpenFileBtn;
+        private ScintillaNET.Scintilla textInput;
     }
 }

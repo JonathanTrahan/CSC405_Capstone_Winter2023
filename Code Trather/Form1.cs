@@ -1,3 +1,4 @@
+using ScintillaNET;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Text.RegularExpressions;
@@ -24,6 +25,57 @@ namespace Code_Trather
             openFileDialog = new OpenFileDialog();
             //openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";
             openFileDialog.Filter = "Python Files (*.py)|*.py";
+
+            // styling
+            InitColors();
+        }
+
+        public static Color IntToColor(int rgb)
+        {
+            return Color.FromArgb(255, (byte)(rgb >> 16), (byte)(rgb >> 8), (byte)rgb);
+        }
+
+        private void InitColors()
+        {
+            textInput.SetSelectionBackColor(true, IntToColor(0x114D9C));
+        }
+
+        private void InitSyntaxColoring()
+        {
+
+            // Configure the default style
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Consolas";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(0x212121);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0xFFFFFF);
+            textInput.StyleClearAll();
+
+            // Configure the CPP (C#) lexer styles
+            textInput.Styles[Style.Cpp.Identifier].ForeColor = IntToColor(0xD0DAE2);
+            textInput.Styles[Style.Cpp.Comment].ForeColor = IntToColor(0xBD758B);
+            textInput.Styles[Style.Cpp.CommentLine].ForeColor = IntToColor(0x40BF57);
+            textInput.Styles[Style.Cpp.CommentDoc].ForeColor = IntToColor(0x2FAE35);
+            textInput.Styles[Style.Cpp.Number].ForeColor = IntToColor(0xFFFF00);
+            textInput.Styles[Style.Cpp.String].ForeColor = IntToColor(0xFFFF00);
+            textInput.Styles[Style.Cpp.Character].ForeColor = IntToColor(0xE95454);
+            textInput.Styles[Style.Cpp.Preprocessor].ForeColor = IntToColor(0x8AAFEE);
+            textInput.Styles[Style.Cpp.Operator].ForeColor = IntToColor(0xE0E0E0);
+            textInput.Styles[Style.Cpp.Regex].ForeColor = IntToColor(0xff00ff);
+            textInput.Styles[Style.Cpp.CommentLineDoc].ForeColor = IntToColor(0x77A7DB);
+            textInput.Styles[Style.Cpp.Word].ForeColor = IntToColor(0x48A8EE);
+            textInput.Styles[Style.Cpp.Word2].ForeColor = IntToColor(0xF98906);
+            textInput.Styles[Style.Cpp.CommentDocKeyword].ForeColor = IntToColor(0xB3D991);
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].ForeColor = IntToColor(0xFF0000);
+            textInput.Styles[Style.Cpp.GlobalClass].ForeColor = IntToColor(0x48A8EE);
+
+            textInput.Styles[Style.Python.String].ForeColor = Color.Green;
+
+            textInput.Lexer = Lexer.Cpp;
+
+            textInput.SetKeywords(0, "class extends implements import interface new case do while else if for in switch throw get set function var try catch finally while with default break continue delete return each const namespace package include use is as instanceof typeof author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link mtasc mxmlc param private return see serial serialData serialField since throws usage version langversion playerversion productversion dynamic private public partial static intrinsic internal native override protected AS3 final super this arguments null Infinity NaN undefined true false abstract as base bool break by byte case catch char checked class const continue decimal default delegate do double descending explicit event extern else enum false finally fixed float for foreach from goto group if implicit in int interface internal into is lock long new null namespace object operator out override orderby params private protected public readonly ref return switch struct sbyte sealed short sizeof stackalloc static string select this throw true try typeof uint ulong unchecked unsafe ushort using var virtual volatile void while where yield");
+            textInput.SetKeywords(1, "void Null ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math Namespace Number Object RangeError ReferenceError RegExp SecurityError String SyntaxError TypeError uint XML XMLList Boolean Byte Char DateTime Decimal Double Int16 Int32 Int64 IntPtr SByte Single UInt16 UInt32 UInt64 UIntPtr Void Path File System Windows Forms ScintillaNET");
+
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -76,15 +128,15 @@ namespace Code_Trather
         {
             // Calculate the starting position of the current line.
             int start = 0, end = 0;
-            for (start = textInput.SelectionStart - 1; start > 0; start--)
+            for (start = textInput_old.SelectionStart - 1; start > 0; start--)
             {
-                if (textInput.Text[start] == '\n') { start++; break; }
+                if (textInput_old.Text[start] == '\n') { start++; break; }
             }
 
             // Calculate the end position of the current line.
-            for (end = textInput.SelectionStart; end < textInput.Text.Length; end++)
+            for (end = textInput_old.SelectionStart; end < textInput_old.Text.Length; end++)
             {
-                if (textInput.Text[end] == '\n') break;
+                if (textInput_old.Text[end] == '\n') break;
             }
 
             // Extract the current line that is being edited.
@@ -92,12 +144,12 @@ namespace Code_Trather
             {
                 start = 0;
             }
-            string line = textInput.Text.Substring(start, end - start);
+            string line = textInput_old.Text.Substring(start, end - start);
             //System.Diagnostics.Debug.WriteLine(line);
 
             // Backup the users current selection point.
-            int selectionStart = textInput.SelectionStart;
-            int selectionLength = textInput.SelectionLength;
+            int selectionStart = textInput_old.SelectionStart;
+            int selectionLength = textInput_old.SelectionLength;
 
             // Split the line into tokens.
             Regex r = new Regex("([ \\t{}();])");
@@ -107,10 +159,10 @@ namespace Code_Trather
             foreach (string token in tokens)
             {
                 // Set the token's default color and font.
-                textInput.SelectionStart = index;
-                textInput.SelectionLength = token.Length;
-                textInput.SelectionColor = Color.Black;
-                textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
+                textInput_old.SelectionStart = index;
+                textInput_old.SelectionLength = token.Length;
+                textInput_old.SelectionColor = Color.Black;
+                textInput_old.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
 
                 if (token == "(" || token == "[" || token == " " || token == "\\t" || token == "{" || token == "}" || token == ";" || token == "]" || token == ")")
                 {
@@ -123,11 +175,11 @@ namespace Code_Trather
                 {
                     // Find the start of the comment and then extract the whole comment.
                     int length = line.Length - (index - start);
-                    string commentText = textInput.Text.Substring(index, length);
-                    textInput.SelectionStart = index;
-                    textInput.SelectionLength = length;
-                    textInput.SelectionColor = Color.Red;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
+                    string commentText = textInput_old.Text.Substring(index, length);
+                    textInput_old.SelectionStart = index;
+                    textInput_old.SelectionLength = length;
+                    textInput_old.SelectionColor = Color.Red;
+                    textInput_old.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
                     break;
                 }
 
@@ -147,8 +199,8 @@ namespace Code_Trather
                 {
                     System.Diagnostics.Debug.WriteLine(token);
                     // Apply alternative color and font to highlight keyword.        
-                    textInput.SelectionColor = Color.Blue;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
+                    textInput_old.SelectionColor = Color.Blue;
+                    textInput_old.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
                     index += token.Length;
                     continue;
                 }
@@ -169,8 +221,8 @@ namespace Code_Trather
                 {
                     System.Diagnostics.Debug.WriteLine(token);
                     // Apply alternative color and font to highlight keyword.        
-                    textInput.SelectionColor = Color.Purple;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
+                    textInput_old.SelectionColor = Color.Purple;
+                    textInput_old.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
                     index += token.Length;
                     continue;
                 }
@@ -182,7 +234,7 @@ namespace Code_Trather
                 List<int> indexList = new List<int>();
                 for (int i = start; i < end; i++)
                 {
-                    if (textInput.Text[i] == '\"')
+                    if (textInput_old.Text[i] == '\"')
                     {
                         indexList.Add(i);
                     }
@@ -200,18 +252,18 @@ namespace Code_Trather
 
                     // Extract the string.
                     int str_length = str_end - str_start;
-                    string str_text = textInput.Text.Substring(str_start, str_length);
+                    string str_text = textInput_old.Text.Substring(str_start, str_length);
 
-                    textInput.SelectionStart = str_start;
-                    textInput.SelectionLength = str_length;
-                    textInput.SelectionColor = Color.Green;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
+                    textInput_old.SelectionStart = str_start;
+                    textInput_old.SelectionLength = str_length;
+                    textInput_old.SelectionColor = Color.Green;
+                    textInput_old.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
                 }
             }
 
             // Restore the users current selection point.
-            textInput.SelectionStart = selectionStart;
-            textInput.SelectionLength = selectionLength;
+            textInput_old.SelectionStart = selectionStart;
+            textInput_old.SelectionLength = selectionLength;
         }
 
         private void OpenFileBtn_Click(object sender, EventArgs e)
