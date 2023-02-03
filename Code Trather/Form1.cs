@@ -8,7 +8,6 @@ namespace Code_Trather
 {
     public partial class Form1 : Form
     {
-        private int counter = 0;
         string[] keywords = { "False", "await", "else", "import", "pass", "None", "break", "except", "in", "raise", "True", "class", "finally", "is", "return", "and", "continue", "for", "lambda", "try", "as", "def", "from", "nonlocal", "while", "assert", "del", "global", "not", "with", "async", "elif", "if", "or", "yield" };
         Dictionary<string, string> keywordsDict = new Dictionary<string, string>() { { "False", "False" }, { "await", "await" }, { "else", "else" }, { "import", "import" }, { "pass", "pass" }, { "None", "None" }, { "break", "break" }, { "except", "except" }, { "in", "in" }, { "raise", "raise" }, { "True", "True" }, { "class", "class" }, { "finally", "finally" }, { "is", "is" }, { "return", "return" }, { "and", "and" }, { "continue", "continue" }, { "for", "for" }, { "lambda", "lambda" }, { "try", "try" }, { "as", "as" }, { "def", "def" }, { "from", "from" }, { "nonlocal", "nonlocal" }, { "while", "while" }, { "assert", "assert" }, { "del", "del" }, { "global", "global" }, { "not", "not" }, { "with", "with" }, { "async", "async" }, { "elif", "elif" }, { "if", "if" }, { "or", "or" }, { "yield", "yield" } };
         string[] builtins = { "ArithmeticError", "AssertionError", "AttributeError", "BaseException", "BlockingIOError", "BrokenPipeError", "BufferError", "BytesWarning", "ChildProcessError", "ConnectionAbortedError", "ConnectionError", "ConnectionRefusedError", "ConnectionResetError", "DeprecationWarning", "EOFError", "Ellipsis", "EnvironmentError", "Exception", "FileExistsError", "FileNotFoundError", "FloatingPointError", "FutureWarning", "GeneratorExit", "IOError", "ImportError", "ImportWarning", "IndentationError", "IndexError", "InterruptedError", "IsADirectoryError", "KeyError", "KeyboardInterrupt", "LookupError", "MemoryError", "ModuleNotFoundError", "NameError", "NotADirectoryError", "NotImplemented", "NotImplementedError", "OSError", "OverflowError", "PendingDeprecationWarning", "PermissionError", "ProcessLookupError", "RecursionError", "ReferenceError", "ResourceWarning", "RuntimeError", "RuntimeWarning", "StopAsyncIteration", "StopIteration", "SyntaxError", "SyntaxWarning", "SystemError", "SystemExit", "TabError", "TimeoutError", "TypeError", "UnboundLocalError", "UnicodeDecodeError", "UnicodeEncodeError", "UnicodeError", "UnicodeTranslateError", "UnicodeWarning", "UserWarning", "ValueError", "Warning", "WindowsError", "ZeroDivisionError", "abs", "all", "any", "ascii", "bin", "bool", "breakpoint", "bytearray", "bytes", "callable", "chr", "classmethod", "compile", "complex", "copyright", "credits", "delattr", "dict", "dir", "divmod", "enumerate", "eval", "exec", "exit", "filter", "float", "format", "frozenset", "getattr", "globals", "hasattr", "hash", "help", "hex", "id", "input", "int", "isinstance", "issubclass", "iter", "len", "license", "list", "locals", "map", "max", "memoryview", "min", "next", "object", "oct", "open", "ord", "pow", "print", "property", "quit", "range", "repr", "reversed", "round", "set", "setattr", "slice", "sorted", "staticmethod", "str", "sum", "super", "tuple", "type", "vars", "zip" };
@@ -28,6 +27,7 @@ namespace Code_Trather
 
             // styling
             InitColors();
+            InitSyntaxColoring();
         }
 
         public static Color IntToColor(int rgb)
@@ -42,10 +42,9 @@ namespace Code_Trather
 
         private void InitSyntaxColoring()
         {
-
             // Configure the default style
             textInput.StyleResetDefault();
-            textInput.Styles[Style.Default].Font = "Consolas";
+            textInput.Styles[Style.Default].Font = "Courier New";
             textInput.Styles[Style.Default].Size = 10;
             textInput.Styles[Style.Default].BackColor = IntToColor(0xFFFFFF);
             textInput.Styles[Style.Default].ForeColor = IntToColor(0x000000);
@@ -54,9 +53,8 @@ namespace Code_Trather
             // Configure the Python lexer styles
             textInput.Styles[Style.Python.Character].ForeColor = IntToColor(0x00AA00);
             textInput.Styles[Style.Python.ClassName].ForeColor = IntToColor(0x0000FF);
-            textInput.Styles[Style.Python.ClassName].Bold = true;
-            textInput.Styles[Style.Python.CommentBlock].ForeColor = IntToColor(0xDD0000);
-            textInput.Styles[Style.Python.CommentLine].ForeColor = IntToColor(0xDD0000);
+            textInput.Styles[Style.Python.CommentBlock].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.CommentLine].ForeColor = IntToColor(0x808080);
             textInput.Styles[Style.Python.Decorator].ForeColor = IntToColor(0xFF8000);
             textInput.Styles[Style.Python.DefName].ForeColor = IntToColor(0x0000FF);
             textInput.Styles[Style.Python.Identifier].ForeColor = IntToColor(0x000000);
@@ -71,9 +69,8 @@ namespace Code_Trather
 
             textInput.Lexer = Lexer.Python;
 
-            textInput.SetKeywords(0, "class extends implements import interface new case do while else if for in switch throw get set function var try catch finally while with default break continue delete return each const namespace package include use is as instanceof typeof author copy default deprecated eventType example exampleText exception haxe inheritDoc internal link mtasc mxmlc param private return see serial serialData serialField since throws usage version langversion playerversion productversion dynamic private public partial static intrinsic internal native override protected AS3 final super this arguments null Infinity NaN undefined true false abstract as base bool break by byte case catch char checked class const continue decimal default delegate do double descending explicit event extern else enum false finally fixed float for foreach from goto group if implicit in int interface internal into is lock long new null namespace object operator out override orderby params private protected public readonly ref return switch struct sbyte sealed short sizeof stackalloc static string select this throw true try typeof uint ulong unchecked unsafe ushort using var virtual volatile void while where yield");
-            textInput.SetKeywords(1, "void Null ArgumentError arguments Array Boolean Class Date DefinitionError Error EvalError Function int Math Namespace Number Object RangeError ReferenceError RegExp SecurityError String SyntaxError TypeError uint XML XMLList Boolean Byte Char DateTime Decimal Double Int16 Int32 Int64 IntPtr SByte Single UInt16 UInt32 UInt64 UIntPtr Void Path File System Windows Forms ScintillaNET");
-
+            textInput.SetKeywords(0, "False await else import pass None break except in raise True class finally is return and continue for lambda try as def from nonlocal while assert del global not with async elif if or yield");
+            textInput.SetKeywords(1, "self ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip");
         }
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
