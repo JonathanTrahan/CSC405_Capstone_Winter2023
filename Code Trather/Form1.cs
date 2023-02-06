@@ -18,12 +18,14 @@ namespace Code_Trather
             InitializeComponent();
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
-            File.Create(Globals.downloadAddress).Close();
+            System.IO.File.Create(Globals.downloadAddress).Close();
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
             //openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";
             openFileDialog.Filter = "Python Files (*.py)|*.py";
+            inputFile = new OpenFileDialog();
+            inputFile.Filter = "Text files (*.txt) | *.txt";
 
             // styling
             InitColors();
@@ -82,24 +84,12 @@ namespace Code_Trather
         {
 
         }
-
-        private void saveButton_Click(object sender, EventArgs e) {
-            // write to file at this path, overwrites what is currently in there
-            File.WriteAllText(Globals.downloadAddress, textInput.Text);
-        }
-
-        private async void button1_Click(object sender, EventArgs e) {
-            textOutput.Text = "";
-            string result = await Task.Run(() =>  runProcess());
-            textOutput.Text = result;
-
-        }
         private string runProcess() {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            pProcess.StartInfo.CreateNoWindow = true;
+            //pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress;
+            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
@@ -107,7 +97,8 @@ namespace Code_Trather
             pProcess.Start();
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
-            pProcess.WaitForExit(10);
+            pProcess.WaitForExit();
+            Globals.inputFilePath = "";
             return output + error;
 
         }
@@ -261,16 +252,57 @@ namespace Code_Trather
             textInput_old.SelectionLength = selectionLength;
         }
 
-        private void OpenFileBtn_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
+        private OpenFileDialog openFileDialog;
+        private OpenFileDialog inputFile;
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 // Load the contents of the file into the text box
                 textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
             }
+
         }
 
-        private OpenFileDialog openFileDialog;
+        private void submitToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            Application.Exit();
 
+        }
+
+        private async void runToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            textOutput.Text = "";
+            string result = await Task.Run(() => runProcess());
+            textOutput.Text = result;
+            WriteTo.writeToOutput(result);
+
+        }
+
+        private void InputFile_Click(object sender, EventArgs e) {
+            if (inputFile.ShowDialog() == DialogResult.OK) {
+                string path = Path.GetFullPath(inputFile.FileName);
+                Globals.inputFilePath = path;
+            }
+
+        }
+
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e) {
+            textInput.ZoomIn();
+
+        }
+
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e) {
+            textInput.ZoomOut();
+
+        }
+
+        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e) {
+            textInput.Zoom = 0;
+
+        }
     }
 }

@@ -9,6 +9,20 @@ public class WriteTo
     {
         File.AppendAllText(fileName, write + Environment.NewLine);
     }
+
+    public static void writeToOutput(string write) {
+
+        string address = Globals.outputAddress;
+        string header = "Snapshot " + Globals.outputCounter + " at " + DateTime.Now.ToString("hh:mm:ss tt") + " " + "or Time Elapsed: " + Globals.timeElapsed().ToString();
+        string spacer = " ";
+
+        writeToFile(address, header);
+        writeToFile(address, spacer);
+        writeToFile(address, write);
+        writeToFile(address, spacer);
+
+        Globals.outputCounter += 1;
+    }
     public static void writeToSnapshot(string write)
     {
         // Variable Creation
