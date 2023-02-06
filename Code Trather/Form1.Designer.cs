@@ -66,6 +66,9 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(11, 56);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
@@ -109,6 +112,7 @@
             // 
             // saveButton
             // 
+            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.saveButton.Location = new System.Drawing.Point(1253, 12);
             this.saveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveButton.Name = "saveButton";
@@ -126,6 +130,7 @@
             // 
             // OpenFileBtn
             // 
+            this.OpenFileBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.OpenFileBtn.Location = new System.Drawing.Point(1141, 12);
             this.OpenFileBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OpenFileBtn.Name = "OpenFileBtn";
