@@ -166,7 +166,7 @@ namespace Code_Trather
         private OpenFileDialog inputFile;
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
-
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e) {
