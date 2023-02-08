@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textInput = new ScintillaNET.Scintilla();
-            this.textInput_old = new System.Windows.Forms.RichTextBox();
             this.textOutput = new System.Windows.Forms.TextBox();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -58,64 +57,46 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(10, 42);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.splitContainer1.Location = new System.Drawing.Point(11, 56);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.textInput);
-            this.splitContainer1.Panel1.Controls.Add(this.textInput_old);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textOutput);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(1168, 488);
-            this.splitContainer1.SplitterDistance = 799;
+            this.splitContainer1.Size = new System.Drawing.Size(1335, 651);
+            this.splitContainer1.SplitterDistance = 913;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // textInput
             // 
-            this.textInput.AutoCMaxHeight = 9;
-            this.textInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
-            this.textInput.Location = new System.Drawing.Point(0, 0);
-            this.textInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textInput.Name = "textInput";
-            this.textInput.Size = new System.Drawing.Size(799, 488);
-            this.textInput.TabIndents = true;
-            this.textInput.TabIndex = 4;
-            this.textInput.Text = "scintilla1";
-            // 
-            // textInput_old
-            // 
-            this.textInput_old.AcceptsTab = true;
-            this.textInput_old.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textInput_old.Enabled = false;
-            this.textInput_old.Location = new System.Drawing.Point(3, 2);
-            this.textInput_old.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textInput_old.Name = "textInput_old";
-            this.textInput_old.Size = new System.Drawing.Size(794, 482);
-            this.textInput_old.TabIndex = 3;
-            this.textInput_old.Text = "";
-            this.textInput_old.Visible = false;
-            this.textInput_old.TextChanged += new System.EventHandler(this.textInput_TextChanged);
+            this.textInput.AutoCMaxHeight = 9;
+            this.textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
+            this.textInput.Location = new System.Drawing.Point(0, 0);
+            this.textInput.Name = "textInput";
+            this.textInput.Size = new System.Drawing.Size(913, 649);
+            this.textInput.TabIndents = true;
+            this.textInput.TabIndex = 4;
             // 
             // textOutput
             // 
             this.textOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textOutput.Location = new System.Drawing.Point(3, 2);
-            this.textOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textOutput.Location = new System.Drawing.Point(3, 3);
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(352, 482);
+            this.textOutput.Size = new System.Drawing.Size(402, 641);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -126,6 +107,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.File,
             this.Test,
@@ -133,7 +115,7 @@
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1189, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1359, 27);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -146,27 +128,27 @@
             this.openToolStripMenuItem,
             this.submitToolStripMenuItem});
             this.File.Name = "File";
-            this.File.Size = new System.Drawing.Size(38, 22);
+            this.File.Size = new System.Drawing.Size(46, 24);
             this.File.Text = "File";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // submitToolStripMenuItem
             // 
             this.submitToolStripMenuItem.Name = "submitToolStripMenuItem";
-            this.submitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.submitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.submitToolStripMenuItem.Text = "Submit";
             this.submitToolStripMenuItem.Click += new System.EventHandler(this.submitToolStripMenuItem_Click);
             // 
@@ -179,20 +161,20 @@
             this.Test.Image = ((System.Drawing.Image)(resources.GetObject("Test.Image")));
             this.Test.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Test.Name = "Test";
-            this.Test.Size = new System.Drawing.Size(40, 22);
+            this.Test.Size = new System.Drawing.Size(49, 24);
             this.Test.Text = "Test";
             // 
             // runToolStripMenuItem
             // 
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.runToolStripMenuItem.Text = "Run";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
             // unitTestToolStripMenuItem
             // 
             this.unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
-            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
             this.unitTestToolStripMenuItem.Text = "Unit Test";
             // 
             // InputFile
@@ -201,7 +183,7 @@
             this.InputFile.Image = ((System.Drawing.Image)(resources.GetObject("InputFile.Image")));
             this.InputFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.InputFile.Name = "InputFile";
-            this.InputFile.Size = new System.Drawing.Size(60, 22);
+            this.InputFile.Size = new System.Drawing.Size(74, 24);
             this.InputFile.Text = "Input File";
             this.InputFile.Click += new System.EventHandler(this.InputFile_Click);
             // 
@@ -212,8 +194,8 @@
             this.magnifyToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "Tools";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(58, 24);
             this.toolStripDropDownButton1.Text = "Tools";
             // 
             // magnifyToolStripMenuItem
@@ -223,38 +205,37 @@
             this.zoomOutToolStripMenuItem,
             this.zoom100ToolStripMenuItem});
             this.magnifyToolStripMenuItem.Name = "magnifyToolStripMenuItem";
-            this.magnifyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.magnifyToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.magnifyToolStripMenuItem.Text = "Magnify";
             // 
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // zoom100ToolStripMenuItem
             // 
             this.zoom100ToolStripMenuItem.Name = "zoom100ToolStripMenuItem";
-            this.zoom100ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoom100ToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.zoom100ToolStripMenuItem.Text = "Zoom 100%";
             this.zoom100ToolStripMenuItem.Click += new System.EventHandler(this.zoom100ToolStripMenuItem_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1189, 548);
+            this.ClientSize = new System.Drawing.Size(1359, 731);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -271,7 +252,6 @@
 
         #endregion
         private SplitContainer splitContainer1;
-        private RichTextBox textInput_old;
         private TextBox textOutput;
         private System.Windows.Forms.Timer UpdateTimer;
         private ScintillaNET.Scintilla textInput;
