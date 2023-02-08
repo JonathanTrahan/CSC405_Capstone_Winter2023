@@ -143,16 +143,6 @@ namespace Code_Trather
             string error = pProcess.StandardError.ReadToEnd();
             pProcess.WaitForExit();
             Globals.inputFilePath = "";
-            
-            if (Globals.DONE == false)
-            {
-                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
-                
-
-                Globals.DONE = true;
-            }
             return output + error;
         }
 
@@ -190,7 +180,16 @@ namespace Code_Trather
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
-            
+            if (Globals.DONE == false)
+            {
+                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
+
+
+                Globals.DONE = true;
+            }
+
 
         }
 
