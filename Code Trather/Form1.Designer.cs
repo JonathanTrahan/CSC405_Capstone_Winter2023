@@ -57,6 +57,9 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(11, 56);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -76,27 +79,23 @@
             // 
             // textInput
             // 
-            this.textInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.textInput.AutoCMaxHeight = 9;
+            this.textInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
             this.textInput.Location = new System.Drawing.Point(0, 0);
             this.textInput.Name = "textInput";
-            this.textInput.Size = new System.Drawing.Size(913, 649);
+            this.textInput.Size = new System.Drawing.Size(913, 651);
             this.textInput.TabIndents = true;
             this.textInput.TabIndex = 4;
             // 
             // textOutput
             // 
-            this.textOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textOutput.Location = new System.Drawing.Point(3, 3);
+            this.textOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textOutput.Location = new System.Drawing.Point(0, 0);
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(402, 641);
+            this.textOutput.Size = new System.Drawing.Size(417, 651);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -134,21 +133,21 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // submitToolStripMenuItem
             // 
             this.submitToolStripMenuItem.Name = "submitToolStripMenuItem";
-            this.submitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.submitToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.submitToolStripMenuItem.Text = "Submit";
             this.submitToolStripMenuItem.Click += new System.EventHandler(this.submitToolStripMenuItem_Click);
             // 
