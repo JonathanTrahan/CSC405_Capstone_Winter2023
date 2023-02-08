@@ -14,6 +14,7 @@ namespace Code_Trather
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
             System.IO.File.Create(Globals.downloadAddress).Close();
+            WriteTo.CreateFiles();
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
@@ -142,13 +143,22 @@ namespace Code_Trather
             string error = pProcess.StandardError.ReadToEnd();
             pProcess.WaitForExit();
             Globals.inputFilePath = "";
-            return output + error;
+            
+            if (Globals.DONE == false)
+            {
+                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
+                
 
+                Globals.DONE = true;
+            }
+            return output + error;
         }
 
         private void UpdateTime(object sender, EventArgs e)
         {
-            WriteTo.writeToSnapshot(textInput.Text);
+            WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
             Clipboard.Clear();
         }
@@ -180,6 +190,7 @@ namespace Code_Trather
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
+            
 
         }
 
