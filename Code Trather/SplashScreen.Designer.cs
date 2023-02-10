@@ -106,6 +106,7 @@
             // 
             this.cwidInputBox.Location = new System.Drawing.Point(294, 220);
             this.cwidInputBox.Maximum = new decimal(new int[] {
+            99999999,
             0,
             0,
             0});
