@@ -1,5 +1,7 @@
+using ScintillaNET;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -7,24 +9,124 @@ namespace Code_Trather
 {
     public partial class Form1 : Form
     {
-        private int counter = 0;
-        string[] keywords = { "False", "await", "else", "import", "pass", "None", "break", "except", "in", "raise", "True", "class", "finally", "is", "return", "and", "continue", "for", "lambda", "try", "as", "def", "from", "nonlocal", "while", "assert", "del", "global", "not", "with", "async", "elif", "if", "or", "yield" };
-        Dictionary<string, string> keywordsDict = new Dictionary<string, string>() { { "False", "False" }, { "await", "await" }, { "else", "else" }, { "import", "import" }, { "pass", "pass" }, { "None", "None" }, { "break", "break" }, { "except", "except" }, { "in", "in" }, { "raise", "raise" }, { "True", "True" }, { "class", "class" }, { "finally", "finally" }, { "is", "is" }, { "return", "return" }, { "and", "and" }, { "continue", "continue" }, { "for", "for" }, { "lambda", "lambda" }, { "try", "try" }, { "as", "as" }, { "def", "def" }, { "from", "from" }, { "nonlocal", "nonlocal" }, { "while", "while" }, { "assert", "assert" }, { "del", "del" }, { "global", "global" }, { "not", "not" }, { "with", "with" }, { "async", "async" }, { "elif", "elif" }, { "if", "if" }, { "or", "or" }, { "yield", "yield" } };
-        string[] builtins = { "ArithmeticError", "AssertionError", "AttributeError", "BaseException", "BlockingIOError", "BrokenPipeError", "BufferError", "BytesWarning", "ChildProcessError", "ConnectionAbortedError", "ConnectionError", "ConnectionRefusedError", "ConnectionResetError", "DeprecationWarning", "EOFError", "Ellipsis", "EnvironmentError", "Exception", "FileExistsError", "FileNotFoundError", "FloatingPointError", "FutureWarning", "GeneratorExit", "IOError", "ImportError", "ImportWarning", "IndentationError", "IndexError", "InterruptedError", "IsADirectoryError", "KeyError", "KeyboardInterrupt", "LookupError", "MemoryError", "ModuleNotFoundError", "NameError", "NotADirectoryError", "NotImplemented", "NotImplementedError", "OSError", "OverflowError", "PendingDeprecationWarning", "PermissionError", "ProcessLookupError", "RecursionError", "ReferenceError", "ResourceWarning", "RuntimeError", "RuntimeWarning", "StopAsyncIteration", "StopIteration", "SyntaxError", "SyntaxWarning", "SystemError", "SystemExit", "TabError", "TimeoutError", "TypeError", "UnboundLocalError", "UnicodeDecodeError", "UnicodeEncodeError", "UnicodeError", "UnicodeTranslateError", "UnicodeWarning", "UserWarning", "ValueError", "Warning", "WindowsError", "ZeroDivisionError", "abs", "all", "any", "ascii", "bin", "bool", "breakpoint", "bytearray", "bytes", "callable", "chr", "classmethod", "compile", "complex", "copyright", "credits", "delattr", "dict", "dir", "divmod", "enumerate", "eval", "exec", "exit", "filter", "float", "format", "frozenset", "getattr", "globals", "hasattr", "hash", "help", "hex", "id", "input", "int", "isinstance", "issubclass", "iter", "len", "license", "list", "locals", "map", "max", "memoryview", "min", "next", "object", "oct", "open", "ord", "pow", "print", "property", "quit", "range", "repr", "reversed", "round", "set", "setattr", "slice", "sorted", "staticmethod", "str", "sum", "super", "tuple", "type", "vars", "zip" };
-        Dictionary<string, string> builtinsDict = new Dictionary<string, string>() { { "ArithmeticError", "ArithmeticError" }, { "AssertionError", "AssertionError" }, { "AttributeError", "AttributeError" }, { "BaseException", "BaseException" }, { "BlockingIOError", "BlockingIOError" }, { "BrokenPipeError", "BrokenPipeError" }, { "BufferError", "BufferError" }, { "BytesWarning", "BytesWarning" }, { "ChildProcessError", "ChildProcessError" }, { "ConnectionAbortedError", "ConnectionAbortedError" }, { "ConnectionError", "ConnectionError" }, { "ConnectionRefusedError", "ConnectionRefusedError" }, { "ConnectionResetError", "ConnectionResetError" }, { "DeprecationWarning", "DeprecationWarning" }, { "EOFError", "EOFError" }, { "Ellipsis", "Ellipsis" }, { "EnvironmentError", "EnvironmentError" }, { "Exception", "Exception" }, { "FileExistsError", "FileExistsError" }, { "FileNotFoundError", "FileNotFoundError" }, { "FloatingPointError", "FloatingPointError" }, { "FutureWarning", "FutureWarning" }, { "GeneratorExit", "GeneratorExit" }, { "IOError", "IOError" }, { "ImportError", "ImportError" }, { "ImportWarning", "ImportWarning" }, { "IndentationError", "IndentationError" }, { "IndexError", "IndexError" }, { "InterruptedError", "InterruptedError" }, { "IsADirectoryError", "IsADirectoryError" }, { "KeyError", "KeyError" }, { "KeyboardInterrupt", "KeyboardInterrupt" }, { "LookupError", "LookupError" }, { "MemoryError", "MemoryError" }, { "ModuleNotFoundError", "ModuleNotFoundError" }, { "NameError", "NameError" }, { "NotADirectoryError", "NotADirectoryError" }, { "NotImplemented", "NotImplemented" }, { "NotImplementedError", "NotImplementedError" }, { "OSError", "OSError" }, { "OverflowError", "OverflowError" }, { "PendingDeprecationWarning", "PendingDeprecationWarning" }, { "PermissionError", "PermissionError" }, { "ProcessLookupError", "ProcessLookupError" }, { "RecursionError", "RecursionError" }, { "ReferenceError", "ReferenceError" }, { "ResourceWarning", "ResourceWarning" }, { "RuntimeError", "RuntimeError" }, { "RuntimeWarning", "RuntimeWarning" }, { "StopAsyncIteration", "StopAsyncIteration" }, { "StopIteration", "StopIteration" }, { "SyntaxError", "SyntaxError" }, { "SyntaxWarning", "SyntaxWarning" }, { "SystemError", "SystemError" }, { "SystemExit", "SystemExit" }, { "TabError", "TabError" }, { "TimeoutError", "TimeoutError" }, { "TypeError", "TypeError" }, { "UnboundLocalError", "UnboundLocalError" }, { "UnicodeDecodeError", "UnicodeDecodeError" }, { "UnicodeEncodeError", "UnicodeEncodeError" }, { "UnicodeError", "UnicodeError" }, { "UnicodeTranslateError", "UnicodeTranslateError" }, { "UnicodeWarning", "UnicodeWarning" }, { "UserWarning", "UserWarning" }, { "ValueError", "ValueError" }, { "Warning", "Warning" }, { "WindowsError", "WindowsError" }, { "ZeroDivisionError", "ZeroDivisionError" }, { "abs", "abs" }, { "all", "all" }, { "any", "any" }, { "ascii", "ascii" }, { "bin", "bin" }, { "bool", "bool" }, { "breakpoint", "breakpoint" }, { "bytearray", "bytearray" }, { "bytes", "bytes" }, { "callable", "callable" }, { "chr", "chr" }, { "classmethod", "classmethod" }, { "compile", "compile" }, { "complex", "complex" }, { "copyright", "copyright" }, { "credits", "credits" }, { "delattr", "delattr" }, { "dict", "dict" }, { "dir", "dir" }, { "divmod", "divmod" }, { "enumerate", "enumerate" }, { "eval", "eval" }, { "exec", "exec" }, { "exit", "exit" }, { "filter", "filter" }, { "float", "float" }, { "format", "format" }, { "frozenset", "frozenset" }, { "getattr", "getattr" }, { "globals", "globals" }, { "hasattr", "hasattr" }, { "hash", "hash" }, { "help", "help" }, { "hex", "hex" }, { "id", "id" }, { "input", "input" }, { "int", "int" }, { "isinstance", "isinstance" }, { "issubclass", "issubclass" }, { "iter", "iter" }, { "len", "len" }, { "license", "license" }, { "list", "list" }, { "locals", "locals" }, { "map", "map" }, { "max", "max" }, { "memoryview", "memoryview" }, { "min", "min" }, { "next", "next" }, { "object", "object" }, { "oct", "oct" }, { "open", "open" }, { "ord", "ord" }, { "pow", "pow" }, { "print", "print" }, { "property", "property" }, { "quit", "quit" }, { "range", "range" }, { "repr", "repr" }, { "reversed", "reversed" }, { "round", "round" }, { "set", "set" }, { "setattr", "setattr" }, { "slice", "slice" }, { "sorted", "sorted" }, { "staticmethod", "staticmethod" }, { "str", "str" }, { "sum", "sum" }, { "super", "super" }, { "tuple", "tuple" }, { "type", "type" }, { "vars", "vars" }, { "zip", "zip" } };
+        // Declare CspParmeters and RsaCryptoServiceProvider
+        readonly CspParameters _cspp = new CspParameters();
+        RSACryptoServiceProvider _rsa;
+        const string KeyName = "Key01";
 
         public Form1()
         {
             InitializeComponent();
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
-            File.Create(Globals.downloadAddress).Close();
+            System.IO.File.Create(Globals.downloadAddress).Close();
+            WriteTo.CreateFiles();
+
+            // create folder for encryption
+            Directory.CreateDirectory(Globals.cryptFolder);
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
             //openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";
             openFileDialog.Filter = "Python Files (*.py)|*.py";
+            inputFile = new OpenFileDialog();
+            inputFile.Filter = "Text files (*.txt) | *.txt";
+
+            // initialize scintilla
+            InitSelectionColor();
+            InitPythonSyntaxColoring();
+            InitNumberMargin();
         }
+
+        #region ScintillaNET Stuff
+
+        /// <summary>
+        /// Helper function for converting a hex color value (in the form 0x000000) to a System.Drawing.Color structure
+        /// </summary>
+        /// <param name="rgb"></param>
+        /// <returns></returns>
+        public static Color IntToColor(int rgb)
+        {
+            return Color.FromArgb(255, (byte)(rgb >> 16), (byte)(rgb >> 8), (byte)rgb);
+        }
+
+        /// <summary>
+        /// Initialize the background color for selected text
+        /// </summary>
+        private void InitSelectionColor()
+        {
+            textInput.SetSelectionBackColor(true, IntToColor(0xC0C0C0));
+        }
+
+        /// <summary>
+        /// Defines the python syntax coloring
+        /// </summary>
+        private void InitPythonSyntaxColoring()
+        {
+            // Configure the default style
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Courier New";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(0xFFFFFF);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0x000000);
+            textInput.StyleClearAll();
+
+            // Configure the Python lexer styles
+            textInput.Styles[Style.Python.Character].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.ClassName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.CommentBlock].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.CommentLine].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.Decorator].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.DefName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.Identifier].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.Number].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.Operator].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.String].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.StringEol].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.Triple].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.TripleDouble].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.Word].ForeColor = IntToColor(0xFF7700);
+            textInput.Styles[Style.Python.Word2].ForeColor = IntToColor(0x900090);
+
+            textInput.Lexer = Lexer.Python;
+
+            textInput.SetKeywords(0, "False await else import pass None break except in raise True class finally is return and continue for lambda try as def from nonlocal while assert del global not with async elif if or yield");
+            textInput.SetKeywords(1, "self ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip");
+        }
+
+        /// <summary>
+        /// the background color of the text area
+        /// </summary>
+        private const int BACK_COLOR = 0xE3E3E3;
+
+        /// <summary>
+        /// default text color of the text area
+        /// </summary>
+        private const int FORE_COLOR = 0x828a91;
+
+        /// <summary>
+        /// change this to whatever margin you want the line numbers to show in
+        /// </summary>
+        private const int NUMBER_MARGIN = 1;
+
+        /// <summary>
+        /// Initialize the line number margin on the left side of the textInput
+        /// </summary>
+        private void InitNumberMargin()
+        {
+            textInput.Styles[Style.LineNumber].BackColor = IntToColor(BACK_COLOR);
+            textInput.Styles[Style.LineNumber].ForeColor = IntToColor(FORE_COLOR);
+            textInput.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
+            textInput.Styles[Style.IndentGuide].BackColor = IntToColor(BACK_COLOR);
+
+            var nums = textInput.Margins[NUMBER_MARGIN];
+            nums.Width = 46;
+            nums.Type = MarginType.Number;
+            nums.Sensitive = true;
+            nums.Mask = 0;
+        }
+
+        #endregion
 
         private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
@@ -35,24 +137,12 @@ namespace Code_Trather
         {
 
         }
-
-        private void saveButton_Click(object sender, EventArgs e) {
-            // write to file at this path, overwrites what is currently in there
-            File.WriteAllText(Globals.downloadAddress, textInput.Text);
-        }
-
-        private async void button1_Click(object sender, EventArgs e) {
-            textOutput.Text = "";
-            string result = await Task.Run(() =>  runProcess());
-            textOutput.Text = result;
-
-        }
         private string runProcess() {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            pProcess.StartInfo.CreateNoWindow = true;
+            //pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress;
+            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
@@ -60,170 +150,349 @@ namespace Code_Trather
             pProcess.Start();
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
-            pProcess.WaitForExit(10);
+            pProcess.WaitForExit();
+            Globals.inputFilePath = "";
             return output + error;
-
         }
 
         private void UpdateTime(object sender, EventArgs e)
         {
-            WriteTo.writeToSnapshot(textInput.Text);
+            WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
             Clipboard.Clear();
         }
 
-        private void textInput_TextChanged(object sender, EventArgs e)
-        {
-            // Calculate the starting position of the current line.
-            int start = 0, end = 0;
-            for (start = textInput.SelectionStart - 1; start > 0; start--)
-            {
-                if (textInput.Text[start] == '\n') { start++; break; }
-            }
+        private OpenFileDialog openFileDialog;
+        private OpenFileDialog inputFile;
 
-            // Calculate the end position of the current line.
-            for (end = textInput.SelectionStart; end < textInput.Text.Length; end++)
-            {
-                if (textInput.Text[end] == '\n') break;
-            }
-
-            // Extract the current line that is being edited.
-            if (start < 0)
-            {
-                start = 0;
-            }
-            string line = textInput.Text.Substring(start, end - start);
-            //System.Diagnostics.Debug.WriteLine(line);
-
-            // Backup the users current selection point.
-            int selectionStart = textInput.SelectionStart;
-            int selectionLength = textInput.SelectionLength;
-
-            // Split the line into tokens.
-            Regex r = new Regex("([ \\t{}();])");
-            string[] tokens = r.Split(line);
-            int index = start;
-
-            foreach (string token in tokens)
-            {
-                // Set the token's default color and font.
-                textInput.SelectionStart = index;
-                textInput.SelectionLength = token.Length;
-                textInput.SelectionColor = Color.Black;
-                textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
-
-                if (token == "(" || token == "[" || token == " " || token == "\\t" || token == "{" || token == "}" || token == ";" || token == "]" || token == ")")
-                {
-                    index += token.Length;
-                    continue;
-                }
-
-                // Check for a comment.
-                if (token == "#" || token.StartsWith("#"))
-                {
-                    // Find the start of the comment and then extract the whole comment.
-                    int length = line.Length - (index - start);
-                    string commentText = textInput.Text.Substring(index, length);
-                    textInput.SelectionStart = index;
-                    textInput.SelectionLength = length;
-                    textInput.SelectionColor = Color.Red;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
-                    break;
-                }
-
-                // Check whether the token is a keyword. 
-                //string[] keywords = { "False", "await", "else", "import", "pass", "None", "break", "except", "in", "raise", "True", "class", "finally", "is", "return", "and", "continue", "for", "lambda", "try", "as", "def", "from", "nonlocal", "while", "assert", "del", "global", "not", "with", "async", "elif", "if", "or", "yield" };
-                /*for (int i = 0; i < keywords.Length; i++)
-                {
-                    if (keywords[i] == token)
-                    {
-                        // Apply alternative color and font to highlight keyword.        
-                        textInput.SelectionColor = Color.Blue;
-                        textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
-                        break;
-                    }
-                }*/
-                if (keywordsDict.ContainsKey(token))
-                {
-                    System.Diagnostics.Debug.WriteLine(token);
-                    // Apply alternative color and font to highlight keyword.        
-                    textInput.SelectionColor = Color.Blue;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
-                    index += token.Length;
-                    continue;
-                }
-
-                // Check whether the token is a builtin word. 
-                //string[] builtins = { "ArithmeticError", "AssertionError", "AttributeError", "BaseException", "BlockingIOError", "BrokenPipeError", "BufferError", "BytesWarning", "ChildProcessError", "ConnectionAbortedError", "ConnectionError", "ConnectionRefusedError", "ConnectionResetError", "DeprecationWarning", "EOFError", "Ellipsis", "EnvironmentError", "Exception", "FileExistsError", "FileNotFoundError", "FloatingPointError", "FutureWarning", "GeneratorExit", "IOError", "ImportError", "ImportWarning", "IndentationError", "IndexError", "InterruptedError", "IsADirectoryError", "KeyError", "KeyboardInterrupt", "LookupError", "MemoryError", "ModuleNotFoundError", "NameError", "NotADirectoryError", "NotImplemented", "NotImplementedError", "OSError", "OverflowError", "PendingDeprecationWarning", "PermissionError", "ProcessLookupError", "RecursionError", "ReferenceError", "ResourceWarning", "RuntimeError", "RuntimeWarning", "StopAsyncIteration", "StopIteration", "SyntaxError", "SyntaxWarning", "SystemError", "SystemExit", "TabError", "TimeoutError", "TypeError", "UnboundLocalError", "UnicodeDecodeError", "UnicodeEncodeError", "UnicodeError", "UnicodeTranslateError", "UnicodeWarning", "UserWarning", "ValueError", "Warning", "WindowsError", "ZeroDivisionError", "abs", "all", "any", "ascii", "bin", "bool", "breakpoint", "bytearray", "bytes", "callable", "chr", "classmethod", "compile", "complex", "copyright", "credits", "delattr", "dict", "dir", "divmod", "enumerate", "eval", "exec", "exit", "filter", "float", "format", "frozenset", "getattr", "globals", "hasattr", "hash", "help", "hex", "id", "input", "int", "isinstance", "issubclass", "iter", "len", "license", "list", "locals", "map", "max", "memoryview", "min", "next", "object", "oct", "open", "ord", "pow", "print", "property", "quit", "range", "repr", "reversed", "round", "set", "setattr", "slice", "sorted", "staticmethod", "str", "sum", "super", "tuple", "type", "vars", "zip" };
-                /*for (int i = 0; i < builtins.Length; i++)
-                {
-                    if (builtins[i] == token)
-                    {
-                        // Apply alternative color and font to highlight keyword.        
-                        textInput.SelectionColor = Color.Purple;
-                        textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
-                        break;
-                    }
-                }*/
-                if (builtinsDict.ContainsKey(token))
-                {
-                    System.Diagnostics.Debug.WriteLine(token);
-                    // Apply alternative color and font to highlight keyword.        
-                    textInput.SelectionColor = Color.Purple;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Bold);
-                    index += token.Length;
-                    continue;
-                }
-                index += token.Length;
-            }
-
-            if (line.Contains("\""))
-            {
-                List<int> indexList = new List<int>();
-                for (int i = start; i < end; i++)
-                {
-                    if (textInput.Text[i] == '\"')
-                    {
-                        indexList.Add(i);
-                    }
-                }
-
-                for (int i = 0; i < indexList.Count; i++)
-                {
-                    int str_start = start, str_end = end;
-                    str_start = indexList[i];
-                    if ((i + 1) < indexList.Count)
-                    {
-                        str_end = indexList[i + 1] + 1;
-                        i++;
-                    }
-
-                    // Extract the string.
-                    int str_length = str_end - str_start;
-                    string str_text = textInput.Text.Substring(str_start, str_length);
-
-                    textInput.SelectionStart = str_start;
-                    textInput.SelectionLength = str_length;
-                    textInput.SelectionColor = Color.Green;
-                    textInput.SelectionFont = new Font("Courier New", 10, FontStyle.Regular);
-                }
-            }
-
-            // Restore the users current selection point.
-            textInput.SelectionStart = selectionStart;
-            textInput.SelectionLength = selectionLength;
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
         }
 
-        private void OpenFileBtn_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
+        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 // Load the contents of the file into the text box
                 textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
             }
+
         }
 
-        private OpenFileDialog openFileDialog;
+        private void submitToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            encryptSubmit();
+            Application.Exit();
 
+        }
+
+        private async void runToolStripMenuItem_Click(object sender, EventArgs e) {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            textOutput.Text = "";
+            string result = await Task.Run(() => runProcess());
+            textOutput.Text = result;
+            WriteTo.writeToOutput(result);
+            if (Globals.DONE == false)
+            {
+                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
+
+
+                Globals.DONE = true;
+            }
+
+
+        }
+
+        private void InputFile_Click(object sender, EventArgs e) {
+            if (inputFile.ShowDialog() == DialogResult.OK) {
+                string path = Path.GetFullPath(inputFile.FileName);
+                Globals.inputFilePath = path;
+            }
+
+        }
+
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e) {
+            textInput.ZoomIn();
+
+        }
+
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e) {
+            textInput.ZoomOut();
+
+        }
+
+        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e) {
+            textInput.Zoom = 0;
+
+        }
+
+        private void createKeysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //lets take a new CSP with a new 2048 bit rsa key pair
+            var _rsa = new RSACryptoServiceProvider(2048);
+
+            //how to get the private key
+            var privKey = _rsa.ExportParameters(true);
+
+            //and the public key ...
+            var pubKey = _rsa.ExportParameters(false);
+
+            //converting the public key into a string representation
+            string pubKeyString;
+            {
+                //we need some buffer
+                var sw = new System.IO.StringWriter();
+                //we need a serializer
+                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                //serialize the key into the stream
+                xs.Serialize(sw, pubKey);
+                //get the string from the stream
+                pubKeyString = sw.ToString();
+            }
+
+            //converting the public key into a string representation
+            string privKeyString;
+            {
+                //we need some buffer
+                var sw = new System.IO.StringWriter();
+                //we need a serializer
+                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                //serialize the key into the stream
+                xs.Serialize(sw, privKey);
+                //get the string from the stream
+                privKeyString = sw.ToString();
+            }
+
+            keyTextFile(privKeyString, true);
+            keyTextFile(pubKeyString, false);
+        }
+
+        private void keyTextFile(string key, bool which_key)
+        {
+            // Save the public key created by the RSA
+            // to a file. Caution, persisting the
+            // key to a file is a security risk.
+            //Directory.CreateDirectory(Globals.cryptFolder);
+
+            if (which_key)
+            {
+                using (var sw = new StreamWriter(Globals.PrivKeyFile, false))
+                {
+                    sw.Write(key);
+                }
+            }
+            else
+            {
+                using (var sw = new StreamWriter(Globals.PubKeyFile, false))
+                {
+                    sw.Write(key);
+                }
+            }
+        }
+
+        private void EncryptFile(FileInfo file)
+        {
+            // Create instance of Aes for
+            // symmetric encryption of the data.
+            Aes aes = Aes.Create();
+            ICryptoTransform transform = aes.CreateEncryptor();
+
+            // Use RSACryptoServiceProvider to
+            // encrypt the AES key.
+            // rsa is previously instantiated:
+            //    rsa = new RSACryptoServiceProvider(cspp);
+            byte[] keyEncrypted = _rsa.Encrypt(aes.Key, false);
+
+            // Create byte arrays to contain
+            // the length values of the key and IV.
+            int lKey = keyEncrypted.Length;
+            byte[] LenK = BitConverter.GetBytes(lKey);
+            int lIV = aes.IV.Length;
+            byte[] LenIV = BitConverter.GetBytes(lIV);
+
+            // Write the following to the FileStream
+            // for the encrypted file (outFs):
+            // - length of the key
+            // - length of the IV
+            // - ecrypted key
+            // - the IV
+            // - the encrypted cipher content
+
+            // Change the file's extension to ""
+            string outFile =
+                Path.Combine(Globals.cryptFolder, Path.ChangeExtension(file.Name, ""));
+
+            using (var outFs = new FileStream(outFile, FileMode.Create))
+            {
+                outFs.Write(LenK, 0, 4);
+                outFs.Write(LenIV, 0, 4);
+                outFs.Write(keyEncrypted, 0, lKey);
+                outFs.Write(aes.IV, 0, lIV);
+
+                // Now write the cipher text using
+                // a CryptoStream for encrypting.
+                using (var outStreamEncrypted =
+                    new CryptoStream(outFs, transform, CryptoStreamMode.Write))
+                {
+                    // By encrypting a chunk at
+                    // a time, you can save memory
+                    // and accommodate large files.
+                    int count = 0;
+                    int offset = 0;
+
+                    // blockSizeBytes can be any arbitrary size.
+                    int blockSizeBytes = aes.BlockSize / 8;
+                    byte[] data = new byte[blockSizeBytes];
+                    int bytesRead = 0;
+
+                    using (var inFs = new FileStream(file.FullName, FileMode.Open))
+                    {
+                        do
+                        {
+                            count = inFs.Read(data, 0, blockSizeBytes);
+                            offset += count;
+                            outStreamEncrypted.Write(data, 0, count);
+                            bytesRead += blockSizeBytes;
+                        } while (count > 0);
+                    }
+                    outStreamEncrypted.FlushFinalBlock();
+                }
+            }
+        }
+
+        private void DecryptFile(FileInfo file)
+        {
+            // Create instance of Aes for
+            // symmetric decryption of the data.
+            Aes aes = Aes.Create();
+
+            // Create byte arrays to get the length of
+            // the encrypted key and IV.
+            // These values were stored as 4 bytes each
+            // at the beginning of the encrypted package.
+            byte[] LenK = new byte[4];
+            byte[] LenIV = new byte[4];
+
+            // Construct the file name for the decrypted file.
+            string outFile =
+                Path.ChangeExtension(file.FullName.Replace("Encrypt", "Decrypt"), ".zip");
+
+            // Use FileStream objects to read the encrypted
+            // file (inFs) and save the decrypted file (outFs).
+            using (var inFs = new FileStream(file.FullName, FileMode.Open))
+            {
+                inFs.Seek(0, SeekOrigin.Begin);
+                inFs.Read(LenK, 0, 3);
+                inFs.Seek(4, SeekOrigin.Begin);
+                inFs.Read(LenIV, 0, 3);
+
+                // Convert the lengths to integer values.
+                int lenK = BitConverter.ToInt32(LenK, 0);
+                int lenIV = BitConverter.ToInt32(LenIV, 0);
+
+                // Determine the start postition of
+                // the ciphter text (startC)
+                // and its length(lenC).
+                int startC = lenK + lenIV + 8;
+                int lenC = (int)inFs.Length - startC;
+
+                // Create the byte arrays for
+                // the encrypted Aes key,
+                // the IV, and the cipher text.
+                byte[] KeyEncrypted = new byte[lenK];
+                byte[] IV = new byte[lenIV];
+
+                // Extract the key and IV
+                // starting from index 8
+                // after the length values.
+                inFs.Seek(8, SeekOrigin.Begin);
+                inFs.Read(KeyEncrypted, 0, lenK);
+                inFs.Seek(8 + lenK, SeekOrigin.Begin);
+                inFs.Read(IV, 0, lenIV);
+
+                //Directory.CreateDirectory(Globals.cryptFolder);
+                // Use RSACryptoServiceProvider
+                // to decrypt the AES key.
+                byte[] KeyDecrypted = _rsa.Decrypt(KeyEncrypted, false);
+
+                // Decrypt the key.
+                ICryptoTransform transform = aes.CreateDecryptor(KeyDecrypted, IV);
+
+                // Decrypt the cipher text from
+                // from the FileSteam of the encrypted
+                // file (inFs) into the FileStream
+                // for the decrypted file (outFs).
+                using (var outFs = new FileStream(outFile, FileMode.Create))
+                {
+                    int count = 0;
+                    int offset = 0;
+
+                    // blockSizeBytes can be any arbitrary size.
+                    int blockSizeBytes = aes.BlockSize / 8;
+                    byte[] data = new byte[blockSizeBytes];
+
+                    // By decrypting a chunk a time,
+                    // you can save memory and
+                    // accommodate large files.
+
+                    // Start at the beginning
+                    // of the cipher text.
+                    inFs.Seek(startC, SeekOrigin.Begin);
+                    using (var outStreamDecrypted =
+                        new CryptoStream(outFs, transform, CryptoStreamMode.Write))
+                    {
+                        do
+                        {
+                            count = inFs.Read(data, 0, blockSizeBytes);
+                            offset += count;
+                            outStreamDecrypted.Write(data, 0, count);
+                        } while (count > 0);
+
+                        outStreamDecrypted.FlushFinalBlock();
+                    }
+                }
+            }
+        }
+
+        private void encryptSubmit()
+        {
+            using (var sr = new StreamReader(Globals.PubKeyFile))
+            {
+                _cspp.KeyContainerName = KeyName;
+                _rsa = new RSACryptoServiceProvider(_cspp);
+
+                string keytxt = sr.ReadToEnd();
+                _rsa.FromXmlString(keytxt);
+                _rsa.PersistKeyInCsp = true;
+            }
+
+            System.IO.File.Delete(Globals.filePathZip);
+            System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
+
+            EncryptFile(new FileInfo(Globals.filePathZip));
+
+            System.IO.Directory.Delete(Globals.filePath, true);
+            System.IO.File.Delete(Globals.filePathZip);
+        }
+
+        private void decryptSubmit()
+        {
+            using (var sr = new StreamReader(Globals.PrivKeyFile))
+            {
+                _cspp.KeyContainerName = KeyName;
+                _rsa = new RSACryptoServiceProvider(_cspp);
+
+                string keytxt = sr.ReadToEnd();
+                _rsa.FromXmlString(keytxt);
+                _rsa.PersistKeyInCsp = true;
+            }
+
+            DecryptFile(new FileInfo(Globals.encryptedZip));
+        }
+
+        private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            decryptSubmit();
+        }
     }
 }
