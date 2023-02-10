@@ -105,6 +105,10 @@
             // cwidInputBox
             // 
             this.cwidInputBox.Location = new System.Drawing.Point(294, 220);
+            this.cwidInputBox.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0});
             this.cwidInputBox.Name = "cwidInputBox";
             this.cwidInputBox.Size = new System.Drawing.Size(176, 27);
             this.cwidInputBox.TabIndex = 8;
