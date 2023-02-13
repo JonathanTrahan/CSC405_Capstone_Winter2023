@@ -150,6 +150,10 @@ namespace Code_Trather
             pProcess.Start();
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
+            if (error != "")
+            {
+                WriteTo.writeToError(error);
+            }
             pProcess.WaitForExit();
             Globals.inputFilePath = "";
             return output + error;
@@ -179,6 +183,11 @@ namespace Code_Trather
 
         private void submitToolStripMenuItem_Click(object sender, EventArgs e) {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            WriteTo.writeToSnapshotHTML(textInput.Text);
+            WriteTo.writeToClipboard(Clipboard.GetText());
+            WriteTo.Complete();
+            Globals.DONE = true;
+            
             encryptSubmit();
             Application.Exit();
 
@@ -190,15 +199,7 @@ namespace Code_Trather
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
-            if (Globals.DONE == false)
-            {
-                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
-
-
-                Globals.DONE = true;
-            }
+            
 
 
         }
