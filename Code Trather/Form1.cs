@@ -2,8 +2,10 @@ using ScintillaNET;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace Code_Trather
 {
@@ -267,6 +269,12 @@ namespace Code_Trather
             keyTextFile(pubKeyString, false);
         }
 
+        /// <summary>
+        /// Used to write a string key (assumed to be a public or private key) to a text file.
+        /// The variable which_key is used to specify public or private key (true = private, false = public).
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="which_key"></param>
         private void keyTextFile(string key, bool which_key)
         {
             // Save the public key created by the RSA
@@ -290,7 +298,89 @@ namespace Code_Trather
             }
         }
 
-        private void EncryptFile(FileInfo file)
+        ///<summary>
+        /// Steve Lydford - 12/05/2008.
+        ///
+        /// Encrypts a file using Rijndael algorithm.
+        ///</summary>
+        ///<param name="inputFile"></param>
+        ///<param name="outputFile"></param>
+        private void EncryptFile(string inputFile, string outputFile)
+        {
+
+            try
+            {
+                string password = @"myKey123"; // Your Key Here
+                UnicodeEncoding UE = new UnicodeEncoding();
+                byte[] key = UE.GetBytes(password);
+
+                string cryptFile = outputFile;
+                FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
+
+                RijndaelManaged RMCrypto = new RijndaelManaged();
+
+                CryptoStream cs = new CryptoStream(fsCrypt,
+                    RMCrypto.CreateEncryptor(key, key),
+                    CryptoStreamMode.Write);
+
+                FileStream fsIn = new FileStream(inputFile, FileMode.Open);
+
+                int data;
+                while ((data = fsIn.ReadByte()) != -1)
+                    cs.WriteByte((byte)data);
+
+
+                fsIn.Close();
+                cs.Close();
+                fsCrypt.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Encryption failed!", "Error");
+            }
+        }
+        ///<summary>
+        /// Steve Lydford - 12/05/2008.
+        ///
+        /// Decrypts a file using Rijndael algorithm.
+        ///</summary>
+        ///<param name="inputFile"></param>
+        ///<param name="outputFile"></param>
+        private void DecryptFile(string inputFile, string outputFile)
+        {
+            string pass = @"myKey123"; // Your Key Here
+            string password = @$"{Interaction.InputBox("Password", "Decrypt File", "")}";
+
+            if (pass == password)
+            {
+                UnicodeEncoding UE = new UnicodeEncoding();
+                byte[] key = UE.GetBytes(password);
+
+                FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+
+                RijndaelManaged RMCrypto = new RijndaelManaged();
+
+                CryptoStream cs = new CryptoStream(fsCrypt,
+                    RMCrypto.CreateDecryptor(key, key),
+                    CryptoStreamMode.Read);
+
+                FileStream fsOut = new FileStream(outputFile, FileMode.Create);
+
+                int data;
+                while ((data = cs.ReadByte()) != -1)
+                    fsOut.WriteByte((byte)data);
+
+                fsOut.Close();
+                cs.Close();
+                fsCrypt.Close();
+            }
+            else
+            {
+                MessageBox.Show("Wrong Password");
+            }
+        }
+
+        /*private void EncryptFile(FileInfo file)
         {
             // Create instance of Aes for
             // symmetric encryption of the data.
@@ -452,11 +542,15 @@ namespace Code_Trather
                     }
                 }
             }
-        }
+        }*/
 
+        /// <summary>
+        /// Creates a zip file from the TratherLogs folder, creates encrypted file in Cryptog folder from zip file, 
+        /// then deletes TratherLogs and TratherLogs.zip
+        /// </summary>
         private void encryptSubmit()
         {
-            using (var sr = new StreamReader(Globals.PubKeyFile))
+            /*using (var sr = new StreamReader(Globals.PubKeyFile))
             {
                 _cspp.KeyContainerName = KeyName;
                 _rsa = new RSACryptoServiceProvider(_cspp);
@@ -464,12 +558,13 @@ namespace Code_Trather
                 string keytxt = sr.ReadToEnd();
                 _rsa.FromXmlString(keytxt);
                 _rsa.PersistKeyInCsp = true;
-            }
+            }*/
 
             System.IO.File.Delete(Globals.filePathZip);
             System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
 
-            EncryptFile(new FileInfo(Globals.filePathZip));
+            //EncryptFile(new FileInfo(Globals.filePathZip));
+            EncryptFile(Globals.filePathZip, Globals.encryptedZip);
 
             System.IO.Directory.Delete(Globals.filePath, true);
             System.IO.File.Delete(Globals.filePathZip);
@@ -487,12 +582,13 @@ namespace Code_Trather
                 _rsa.PersistKeyInCsp = true;
             }
 
-            DecryptFile(new FileInfo(Globals.encryptedZip));
+            //DecryptFile(new FileInfo(Globals.encryptedZip));
         }
 
         private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            decryptSubmit();
+            //decryptSubmit();
+            DecryptFile(Globals.encryptedZip, Globals.decryptedZip);
         }
     }
 }
