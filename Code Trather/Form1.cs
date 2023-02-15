@@ -201,8 +201,6 @@ namespace Code_Trather
 
                 Globals.DONE = true;
             }
-
-
         }
 
         private void InputFile_Click(object sender, EventArgs e) {
@@ -226,76 +224,6 @@ namespace Code_Trather
         private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e) {
             textInput.Zoom = 0;
 
-        }
-
-        private void createKeysToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //lets take a new CSP with a new 2048 bit rsa key pair
-            var _rsa = new RSACryptoServiceProvider(2048);
-
-            //how to get the private key
-            var privKey = _rsa.ExportParameters(true);
-
-            //and the public key ...
-            var pubKey = _rsa.ExportParameters(false);
-
-            //converting the public key into a string representation
-            string pubKeyString;
-            {
-                //we need some buffer
-                var sw = new System.IO.StringWriter();
-                //we need a serializer
-                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
-                //serialize the key into the stream
-                xs.Serialize(sw, pubKey);
-                //get the string from the stream
-                pubKeyString = sw.ToString();
-            }
-
-            //converting the public key into a string representation
-            string privKeyString;
-            {
-                //we need some buffer
-                var sw = new System.IO.StringWriter();
-                //we need a serializer
-                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
-                //serialize the key into the stream
-                xs.Serialize(sw, privKey);
-                //get the string from the stream
-                privKeyString = sw.ToString();
-            }
-
-            keyTextFile(privKeyString, true);
-            keyTextFile(pubKeyString, false);
-        }
-
-        /// <summary>
-        /// Used to write a string key (assumed to be a public or private key) to a text file.
-        /// The variable which_key is used to specify public or private key (true = private, false = public).
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="which_key"></param>
-        private void keyTextFile(string key, bool which_key)
-        {
-            // Save the public key created by the RSA
-            // to a file. Caution, persisting the
-            // key to a file is a security risk.
-            //Directory.CreateDirectory(Globals.cryptFolder);
-
-            if (which_key)
-            {
-                using (var sw = new StreamWriter(Globals.PrivKeyFile, false))
-                {
-                    sw.Write(key);
-                }
-            }
-            else
-            {
-                using (var sw = new StreamWriter(Globals.PubKeyFile, false))
-                {
-                    sw.Write(key);
-                }
-            }
         }
 
         ///<summary>
@@ -380,7 +308,80 @@ namespace Code_Trather
             }
         }
 
-        /*private void EncryptFile(FileInfo file)
+        #region old-encryption
+
+        /*
+        private void createKeysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //lets take a new CSP with a new 2048 bit rsa key pair
+            var _rsa = new RSACryptoServiceProvider(2048);
+
+            //how to get the private key
+            var privKey = _rsa.ExportParameters(true);
+
+            //and the public key ...
+            var pubKey = _rsa.ExportParameters(false);
+
+            //converting the public key into a string representation
+            string pubKeyString;
+            {
+                //we need some buffer
+                var sw = new System.IO.StringWriter();
+                //we need a serializer
+                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                //serialize the key into the stream
+                xs.Serialize(sw, pubKey);
+                //get the string from the stream
+                pubKeyString = sw.ToString();
+            }
+
+            //converting the public key into a string representation
+            string privKeyString;
+            {
+                //we need some buffer
+                var sw = new System.IO.StringWriter();
+                //we need a serializer
+                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
+                //serialize the key into the stream
+                xs.Serialize(sw, privKey);
+                //get the string from the stream
+                privKeyString = sw.ToString();
+            }
+
+            keyTextFile(privKeyString, true);
+            keyTextFile(pubKeyString, false);
+        } 
+        
+        /// <summary>
+        /// Used to write a string key (assumed to be a public or private key) to a text file.
+        /// The variable which_key is used to specify public or private key (true = private, false = public).
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="which_key"></param>
+        private void keyTextFile(string key, bool which_key)
+        {
+            // Save the public key created by the RSA
+            // to a file. Caution, persisting the
+            // key to a file is a security risk.
+            //Directory.CreateDirectory(Globals.cryptFolder);
+
+            if (which_key)
+            {
+                using (var sw = new StreamWriter(Globals.PrivKeyFile, false))
+                {
+                    sw.Write(key);
+                }
+            }
+            else
+            {
+                using (var sw = new StreamWriter(Globals.PubKeyFile, false))
+                {
+                    sw.Write(key);
+                }
+            }
+        }
+
+        private void EncryptFile(FileInfo file)
         {
             // Create instance of Aes for
             // symmetric encryption of the data.
@@ -544,6 +545,8 @@ namespace Code_Trather
             }
         }*/
 
+        #endregion
+
         /// <summary>
         /// Creates a zip file from the TratherLogs folder, creates encrypted file in Cryptog folder from zip file, 
         /// then deletes TratherLogs and TratherLogs.zip
@@ -570,7 +573,7 @@ namespace Code_Trather
             System.IO.File.Delete(Globals.filePathZip);
         }
 
-        private void decryptSubmit()
+        /*private void decryptSubmit()
         {
             using (var sr = new StreamReader(Globals.PrivKeyFile))
             {
@@ -583,7 +586,7 @@ namespace Code_Trather
             }
 
             //DecryptFile(new FileInfo(Globals.encryptedZip));
-        }
+        }*/
 
         private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
         {

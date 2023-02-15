@@ -48,8 +48,6 @@
             this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoom100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.createKeysToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -115,7 +113,7 @@
             this.Test,
             this.InputFile,
             this.toolStripDropDownButton1,
-            this.toolStripDropDownButton2});
+            this.decryptFileToolStripMenuItem});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1359, 27);
@@ -170,14 +168,14 @@
             // runToolStripMenuItem
             // 
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.runToolStripMenuItem.Text = "Run";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
             // unitTestToolStripMenuItem
             // 
             this.unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
-            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.unitTestToolStripMenuItem.Text = "Unit Test";
             // 
             // InputFile
@@ -208,7 +206,7 @@
             this.zoomOutToolStripMenuItem,
             this.zoom100ToolStripMenuItem});
             this.magnifyToolStripMenuItem.Name = "magnifyToolStripMenuItem";
-            this.magnifyToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.magnifyToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.magnifyToolStripMenuItem.Text = "Magnify";
             // 
             // zoomInToolStripMenuItem
@@ -232,29 +230,10 @@
             this.zoom100ToolStripMenuItem.Text = "Zoom 100%";
             this.zoom100ToolStripMenuItem.Click += new System.EventHandler(this.zoom100ToolStripMenuItem_Click);
             // 
-            // toolStripDropDownButton2
-            // 
-            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createKeysToolStripMenuItem,
-            this.decryptFileToolStripMenuItem});
-            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
-            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(172, 24);
-            this.toolStripDropDownButton2.Text = "Encryption/Decryption";
-            // 
-            // createKeysToolStripMenuItem
-            // 
-            this.createKeysToolStripMenuItem.Name = "createKeysToolStripMenuItem";
-            this.createKeysToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.createKeysToolStripMenuItem.Text = "Create Keys";
-            this.createKeysToolStripMenuItem.Click += new System.EventHandler(this.createKeysToolStripMenuItem_Click);
-            // 
             // decryptFileToolStripMenuItem
             // 
             this.decryptFileToolStripMenuItem.Name = "decryptFileToolStripMenuItem";
-            this.decryptFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.decryptFileToolStripMenuItem.Size = new System.Drawing.Size(102, 27);
             this.decryptFileToolStripMenuItem.Text = "Decrypt File";
             this.decryptFileToolStripMenuItem.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
             // 
@@ -298,8 +277,6 @@
         private ToolStripMenuItem zoomInToolStripMenuItem;
         private ToolStripMenuItem zoomOutToolStripMenuItem;
         private ToolStripMenuItem zoom100ToolStripMenuItem;
-        private ToolStripDropDownButton toolStripDropDownButton2;
-        private ToolStripMenuItem createKeysToolStripMenuItem;
         private ToolStripMenuItem decryptFileToolStripMenuItem;
     }
 }
