@@ -29,7 +29,9 @@ namespace Code_Trather
                 string cryptFile = outputFile;
                 FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
 
+                #pragma warning disable SYSLIB0022 // Type or member is obsolete
                 RijndaelManaged RMCrypto = new RijndaelManaged();
+                #pragma warning restore SYSLIB0022 // Type or member is obsolete
 
                 CryptoStream cs = new CryptoStream(fsCrypt,
                     RMCrypto.CreateEncryptor(key, key),
@@ -70,7 +72,9 @@ namespace Code_Trather
 
                 FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
 
+                #pragma warning disable SYSLIB0022 // Type or member is obsolete
                 RijndaelManaged RMCrypto = new RijndaelManaged();
+                #pragma warning restore SYSLIB0022 // Type or member is obsolete
 
                 CryptoStream cs = new CryptoStream(fsCrypt,
                     RMCrypto.CreateDecryptor(key, key),

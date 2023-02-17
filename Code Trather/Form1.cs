@@ -226,5 +226,10 @@ namespace Code_Trather
             //decryptSubmit();
             Cryptog.DecryptFile(Globals.encryptedZip, Globals.decryptedZip);
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
