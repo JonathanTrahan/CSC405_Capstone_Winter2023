@@ -134,7 +134,9 @@ namespace Code_Trather
         {
 
         }
-        private string runProcess() {
+
+        private string runProcess()
+        {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
             //pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
@@ -162,26 +164,29 @@ namespace Code_Trather
         private OpenFileDialog openFileDialog;
         private OpenFileDialog inputFile;
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
                 // Load the contents of the file into the text box
                 textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
             }
-
         }
 
-        private void submitToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void submitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             Cryptog.encryptSubmit();
             Application.Exit();
-
         }
 
-        private async void runToolStripMenuItem_Click(object sender, EventArgs e) {
+        private async void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             textOutput.Text = "";
             string result = await Task.Run(() => runProcess());
@@ -193,32 +198,32 @@ namespace Code_Trather
                 WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
                 WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
 
-
                 Globals.DONE = true;
             }
         }
 
-        private void InputFile_Click(object sender, EventArgs e) {
-            if (inputFile.ShowDialog() == DialogResult.OK) {
+        private void InputFile_Click(object sender, EventArgs e)
+        {
+            if (inputFile.ShowDialog() == DialogResult.OK)
+            {
                 string path = Path.GetFullPath(inputFile.FileName);
                 Globals.inputFilePath = path;
             }
-
         }
 
-        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             textInput.ZoomIn();
-
         }
 
-        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             textInput.ZoomOut();
-
         }
 
-        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             textInput.Zoom = 0;
-
         }
 
         private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
