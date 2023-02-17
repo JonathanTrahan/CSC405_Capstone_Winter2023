@@ -494,5 +494,24 @@ namespace Code_Trather
         {
             decryptSubmit();
         }
+
+        private string runUnitTest(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+            //pProcess.StartInfo.CreateNoWindow = true;
+            pProcess.StartInfo.UseShellExecute = false;
+            pProcess.StartInfo.FileName = "cmd.exe";
+            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
+            // code either compiles or it doesn't
+            pProcess.StartInfo.RedirectStandardOutput = true;
+            pProcess.StartInfo.RedirectStandardError = true;
+            // start the command prompt
+            pProcess.Start();
+            string output = pProcess.StandardOutput.ReadToEnd();
+            string error = pProcess.StandardError.ReadToEnd();
+            pProcess.WaitForExit();
+            Globals.inputFilePath = "";
+            return output + error;
+        }
     }
 }

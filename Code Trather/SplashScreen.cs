@@ -25,6 +25,9 @@ namespace Code_Trather
             
         }
 
+        private OpenFileDialog openFileDialog;
+        private OpenFileDialog unitTestFile;
+
         //with unit test
         private void button1_Click(object sender, EventArgs e)
         {
@@ -50,11 +53,19 @@ namespace Code_Trather
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
 
-            //lanch main program
-            Program.hasUnitTest = true;
-            Form1 f1 = new Form1();
-            f1.ShowDialog();
-            this.Hide();
+            // Set up the open file dialog
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Python Files (*.py)|*.py";
+
+            //open the main form if file has been selected
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //lanch main program
+                Program.hasUnitTest = true;
+                Form1 f1 = new Form1();
+                f1.ShowDialog();
+                this.Close();
+            }
         }
 
         //without unit test
@@ -86,7 +97,7 @@ namespace Code_Trather
             Program.hasUnitTest = false;
             Form1 f1 = new Form1();
             f1.ShowDialog(); 
-            this.Hide();
+            this.Close();
         }
 
         private void cwidInputBox_ValueChanged(object sender, EventArgs e)

@@ -170,15 +170,16 @@
             // runToolStripMenuItem
             // 
             this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.runToolStripMenuItem.Text = "Run";
             this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
             // unitTestToolStripMenuItem
             // 
             this.unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
-            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(149, 26);
+            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.unitTestToolStripMenuItem.Text = "Unit Test";
+            this.unitTestToolStripMenuItem.Click += new System.EventHandler(this.runUnitTest);
             // 
             // InputFile
             // 
@@ -247,14 +248,14 @@
             // createKeysToolStripMenuItem
             // 
             this.createKeysToolStripMenuItem.Name = "createKeysToolStripMenuItem";
-            this.createKeysToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.createKeysToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.createKeysToolStripMenuItem.Text = "Create Keys";
             this.createKeysToolStripMenuItem.Click += new System.EventHandler(this.createKeysToolStripMenuItem_Click);
             // 
             // decryptFileToolStripMenuItem
             // 
             this.decryptFileToolStripMenuItem.Name = "decryptFileToolStripMenuItem";
-            this.decryptFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.decryptFileToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.decryptFileToolStripMenuItem.Text = "Decrypt File";
             this.decryptFileToolStripMenuItem.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
             // 
