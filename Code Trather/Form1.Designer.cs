@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textInput = new ScintillaNET.Scintilla();
+            this.enterInput = new System.Windows.Forms.Button();
+            this.userInput = new System.Windows.Forms.TextBox();
             this.textOutput = new System.Windows.Forms.TextBox();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -49,8 +51,6 @@
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoom100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userInput = new System.Windows.Forms.TextBox();
-            this.enterInput = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -94,8 +94,33 @@
             this.textInput.TabIndents = true;
             this.textInput.TabIndex = 4;
             // 
+            // enterInput
+            // 
+            this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.enterInput.Location = new System.Drawing.Point(263, 435);
+            this.enterInput.Name = "enterInput";
+            this.enterInput.Size = new System.Drawing.Size(75, 23);
+            this.enterInput.TabIndex = 2;
+            this.enterInput.Text = "Enter";
+            this.enterInput.UseVisualStyleBackColor = true;
+            this.enterInput.Click += new System.EventHandler(this.enterInput_Click);
+            // 
+            // userInput
+            // 
+            this.userInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userInput.Location = new System.Drawing.Point(10, 362);
+            this.userInput.Multiline = true;
+            this.userInput.Name = "userInput";
+            this.userInput.ReadOnly = true;
+            this.userInput.Size = new System.Drawing.Size(219, 117);
+            this.userInput.TabIndex = 1;
+            // 
             // textOutput
             // 
+            this.textOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textOutput.Location = new System.Drawing.Point(0, 0);
             this.textOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textOutput.Multiline = true;
@@ -241,25 +266,6 @@
             this.decryptFileToolStripMenuItem.Size = new System.Drawing.Size(81, 25);
             this.decryptFileToolStripMenuItem.Text = "Decrypt File";
             this.decryptFileToolStripMenuItem.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
-            // 
-            // userInput
-            // 
-            this.userInput.Location = new System.Drawing.Point(10, 362);
-            this.userInput.Multiline = true;
-            this.userInput.Name = "userInput";
-            this.userInput.Size = new System.Drawing.Size(219, 117);
-            this.userInput.TabIndex = 1;
-            // 
-            // enterInput
-            // 
-            this.enterInput.Location = new System.Drawing.Point(263, 435);
-            this.enterInput.Name = "enterInput";
-            this.enterInput.Size = new System.Drawing.Size(75, 23);
-            this.enterInput.TabIndex = 2;
-            this.enterInput.Text = "Enter";
-            this.enterInput.UseVisualStyleBackColor = true;
-            this.userInput.ReadOnly = true;
-            this.enterInput.Click += new System.EventHandler(this.enterInput_Click);
             // 
             // Form1
             // 

@@ -139,7 +139,12 @@ namespace Code_Trather
         {
 
         }
-
+        /// <summary>
+        /// runProcess 
+        /// handles the creation, execution, and exit of command prompt process 
+        /// also handles redirection of user input, code output, and error messages
+        /// called by <see cref="runToolStripMenuItem_Click">
+        /// </summary>
         private string runProcess()
         {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
@@ -172,11 +177,20 @@ namespace Code_Trather
         private OpenFileDialog openFileDialog;
         private OpenFileDialog inputFile;
 
+        /// <summary>
+        /// saveToolStripMenuItem_Click 
+        /// saves all text in the input textbox to an assignment file
+        /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
         }
 
+        /// <summary>
+        /// openToolStripMenuItem_Click
+        /// open a file from anywhere on the device and display its contents in the input text box
+        /// *TO BE REMOVED IN FUTURE, MEANT FOR DEVELOPER TESTING PURPOSES*
+        /// </summary>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -186,6 +200,12 @@ namespace Code_Trather
             }
         }
 
+        /// <summary>
+        /// submitToolStripMenuItem_Click
+        /// final save of all text in the input textbox to the assignment file
+        /// then encrypts the folder containing the assigment and all logs
+        /// finally it exits the program
+        /// </summary>
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
@@ -193,6 +213,12 @@ namespace Code_Trather
             Application.Exit();
         }
 
+        /// <summary>
+        /// runToolStripMenuItem_Click
+        /// asynchronous method that unlocks user input text box, calls <see cref="runProcess"/>
+        /// sets output textbox to result returned by <see cref="runProcess"/>
+        /// and writes necessary information to <see cref="Globals.snapshothtmlAddress"/> <see cref="Globals.clipboardhtmlAddress"/>, and <see cref="Globals.outputAddress"/> log files
+        /// </summary>
         private async void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
@@ -211,7 +237,11 @@ namespace Code_Trather
             }
             userInput.ReadOnly = true;
         }
-
+        /// <summary>
+        /// InputFile_Click
+        /// allows user to select a text file to read input from
+        /// *Likely to be removed in final version*
+        /// </summary>
         private void InputFile_Click(object sender, EventArgs e)
         {
             if (inputFile.ShowDialog() == DialogResult.OK)
@@ -221,16 +251,28 @@ namespace Code_Trather
             }
         }
 
+        /// <summary>
+        /// zoomInToolStripMenuItem_Click
+        /// increase magnification of text in input text box
+        /// </summary>
         private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textInput.ZoomIn();
         }
 
+        /// <summary>
+        /// zoomOutToolStripMenuItem_Click
+        /// decrease magnification of text in input text box
+        /// </summary>
         private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textInput.ZoomOut();
         }
 
+        /// <summary>
+        /// zoom100ToolStripMenuItem_Click
+        /// reset magnification of text in input text box
+        /// </summary>
         private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textInput.Zoom = 0;
@@ -247,6 +289,10 @@ namespace Code_Trather
             Application.Exit();
         }
 
+        /// <summary>
+        /// enterInput_Click
+        /// redirects input enter by user in <see cref="userInput"/> to command line
+        /// </summary>
         private void enterInput_Click(object sender, EventArgs e) {
             myStreamWriter.WriteLine(userInput.Text);
             userInput.Text = "";
