@@ -6,11 +6,15 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.IO;
+using System;
 
 namespace Code_Trather
 {
     public partial class Form1 : Form
     {
+        StreamWriter myStreamWriter;
+
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +33,7 @@ namespace Code_Trather
             inputFile = new OpenFileDialog();
             inputFile.Filter = "Text files (*.txt) | *.txt";
 
+            
             // initialize scintilla
             InitSelectionColor();
             InitPythonSyntaxColoring();
@@ -138,15 +143,18 @@ namespace Code_Trather
         private string runProcess()
         {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            //pProcess.StartInfo.CreateNoWindow = true;
+            pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
             pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
+            pProcess.StartInfo.RedirectStandardInput = true;
             // start the command prompt
             pProcess.Start();
+
+            myStreamWriter = pProcess.StandardInput;
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
             pProcess.WaitForExit();
@@ -189,6 +197,7 @@ namespace Code_Trather
         {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             textOutput.Text = "";
+            userInput.ReadOnly = false;
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
@@ -200,6 +209,7 @@ namespace Code_Trather
 
                 Globals.DONE = true;
             }
+            userInput.ReadOnly = true;
         }
 
         private void InputFile_Click(object sender, EventArgs e)
@@ -235,6 +245,11 @@ namespace Code_Trather
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void enterInput_Click(object sender, EventArgs e) {
+            myStreamWriter.WriteLine(userInput.Text);
+            userInput.Text = "";
         }
     }
 }
