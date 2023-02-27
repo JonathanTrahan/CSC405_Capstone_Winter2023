@@ -2,17 +2,18 @@ using ScintillaNET;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
+using System.IO;
+using System;
 
 namespace Code_Trather
 {
     public partial class Form1 : Form
     {
-        // Declare CspParmeters and RsaCryptoServiceProvider
-        readonly CspParameters _cspp = new CspParameters();
-        RSACryptoServiceProvider _rsa;
-        const string KeyName = "Key01";
+        StreamWriter myStreamWriter;
 
         public Form1()
         {
@@ -32,6 +33,7 @@ namespace Code_Trather
             inputFile = new OpenFileDialog();
             inputFile.Filter = "Text files (*.txt) | *.txt";
 
+            
             // initialize scintilla
             InitSelectionColor();
             InitPythonSyntaxColoring();
@@ -137,19 +139,33 @@ namespace Code_Trather
         {
 
         }
-        private string runProcess() {
+        /// <summary>
+        /// runProcess 
+        /// handles the creation, execution, and exit of command prompt process 
+        /// also handles redirection of user input, code output, and error messages
+        /// called by <see cref="runToolStripMenuItem_Click">
+        /// </summary>
+        private string runProcess()
+        {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            //pProcess.StartInfo.CreateNoWindow = true;
+            pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
             pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
+            pProcess.StartInfo.RedirectStandardInput = true;
             // start the command prompt
             pProcess.Start();
+
+            myStreamWriter = pProcess.StandardInput;
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
+            if(error != "")
+            {
+                WriteTo.writeToError(error);
+            }
             pProcess.WaitForExit();
             Globals.inputFilePath = "";
             return output + error;
@@ -160,319 +176,143 @@ namespace Code_Trather
             WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
             Clipboard.Clear();
+            WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
+            Globals.keyTracker = "";
         }
 
         private OpenFileDialog openFileDialog;
         private OpenFileDialog inputFile;
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// saveToolStripMenuItem_Click 
+        /// saves all text in the input textbox to an assignment file
+        /// </summary>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+        /// <summary>
+        /// openToolStripMenuItem_Click
+        /// open a file from anywhere on the device and display its contents in the input text box
+        /// *TO BE REMOVED IN FUTURE, MEANT FOR DEVELOPER TESTING PURPOSES*
+        /// </summary>
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
                 // Load the contents of the file into the text box
                 textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
             }
-
         }
 
-        private void submitToolStripMenuItem_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// submitToolStripMenuItem_Click
+        /// final save of all text in the input textbox to the assignment file
+        /// then encrypts the folder containing the assigment and all logs
+        /// finally it exits the program
+        /// </summary>
+        private void submitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
-            encryptSubmit();
+            WriteTo.Complete();
+            Globals.DONE = true;
+            Cryptog.encryptSubmit();
             Application.Exit();
-
         }
 
-        private async void runToolStripMenuItem_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// runToolStripMenuItem_Click
+        /// asynchronous method that unlocks user input text box, calls <see cref="runProcess"/>
+        /// sets output textbox to result returned by <see cref="runProcess"/>
+        /// and writes necessary information to <see cref="Globals.snapshothtmlAddress"/> <see cref="Globals.clipboardhtmlAddress"/>, and <see cref="Globals.outputAddress"/> log files
+        /// </summary>
+        private async void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             textOutput.Text = "";
+            userInput.ReadOnly = false;
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
-            if (Globals.DONE == false)
-            {
-                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
-
-
-                Globals.DONE = true;
-            }
-
-
+            userInput.ReadOnly = true;
         }
-
-        private void InputFile_Click(object sender, EventArgs e) {
-            if (inputFile.ShowDialog() == DialogResult.OK) {
+        /// <summary>
+        /// InputFile_Click
+        /// allows user to select a text file to read input from
+        /// *Likely to be removed in final version*
+        /// </summary>
+        private void InputFile_Click(object sender, EventArgs e)
+        {
+            if (inputFile.ShowDialog() == DialogResult.OK)
+            {
                 string path = Path.GetFullPath(inputFile.FileName);
                 Globals.inputFilePath = path;
             }
-
         }
 
-        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// zoomInToolStripMenuItem_Click
+        /// increase magnification of text in input text box
+        /// </summary>
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             textInput.ZoomIn();
-
         }
 
-        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// zoomOutToolStripMenuItem_Click
+        /// decrease magnification of text in input text box
+        /// </summary>
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             textInput.ZoomOut();
-
         }
 
-        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e) {
+        /// <summary>
+        /// zoom100ToolStripMenuItem_Click
+        /// reset magnification of text in input text box
+        /// </summary>
+        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             textInput.Zoom = 0;
-
         }
 
-        private void createKeysToolStripMenuItem_Click(object sender, EventArgs e)
+        private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //lets take a new CSP with a new 2048 bit rsa key pair
-            var _rsa = new RSACryptoServiceProvider(2048);
-
-            //how to get the private key
-            var privKey = _rsa.ExportParameters(true);
-
-            //and the public key ...
-            var pubKey = _rsa.ExportParameters(false);
-
-            //converting the public key into a string representation
-            string pubKeyString;
-            {
-                //we need some buffer
-                var sw = new System.IO.StringWriter();
-                //we need a serializer
-                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
-                //serialize the key into the stream
-                xs.Serialize(sw, pubKey);
-                //get the string from the stream
-                pubKeyString = sw.ToString();
-            }
-
-            //converting the public key into a string representation
-            string privKeyString;
-            {
-                //we need some buffer
-                var sw = new System.IO.StringWriter();
-                //we need a serializer
-                var xs = new System.Xml.Serialization.XmlSerializer(typeof(RSAParameters));
-                //serialize the key into the stream
-                xs.Serialize(sw, privKey);
-                //get the string from the stream
-                privKeyString = sw.ToString();
-            }
-
-            keyTextFile(privKeyString, true);
-            keyTextFile(pubKeyString, false);
+            //decryptSubmit();
+            Cryptog.DecryptFile(Globals.encryptedZip, Globals.decryptedZip);
         }
 
-        private void keyTextFile(string key, bool which_key)
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Save the public key created by the RSA
-            // to a file. Caution, persisting the
-            // key to a file is a security risk.
-            //Directory.CreateDirectory(Globals.cryptFolder);
-
-            if (which_key)
-            {
-                using (var sw = new StreamWriter(Globals.PrivKeyFile, false))
-                {
-                    sw.Write(key);
-                }
-            }
-            else
-            {
-                using (var sw = new StreamWriter(Globals.PubKeyFile, false))
-                {
-                    sw.Write(key);
-                }
-            }
+            Application.Exit();
         }
 
-        private void EncryptFile(FileInfo file)
-        {
-            // Create instance of Aes for
-            // symmetric encryption of the data.
-            Aes aes = Aes.Create();
-            ICryptoTransform transform = aes.CreateEncryptor();
-
-            // Use RSACryptoServiceProvider to
-            // encrypt the AES key.
-            // rsa is previously instantiated:
-            //    rsa = new RSACryptoServiceProvider(cspp);
-            byte[] keyEncrypted = _rsa.Encrypt(aes.Key, false);
-
-            // Create byte arrays to contain
-            // the length values of the key and IV.
-            int lKey = keyEncrypted.Length;
-            byte[] LenK = BitConverter.GetBytes(lKey);
-            int lIV = aes.IV.Length;
-            byte[] LenIV = BitConverter.GetBytes(lIV);
-
-            // Write the following to the FileStream
-            // for the encrypted file (outFs):
-            // - length of the key
-            // - length of the IV
-            // - ecrypted key
-            // - the IV
-            // - the encrypted cipher content
-
-            // Change the file's extension to ""
-            string outFile =
-                Path.Combine(Globals.cryptFolder, Path.ChangeExtension(file.Name, ""));
-
-            using (var outFs = new FileStream(outFile, FileMode.Create))
-            {
-                outFs.Write(LenK, 0, 4);
-                outFs.Write(LenIV, 0, 4);
-                outFs.Write(keyEncrypted, 0, lKey);
-                outFs.Write(aes.IV, 0, lIV);
-
-                // Now write the cipher text using
-                // a CryptoStream for encrypting.
-                using (var outStreamEncrypted =
-                    new CryptoStream(outFs, transform, CryptoStreamMode.Write))
-                {
-                    // By encrypting a chunk at
-                    // a time, you can save memory
-                    // and accommodate large files.
-                    int count = 0;
-                    int offset = 0;
-
-                    // blockSizeBytes can be any arbitrary size.
-                    int blockSizeBytes = aes.BlockSize / 8;
-                    byte[] data = new byte[blockSizeBytes];
-                    int bytesRead = 0;
-
-                    using (var inFs = new FileStream(file.FullName, FileMode.Open))
-                    {
-                        do
-                        {
-                            count = inFs.Read(data, 0, blockSizeBytes);
-                            offset += count;
-                            outStreamEncrypted.Write(data, 0, count);
-                            bytesRead += blockSizeBytes;
-                        } while (count > 0);
-                    }
-                    outStreamEncrypted.FlushFinalBlock();
-                }
-            }
+        /// <summary>
+        /// enterInput_Click
+        /// redirects input enter by user in <see cref="userInput"/> to command line
+        /// </summary>
+        private void enterInput_Click(object sender, EventArgs e) {
+            myStreamWriter.WriteLine(userInput.Text);
+            userInput.Text = "";
         }
-
-        private void DecryptFile(FileInfo file)
+        /// <summary>
+        /// Records what keys are pressed. Will record key presses to log file every update interval 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void keydownrec(object sender, KeyEventArgs e)
         {
-            // Create instance of Aes for
-            // symmetric decryption of the data.
-            Aes aes = Aes.Create();
-
-            // Create byte arrays to get the length of
-            // the encrypted key and IV.
-            // These values were stored as 4 bytes each
-            // at the beginning of the encrypted package.
-            byte[] LenK = new byte[4];
-            byte[] LenIV = new byte[4];
-
-            // Construct the file name for the decrypted file.
-            string outFile =
-                Path.ChangeExtension(file.FullName.Replace("Encrypt", "Decrypt"), ".zip");
-
-            // Use FileStream objects to read the encrypted
-            // file (inFs) and save the decrypted file (outFs).
-            using (var inFs = new FileStream(file.FullName, FileMode.Open))
+            if (Globals.hotKeys.Any(e.KeyData.ToString().Contains))
             {
-                inFs.Seek(0, SeekOrigin.Begin);
-                inFs.Read(LenK, 0, 3);
-                inFs.Seek(4, SeekOrigin.Begin);
-                inFs.Read(LenIV, 0, 3);
-
-                // Convert the lengths to integer values.
-                int lenK = BitConverter.ToInt32(LenK, 0);
-                int lenIV = BitConverter.ToInt32(LenIV, 0);
-
-                // Determine the start postition of
-                // the ciphter text (startC)
-                // and its length(lenC).
-                int startC = lenK + lenIV + 8;
-                int lenC = (int)inFs.Length - startC;
-
-                // Create the byte arrays for
-                // the encrypted Aes key,
-                // the IV, and the cipher text.
-                byte[] KeyEncrypted = new byte[lenK];
-                byte[] IV = new byte[lenIV];
-
-                // Extract the key and IV
-                // starting from index 8
-                // after the length values.
-                inFs.Seek(8, SeekOrigin.Begin);
-                inFs.Read(KeyEncrypted, 0, lenK);
-                inFs.Seek(8 + lenK, SeekOrigin.Begin);
-                inFs.Read(IV, 0, lenIV);
-
-                //Directory.CreateDirectory(Globals.cryptFolder);
-                // Use RSACryptoServiceProvider
-                // to decrypt the AES key.
-                byte[] KeyDecrypted = _rsa.Decrypt(KeyEncrypted, false);
-
-                // Decrypt the key.
-                ICryptoTransform transform = aes.CreateDecryptor(KeyDecrypted, IV);
-
-                // Decrypt the cipher text from
-                // from the FileSteam of the encrypted
-                // file (inFs) into the FileStream
-                // for the decrypted file (outFs).
-                using (var outFs = new FileStream(outFile, FileMode.Create))
-                {
-                    int count = 0;
-                    int offset = 0;
-
-                    // blockSizeBytes can be any arbitrary size.
-                    int blockSizeBytes = aes.BlockSize / 8;
-                    byte[] data = new byte[blockSizeBytes];
-
-                    // By decrypting a chunk a time,
-                    // you can save memory and
-                    // accommodate large files.
-
-                    // Start at the beginning
-                    // of the cipher text.
-                    inFs.Seek(startC, SeekOrigin.Begin);
-                    using (var outStreamDecrypted =
-                        new CryptoStream(outFs, transform, CryptoStreamMode.Write))
-                    {
-                        do
-                        {
-                            count = inFs.Read(data, 0, blockSizeBytes);
-                            offset += count;
-                            outStreamDecrypted.Write(data, 0, count);
-                        } while (count > 0);
-
-                        outStreamDecrypted.FlushFinalBlock();
-                    }
-                }
-            }
-        }
-
-        private void encryptSubmit()
-        {
-            using (var sr = new StreamReader(Globals.PubKeyFile))
-            {
-                _cspp.KeyContainerName = KeyName;
-                _rsa = new RSACryptoServiceProvider(_cspp);
-
-                string keytxt = sr.ReadToEnd();
-                _rsa.FromXmlString(keytxt);
-                _rsa.PersistKeyInCsp = true;
+                WriteTo.writeToHotKeyHTML(e.KeyData.ToString());
             }
 
-            System.IO.File.Delete(Globals.filePathZip);
-            System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
 
-            EncryptFile(new FileInfo(Globals.filePathZip));
+            Globals.keyTracker += e.KeyData.ToString();
+            Globals.keyTracker += "\n";
 
-            System.IO.Directory.Delete(Globals.filePath, true);
-            System.IO.File.Delete(Globals.filePathZip);
         }
 
         private void decryptSubmit()
