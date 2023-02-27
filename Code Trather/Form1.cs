@@ -495,13 +495,13 @@ namespace Code_Trather
             decryptSubmit();
         }
 
-        private string runUnitTest(object sender, EventArgs e)
+        private string runUnitTest()
         {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
             //pProcess.StartInfo.CreateNoWindow = true;
             pProcess.StartInfo.UseShellExecute = false;
             pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
+            pProcess.StartInfo.Arguments = "/C python " + Globals.unitTestFilePath + " " + Globals.inputFilePath;
             // code either compiles or it doesn't
             pProcess.StartInfo.RedirectStandardOutput = true;
             pProcess.StartInfo.RedirectStandardError = true;
@@ -512,6 +512,24 @@ namespace Code_Trather
             pProcess.WaitForExit();
             Globals.inputFilePath = "";
             return output + error;
+        }
+
+        private async void runToolUnitTest(object sender, EventArgs e)
+        {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            textOutput.Text = "";
+            string result = await Task.Run(() => runUnitTest());
+            textOutput.Text = result;
+            WriteTo.writeToOutput(result);
+            if (Globals.DONE == false)
+            {
+                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
+
+
+                Globals.DONE = true;
+            }
         }
     }
 }

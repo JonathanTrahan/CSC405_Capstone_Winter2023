@@ -179,7 +179,7 @@
             this.unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
             this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.unitTestToolStripMenuItem.Text = "Unit Test";
-            this.unitTestToolStripMenuItem.Click += new System.EventHandler(this.runUnitTest);
+            this.unitTestToolStripMenuItem.Click += new System.EventHandler(this.runToolUnitTest);
             // 
             // InputFile
             // 
