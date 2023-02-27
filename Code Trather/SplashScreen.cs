@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -24,6 +25,8 @@ namespace Code_Trather
         {
             
         }
+
+        private OpenFileDialog openFileDialog;
 
         //with unit test
         private void button1_Click(object sender, EventArgs e)
@@ -49,12 +52,25 @@ namespace Code_Trather
             Program.studentName = nameTextBox.Text;
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
-
-            //lanch main program
             Program.hasUnitTest = true;
-            Form1 f1 = new Form1();
-            f1.ShowDialog();
-            this.Hide();
+
+            // Set up the open file dialog
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Python Files (*.py)|*.py";
+
+            //open the main form if file has been selected
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file and save it in the output directory 
+                string unitTestFile = openFileDialog.FileName;
+                System.IO.File.WriteAllText(Globals.unitTestFilePath, System.IO.File.ReadAllText(unitTestFile));
+
+                //lanch main program
+                Program.hasUnitTest = true;
+                Form1 f1 = new Form1();
+                f1.ShowDialog();
+                this.Close();
+            }
         }
 
         //without unit test
@@ -81,12 +97,13 @@ namespace Code_Trather
             Program.studentName = nameTextBox.Text;
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
+            Program.hasUnitTest = false;
 
             //lanch main program
             Program.hasUnitTest = false;
             Form1 f1 = new Form1();
             f1.ShowDialog(); 
-            this.Hide();
+            this.Close();
         }
 
         private void cwidInputBox_ValueChanged(object sender, EventArgs e)

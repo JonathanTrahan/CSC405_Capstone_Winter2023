@@ -315,5 +315,61 @@ namespace Code_Trather
 
         }
 
+        private void decryptSubmit()
+        {
+            using (var sr = new StreamReader(Globals.PrivKeyFile))
+            {
+                _cspp.KeyContainerName = KeyName;
+                _rsa = new RSACryptoServiceProvider(_cspp);
+
+                string keytxt = sr.ReadToEnd();
+                _rsa.FromXmlString(keytxt);
+                _rsa.PersistKeyInCsp = true;
+            }
+
+            DecryptFile(new FileInfo(Globals.encryptedZip));
+        }
+
+        private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            decryptSubmit();
+        }
+
+        private string runUnitTest()
+        {
+            System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+            //pProcess.StartInfo.CreateNoWindow = true;
+            pProcess.StartInfo.UseShellExecute = false;
+            pProcess.StartInfo.FileName = "cmd.exe";
+            pProcess.StartInfo.Arguments = "/C python " + Globals.unitTestFilePath + " " + Globals.inputFilePath;
+            // code either compiles or it doesn't
+            pProcess.StartInfo.RedirectStandardOutput = true;
+            pProcess.StartInfo.RedirectStandardError = true;
+            // start the command prompt
+            pProcess.Start();
+            string output = pProcess.StandardOutput.ReadToEnd();
+            string error = pProcess.StandardError.ReadToEnd();
+            pProcess.WaitForExit();
+            Globals.inputFilePath = "";
+            return output + error;
+        }
+
+        private async void runToolUnitTest(object sender, EventArgs e)
+        {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            textOutput.Text = "";
+            string result = await Task.Run(() => runUnitTest());
+            textOutput.Text = result;
+            WriteTo.writeToOutput(result);
+            if (Globals.DONE == false)
+            {
+                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
+                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
+
+
+                Globals.DONE = true;
+            }
+        }
     }
 }
