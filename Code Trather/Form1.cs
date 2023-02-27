@@ -38,6 +38,8 @@ namespace Code_Trather
             InitNumberMargin();
         }
 
+        
+
         #region ScintillaNET Stuff
 
         /// <summary>
@@ -161,9 +163,13 @@ namespace Code_Trather
 
         private void UpdateTime(object sender, EventArgs e)
         {
+            Trace.WriteLine("Timer");
             WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
             Clipboard.Clear();
+            WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
+            Globals.keyTracker = "";
+            //WriteTo.writeToKeyLoggerHTML("Timer");
         }
 
         private OpenFileDialog openFileDialog;
@@ -494,6 +500,33 @@ namespace Code_Trather
         private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             decryptSubmit();
+        }
+
+        private void KeyRecorder(object sender, KeyPressEventArgs e)
+        {
+            
+           // WriteTo.writeToKeyLoggerHTML(e.KeyData.ToString());
+
+        }
+        
+        private void keydownrec(object sender, KeyEventArgs e)
+        {
+            if (Globals.hotKeys.Any(e.KeyData.ToString().Contains))
+            {
+                WriteTo.writeToHotKeyHTML(e.KeyData.ToString());
+            }
+     
+            
+            Globals.keyTracker += e.KeyData.ToString();
+            Globals.keyTracker += "\n";
+
+        }
+
+        private void fifteenSecTimer(object sender, EventArgs e)
+        {
+            WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
+            Globals.keyTracker = "";
+            WriteTo.writeToKeyLoggerHTML("Timer");
         }
     }
 }
