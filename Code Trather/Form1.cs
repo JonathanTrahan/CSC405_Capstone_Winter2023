@@ -315,26 +315,6 @@ namespace Code_Trather
 
         }
 
-        private void decryptSubmit()
-        {
-            using (var sr = new StreamReader(Globals.PrivKeyFile))
-            {
-                _cspp.KeyContainerName = KeyName;
-                _rsa = new RSACryptoServiceProvider(_cspp);
-
-                string keytxt = sr.ReadToEnd();
-                _rsa.FromXmlString(keytxt);
-                _rsa.PersistKeyInCsp = true;
-            }
-
-            DecryptFile(new FileInfo(Globals.encryptedZip));
-        }
-
-        private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            decryptSubmit();
-        }
-
         private string runUnitTest()
         {
             System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
