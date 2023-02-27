@@ -38,19 +38,19 @@
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.File = new System.Windows.Forms.ToolStripDropDownButton();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.submitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.openTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.Test = new System.Windows.Forms.ToolStripDropDownButton();
-            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unitTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.unitTestTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.InputFile = new System.Windows.Forms.ToolStripButton();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.magnifyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoom100ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decryptFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.magnifyTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomInTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomOutTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoom100TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.decryptFileTSM = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,8 +63,8 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(14, 70);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(11, 56);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -77,9 +77,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.userInput);
             this.splitContainer1.Panel2.Controls.Add(this.textOutput);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(1669, 762);
-            this.splitContainer1.SplitterDistance = 1138;
-            this.splitContainer1.SplitterWidth = 6;
+            this.splitContainer1.Size = new System.Drawing.Size(1335, 610);
+            this.splitContainer1.SplitterDistance = 910;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
@@ -89,9 +89,9 @@
             this.textInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
             this.textInput.Location = new System.Drawing.Point(0, 0);
-            this.textInput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textInput.Name = "textInput";
-            this.textInput.Size = new System.Drawing.Size(1138, 762);
+            this.textInput.Size = new System.Drawing.Size(910, 610);
             this.textInput.TabIndents = true;
             this.textInput.TabIndex = 4;
             this.textInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keydownrec);
@@ -99,10 +99,10 @@
             // enterInput
             // 
             this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterInput.Location = new System.Drawing.Point(377, 697);
-            this.enterInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.enterInput.Location = new System.Drawing.Point(300, 558);
+            this.enterInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.enterInput.Name = "enterInput";
-            this.enterInput.Size = new System.Drawing.Size(107, 38);
+            this.enterInput.Size = new System.Drawing.Size(86, 30);
             this.enterInput.TabIndex = 2;
             this.enterInput.Text = "Enter";
             this.enterInput.UseVisualStyleBackColor = true;
@@ -112,11 +112,11 @@
             // 
             this.userInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.userInput.Location = new System.Drawing.Point(24, 699);
-            this.userInput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.userInput.Location = new System.Drawing.Point(19, 559);
+            this.userInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userInput.Name = "userInput";
             this.userInput.ReadOnly = true;
-            this.userInput.Size = new System.Drawing.Size(312, 31);
+            this.userInput.Size = new System.Drawing.Size(249, 27);
             this.userInput.TabIndex = 1;
             // 
             // textOutput
@@ -125,11 +125,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textOutput.Location = new System.Drawing.Point(0, 0);
-            this.textOutput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(522, 668);
+            this.textOutput.Size = new System.Drawing.Size(417, 535);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -145,12 +145,12 @@
             this.File,
             this.Test,
             this.InputFile,
-            this.toolStripDropDownButton1,
-            this.decryptFileToolStripMenuItem});
+            this.toolsDropDown,
+            this.decryptFileTSM});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(1699, 34);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStrip1.Size = new System.Drawing.Size(1359, 27);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -159,59 +159,59 @@
             this.File.AccessibleName = "File";
             this.File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.submitToolStripMenuItem});
+            this.saveTSM,
+            this.openTSM,
+            this.submitTSM});
             this.File.Name = "File";
-            this.File.Size = new System.Drawing.Size(56, 29);
+            this.File.Size = new System.Drawing.Size(46, 24);
             this.File.Text = "File";
             // 
-            // saveToolStripMenuItem
+            // saveTSM
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(171, 34);
-            this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveTSM.Name = "saveTSM";
+            this.saveTSM.Size = new System.Drawing.Size(224, 26);
+            this.saveTSM.Text = "Save";
+            this.saveTSM.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // openToolStripMenuItem
+            // openTSM
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(171, 34);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openTSM.Name = "openTSM";
+            this.openTSM.Size = new System.Drawing.Size(224, 26);
+            this.openTSM.Text = "Open";
+            this.openTSM.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
-            // submitToolStripMenuItem
+            // submitTSM
             // 
-            this.submitToolStripMenuItem.Name = "submitToolStripMenuItem";
-            this.submitToolStripMenuItem.Size = new System.Drawing.Size(171, 34);
-            this.submitToolStripMenuItem.Text = "Submit";
-            this.submitToolStripMenuItem.Click += new System.EventHandler(this.submitToolStripMenuItem_Click);
+            this.submitTSM.Name = "submitTSM";
+            this.submitTSM.Size = new System.Drawing.Size(224, 26);
+            this.submitTSM.Text = "Submit";
+            this.submitTSM.Click += new System.EventHandler(this.submitToolStripMenuItem_Click);
             // 
             // Test
             // 
             this.Test.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.Test.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runToolStripMenuItem,
-            this.unitTestToolStripMenuItem});
+            this.runTSM,
+            this.unitTestTSM});
             this.Test.Image = ((System.Drawing.Image)(resources.GetObject("Test.Image")));
             this.Test.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Test.Name = "Test";
-            this.Test.Size = new System.Drawing.Size(60, 29);
+            this.Test.Size = new System.Drawing.Size(49, 24);
             this.Test.Text = "Test";
             // 
-            // runToolStripMenuItem
+            // runTSM
             // 
-            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
-            this.runToolStripMenuItem.Size = new System.Drawing.Size(181, 34);
-            this.runToolStripMenuItem.Text = "Run";
-            this.runToolStripMenuItem.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
+            this.runTSM.Name = "runTSM";
+            this.runTSM.Size = new System.Drawing.Size(224, 26);
+            this.runTSM.Text = "Run";
+            this.runTSM.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
             // 
-            // unitTestToolStripMenuItem
+            // unitTestTSM
             // 
-            this.unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
-            this.unitTestToolStripMenuItem.Size = new System.Drawing.Size(181, 34);
-            this.unitTestToolStripMenuItem.Text = "Unit Test";
-            this.unitTestToolStripMenuItem.Click += new System.EventHandler(this.runToolUnitTest);
+            this.unitTestTSM.Name = "unitTestTSM";
+            this.unitTestTSM.Size = new System.Drawing.Size(224, 26);
+            this.unitTestTSM.Text = "Unit Test";
+            this.unitTestTSM.Click += new System.EventHandler(this.runToolUnitTest);
             // 
             // InputFile
             // 
@@ -219,67 +219,67 @@
             this.InputFile.Image = ((System.Drawing.Image)(resources.GetObject("InputFile.Image")));
             this.InputFile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.InputFile.Name = "InputFile";
-            this.InputFile.Size = new System.Drawing.Size(89, 29);
+            this.InputFile.Size = new System.Drawing.Size(74, 24);
             this.InputFile.Text = "Input File";
             this.InputFile.Click += new System.EventHandler(this.InputFile_Click);
             // 
-            // toolStripDropDownButton1
+            // toolsDropDown
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.magnifyToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(71, 29);
-            this.toolStripDropDownButton1.Text = "Tools";
+            this.toolsDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolsDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.magnifyTSM});
+            this.toolsDropDown.Image = ((System.Drawing.Image)(resources.GetObject("toolsDropDown.Image")));
+            this.toolsDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolsDropDown.Name = "toolsDropDown";
+            this.toolsDropDown.Size = new System.Drawing.Size(58, 24);
+            this.toolsDropDown.Text = "Tools";
             // 
-            // magnifyToolStripMenuItem
+            // magnifyTSM
             // 
-            this.magnifyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zoomInToolStripMenuItem,
-            this.zoomOutToolStripMenuItem,
-            this.zoom100ToolStripMenuItem});
-            this.magnifyToolStripMenuItem.Name = "magnifyToolStripMenuItem";
-            this.magnifyToolStripMenuItem.Size = new System.Drawing.Size(179, 34);
-            this.magnifyToolStripMenuItem.Text = "Magnify";
+            this.magnifyTSM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zoomInTSM,
+            this.zoomOutTSM,
+            this.zoom100TSM});
+            this.magnifyTSM.Name = "magnifyTSM";
+            this.magnifyTSM.Size = new System.Drawing.Size(224, 26);
+            this.magnifyTSM.Text = "Magnify";
             // 
-            // zoomInToolStripMenuItem
+            // zoomInTSM
             // 
-            this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(212, 34);
-            this.zoomInToolStripMenuItem.Text = "Zoom In";
-            this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
+            this.zoomInTSM.Name = "zoomInTSM";
+            this.zoomInTSM.Size = new System.Drawing.Size(224, 26);
+            this.zoomInTSM.Text = "Zoom In";
+            this.zoomInTSM.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
             // 
-            // zoomOutToolStripMenuItem
+            // zoomOutTSM
             // 
-            this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(212, 34);
-            this.zoomOutToolStripMenuItem.Text = "Zoom Out";
-            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
+            this.zoomOutTSM.Name = "zoomOutTSM";
+            this.zoomOutTSM.Size = new System.Drawing.Size(224, 26);
+            this.zoomOutTSM.Text = "Zoom Out";
+            this.zoomOutTSM.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
-            // zoom100ToolStripMenuItem
+            // zoom100TSM
             // 
-            this.zoom100ToolStripMenuItem.Name = "zoom100ToolStripMenuItem";
-            this.zoom100ToolStripMenuItem.Size = new System.Drawing.Size(212, 34);
-            this.zoom100ToolStripMenuItem.Text = "Zoom 100%";
-            this.zoom100ToolStripMenuItem.Click += new System.EventHandler(this.zoom100ToolStripMenuItem_Click);
+            this.zoom100TSM.Name = "zoom100TSM";
+            this.zoom100TSM.Size = new System.Drawing.Size(224, 26);
+            this.zoom100TSM.Text = "Zoom 100%";
+            this.zoom100TSM.Click += new System.EventHandler(this.zoom100ToolStripMenuItem_Click);
             // 
-            // decryptFileToolStripMenuItem
+            // decryptFileTSM
             // 
-            this.decryptFileToolStripMenuItem.Name = "decryptFileToolStripMenuItem";
-            this.decryptFileToolStripMenuItem.Size = new System.Drawing.Size(121, 34);
-            this.decryptFileToolStripMenuItem.Text = "Decrypt File";
-            this.decryptFileToolStripMenuItem.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
+            this.decryptFileTSM.Name = "decryptFileTSM";
+            this.decryptFileTSM.Size = new System.Drawing.Size(102, 27);
+            this.decryptFileTSM.Text = "Decrypt File";
+            this.decryptFileTSM.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1699, 862);
+            this.ClientSize = new System.Drawing.Size(1359, 690);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -302,19 +302,19 @@
         private ScintillaNET.Scintilla textInput;
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton File;
-        private ToolStripMenuItem saveToolStripMenuItem;
-        private ToolStripMenuItem openToolStripMenuItem;
-        private ToolStripMenuItem submitToolStripMenuItem;
+        private ToolStripMenuItem saveTSM;
+        private ToolStripMenuItem openTSM;
+        private ToolStripMenuItem submitTSM;
         private ToolStripDropDownButton Test;
-        private ToolStripMenuItem runToolStripMenuItem;
-        private ToolStripMenuItem unitTestToolStripMenuItem;
+        private ToolStripMenuItem runTSM;
+        private ToolStripMenuItem unitTestTSM;
         private ToolStripButton InputFile;
-        private ToolStripDropDownButton toolStripDropDownButton1;
-        private ToolStripMenuItem magnifyToolStripMenuItem;
-        private ToolStripMenuItem zoomInToolStripMenuItem;
-        private ToolStripMenuItem zoomOutToolStripMenuItem;
-        private ToolStripMenuItem zoom100ToolStripMenuItem;
-        private ToolStripMenuItem decryptFileToolStripMenuItem;
+        private ToolStripDropDownButton toolsDropDown;
+        private ToolStripMenuItem magnifyTSM;
+        private ToolStripMenuItem zoomInTSM;
+        private ToolStripMenuItem zoomOutTSM;
+        private ToolStripMenuItem zoom100TSM;
+        private ToolStripMenuItem decryptFileTSM;
         private Button enterInput;
         private TextBox userInput;
     }
