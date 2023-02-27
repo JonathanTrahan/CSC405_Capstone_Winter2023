@@ -97,7 +97,7 @@
             // enterInput
             // 
             this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterInput.Location = new System.Drawing.Point(263, 435);
+            this.enterInput.Location = new System.Drawing.Point(263, 449);
             this.enterInput.Name = "enterInput";
             this.enterInput.Size = new System.Drawing.Size(75, 23);
             this.enterInput.TabIndex = 2;
@@ -109,11 +109,10 @@
             // 
             this.userInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.userInput.Location = new System.Drawing.Point(10, 362);
-            this.userInput.Multiline = true;
+            this.userInput.Location = new System.Drawing.Point(17, 450);
             this.userInput.Name = "userInput";
             this.userInput.ReadOnly = true;
-            this.userInput.Size = new System.Drawing.Size(219, 117);
+            this.userInput.Size = new System.Drawing.Size(219, 23);
             this.userInput.TabIndex = 1;
             // 
             // textOutput
@@ -126,7 +125,7 @@
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(366, 354);
+            this.textOutput.Size = new System.Drawing.Size(366, 433);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
