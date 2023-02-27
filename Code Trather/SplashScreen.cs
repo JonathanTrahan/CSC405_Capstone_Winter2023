@@ -17,8 +17,15 @@ namespace Code_Trather
     public partial class SplashScreen : Form
     {
         public SplashScreen()
-        {
+        { 
             InitializeComponent();
+            // path that file will be saved at
+            Directory.CreateDirectory(Globals.filePath);
+            System.IO.File.Create(Globals.downloadAddress).Close();
+            WriteTo.CreateFiles();
+
+            // create folder for encryption
+            Directory.CreateDirectory(Globals.cryptFolder);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -32,7 +39,7 @@ namespace Code_Trather
         private void button1_Click(object sender, EventArgs e)
         {
             //check if inputs are full
-            if (string.IsNullOrEmpty(nameTextBox.Text))
+            /*if (string.IsNullOrEmpty(nameTextBox.Text))
             {
                 warningLabel.Text = "Please enter your name.";
                 return;
@@ -46,7 +53,7 @@ namespace Code_Trather
             {
                 warningLabel.Text = "Please enter your CWID.";
                 return;
-            }
+            }*/
 
             //get inputs
             Program.studentName = nameTextBox.Text;

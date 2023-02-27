@@ -18,13 +18,6 @@ namespace Code_Trather
         public Form1()
         {
             InitializeComponent();
-            // path that file will be saved at
-            Directory.CreateDirectory(Globals.filePath);
-            System.IO.File.Create(Globals.downloadAddress).Close();
-            WriteTo.CreateFiles();
-
-            // create folder for encryption
-            Directory.CreateDirectory(Globals.cryptFolder);
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
@@ -314,6 +307,8 @@ namespace Code_Trather
             Globals.keyTracker += "\n";
 
         }
+
+
 
         private string runUnitTest()
         {
