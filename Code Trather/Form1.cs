@@ -162,6 +162,10 @@ namespace Code_Trather
             myStreamWriter = pProcess.StandardInput;
             string output = pProcess.StandardOutput.ReadToEnd();
             string error = pProcess.StandardError.ReadToEnd();
+            if(error != "")
+            {
+                WriteTo.writeToError(error);
+            }
             pProcess.WaitForExit();
             Globals.inputFilePath = "";
             return output + error;
@@ -172,6 +176,8 @@ namespace Code_Trather
             WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
             Clipboard.Clear();
+            WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
+            Globals.keyTracker = "";
         }
 
         private OpenFileDialog openFileDialog;
@@ -209,6 +215,8 @@ namespace Code_Trather
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            WriteTo.Complete();
+            Globals.DONE = true;
             Cryptog.encryptSubmit();
             Application.Exit();
         }
@@ -227,14 +235,6 @@ namespace Code_Trather
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
-            if (Globals.DONE == false)
-            {
-                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
-
-                Globals.DONE = true;
-            }
             userInput.ReadOnly = true;
         }
         /// <summary>
@@ -297,5 +297,23 @@ namespace Code_Trather
             myStreamWriter.WriteLine(userInput.Text);
             userInput.Text = "";
         }
+        /// <summary>
+        /// Records what keys are pressed. Will record key presses to log file every update interval 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void keydownrec(object sender, KeyEventArgs e)
+        {
+            if (Globals.hotKeys.Any(e.KeyData.ToString().Contains))
+            {
+                WriteTo.writeToHotKeyHTML(e.KeyData.ToString());
+            }
+
+
+            Globals.keyTracker += e.KeyData.ToString();
+            Globals.keyTracker += "\n";
+
+        }
+
     }
 }
