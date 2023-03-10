@@ -140,28 +140,59 @@ namespace Code_Trather
         /// </summary>
         private string runProcess()
         {
-            System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            pProcess.StartInfo.CreateNoWindow = true;
-            pProcess.StartInfo.UseShellExecute = false;
-            pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
             // code either compiles or it doesn't
-            pProcess.StartInfo.RedirectStandardOutput = true;
-            pProcess.StartInfo.RedirectStandardError = true;
-            pProcess.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.StartInfo.RedirectStandardInput = true;
             // start the command prompt
-            pProcess.Start();
+            process.Start();
 
-            myStreamWriter = pProcess.StandardInput;
-            string output = pProcess.StandardOutput.ReadToEnd();
-            string error = pProcess.StandardError.ReadToEnd();
+            myStreamWriter = process.StandardInput;
+            /*
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
             if(error != "")
             {
                 WriteTo.writeToError(error);
             }
-            pProcess.WaitForExit();
+            process.WaitForExit();
             Globals.inputFilePath = "";
             return output + error;
+            */
+            string output = "";
+            while (!process.StandardOutput.EndOfStream) {
+                char val = (char)process.StandardOutput.Read();
+                var threadParam = new System.Threading.ThreadStart(delegate { UpdateOutput(val); });
+                var thread2 = new System.Threading.Thread(threadParam);
+                thread2.Start();
+                thread2.Join();
+                output += val;
+
+            }
+            //string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+            Globals.inputFilePath = "";
+
+            return output + error;
+        }
+
+        private void UpdateOutput(char line) {
+            if (textOutput.InvokeRequired) {
+                Action safeWrite = delegate { UpdateOutput(line); };
+                textOutput.Invoke(safeWrite);
+                //Thread.Sleep(1000);
+            }
+            else {
+                textOutput.Text += line;
+                //Thread.Sleep(100);
+
+            }
         }
 
         private void UpdateTime(object sender, EventArgs e)
