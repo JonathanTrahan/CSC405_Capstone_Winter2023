@@ -153,17 +153,7 @@ namespace Code_Trather
             process.Start();
 
             myStreamWriter = process.StandardInput;
-            /*
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-            if(error != "")
-            {
-                WriteTo.writeToError(error);
-            }
-            process.WaitForExit();
-            Globals.inputFilePath = "";
-            return output + error;
-            */
+
             string output = "";
             while (!process.StandardOutput.EndOfStream) {
                 char val = (char)process.StandardOutput.Read();
@@ -174,8 +164,11 @@ namespace Code_Trather
                 output += val;
 
             }
-            //string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
+
+            if (error != "") {
+                WriteTo.writeToError(error);
+            }
             process.WaitForExit();
             Globals.inputFilePath = "";
 
@@ -186,12 +179,9 @@ namespace Code_Trather
             if (textOutput.InvokeRequired) {
                 Action safeWrite = delegate { UpdateOutput(line); };
                 textOutput.Invoke(safeWrite);
-                //Thread.Sleep(1000);
             }
             else {
                 textOutput.Text += line;
-                //Thread.Sleep(100);
-
             }
         }
 
