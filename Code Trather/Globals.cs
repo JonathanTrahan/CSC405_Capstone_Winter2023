@@ -35,12 +35,30 @@ public static class Globals
     public static string hotkeyAddress = filePath + "hotkeys.html";
     public static string unitTestFilePath = filePath + "unitTest.py";
     // Crypt Folder Addresses
+    /// <summary>
+    /// Downloads/Cryptog/
+    /// </summary>
     public static string cryptFolder = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/Cryptog/";
+    /// <summary>
+    /// Downloads/TratherLogs.zip
+    /// </summary>
     public static string filePathZip = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/TratherLogs.zip";
-    public static string PubKeyFile = cryptFolder + "rsaPublicKey.txt";
-    public static string PrivKeyFile = cryptFolder + "rsaPrivateKey.txt";
+    /// <summary>
+    /// Downloads/Cryptog/aeskey.txt
+    /// </summary>
+    public static string aesKeyFile = cryptFolder + "aeskey.txt";
+    /// <summary>
+    /// Downloads/Cryptog/aesIV.txt
+    /// </summary>
+    public static string aesIVFile = cryptFolder + "aesIV.txt";
+    /// <summary>
+    /// Downloads/Cryptog/TratherLogs.aes
+    /// </summary>
     public static string encryptedZip = cryptFolder + "TratherLogs.aes";
-    public static string decryptedZip = cryptFolder + "TratherLogs.zip";
+    /// <summary>
+    /// Downloads/Cryptog/TratherLogs_decrypted.zip
+    /// </summary>
+    public static string decryptedZip = cryptFolder + "TratherLogs_decrypted.zip";
 
     //Files to be added - The are premade files to be added the log folder to assist the html log files
     public static string logFile = "/* Style the button that is used to open and close the collapsible content */\r\n.collapsible {\r\n  background-color: #eee;\r\n  color: #444;\r\n  cursor: pointer;\r\n  padding: 18px;\r\n  width: 100%;\r\n  border: none;\r\n  text-align: left;\r\n  outline: none;\r\n  font-size: 15px;\r\n}\r\n\r\n/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */\r\n.active, .collapsible:hover {\r\n  background-color: #ccc;\r\n}\r\n\r\n/* Style the collapsible content. Note: hidden by default */\r\n.content {\r\n  padding: 0 18px;\r\n  display: none;\r\n  overflow: hidden;\r\n  background-color: #f1f1f1;\r\n}\r\n.collapsible:after {\r\n  content: '\\02795'; /* Unicode character for \"plus\" sign (+) */\r\n  font-size: 13px;\r\n  color: white;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.active:after {\r\n  content: \"\\2796\"; /* Unicode character for \"minus\" sign (-) */\r\n}";
