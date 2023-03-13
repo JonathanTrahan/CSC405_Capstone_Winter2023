@@ -22,7 +22,7 @@ namespace Code_Trather
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
             System.IO.File.Create(Globals.downloadAddress).Close();
-            WriteTo.CreateFiles();
+            
 
             // create folder for encryption
             Directory.CreateDirectory(Globals.cryptFolder);
@@ -105,6 +105,7 @@ namespace Code_Trather
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
             Program.hasUnitTest = false;
+            WriteTo.CreateFiles();
 
             //lanch main program
             Program.hasUnitTest = false;

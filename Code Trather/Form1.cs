@@ -178,7 +178,10 @@ namespace Code_Trather
             string error = process.StandardError.ReadToEnd();
             process.WaitForExit();
             Globals.inputFilePath = "";
-
+            if (error != "")
+            {
+                WriteTo.writeToError(error);
+            }
             return output + error;
         }
 

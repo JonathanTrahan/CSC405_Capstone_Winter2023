@@ -1,6 +1,7 @@
 
 using System.Diagnostics;
 using System.Timers;
+using static ScintillaNET.Style;
 
 public class WriteTo
 {
@@ -55,31 +56,31 @@ public class WriteTo
         File.AppendAllText(Globals.snapshothtmlAddress, "");
         System.IO.File.WriteAllText(Globals.snapshothtmlAddress, string.Empty);
         // Writes the HTML header to the file
-        WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.snapshothtmlHeader);
+        WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.getHeader("Snapshot"));
 
         File.AppendAllText(Globals.clipboardhtmlAddress, "");
         System.IO.File.WriteAllText(Globals.clipboardhtmlAddress, string.Empty);
-        WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.clipboardhtmlHeader);
+        WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.getHeader("Clipboard"));
 
         File.AppendAllText(Globals.outputAddress, "");
         System.IO.File.WriteAllText(Globals.outputAddress, string.Empty);
-        WriteTo.writeToFile(Globals.outputAddress, Globals.outputhtmlHeader);
+        WriteTo.writeToFile(Globals.outputAddress, Globals.getHeader("Output"));
 
         File.AppendAllText(Globals.attentionAddress, "");
         System.IO.File.WriteAllText(Globals.attentionAddress, string.Empty);
-        WriteTo.writeToFile(Globals.attentionAddress, Globals.attentionhtmlHeader);
+        WriteTo.writeToFile(Globals.attentionAddress, Globals.getHeader("Attention"));
 
         File.AppendAllText(Globals.errorAddress, "");
         System.IO.File.WriteAllText(Globals.errorAddress, string.Empty);
-        WriteTo.writeToFile(Globals.errorAddress, Globals.errorhtmlHeader);
+        WriteTo.writeToFile(Globals.errorAddress, Globals.getHeader("Error"));
 
         File.AppendAllText(Globals.keyloggerAddress, "");
         System.IO.File.WriteAllText(Globals.keyloggerAddress, string.Empty);
-        WriteTo.writeToFile(Globals.keyloggerAddress, Globals.keyloggerhtmlHeader);
+        WriteTo.writeToFile(Globals.keyloggerAddress, Globals.getHeader("Key"));
 
         File.AppendAllText(Globals.hotkeyAddress, "");
         System.IO.File.WriteAllText(Globals.hotkeyAddress, string.Empty);
-        WriteTo.writeToFile(Globals.hotkeyAddress, Globals.hotkeyhtmlHeader);
+        WriteTo.writeToFile(Globals.hotkeyAddress, Globals.getHeader("Hot Key"));
 
         // Creates premade files to the log folder
         File.AppendAllText(Globals.logcssAddress, "");
@@ -90,6 +91,13 @@ public class WriteTo
         File.AppendAllText(Globals.collapseAddress, "");
         System.IO.File.WriteAllText(Globals.collapseAddress, string.Empty);
         WriteTo.writeToFile(Globals.collapseAddress, Globals.collapseFile);
+
+        // Creates premade landing page to the log folder
+        File.AppendAllText(Globals.indexAddress, "");
+        System.IO.File.WriteAllText(Globals.indexAddress, string.Empty);
+        WriteTo.writeToFile(Globals.indexAddress, Globals.indexFile);
+
+
 
 
 
