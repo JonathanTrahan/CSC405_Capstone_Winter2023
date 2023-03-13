@@ -69,8 +69,8 @@ namespace Code_Trather
 
         ///<summary>
         /// Decrypts a file using C# AES class.
-        /// inputFile is the path to the file to be encrypted.
-        /// outputFile is the path to where the encrypted file is written to.
+        /// inputFile is the path to the file to be decrypted.
+        /// outputFile is the path to where the decrypted file is written to.
         /// Key and IV are the AES parameters.
         ///</summary>
         ///<param name="inputFile"></param>
@@ -122,6 +122,44 @@ namespace Code_Trather
             }
         }
 
+        static public byte[] Encryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        {
+            try
+            {
+                byte[] encryptedData;
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                {
+                    RSA.ImportParameters(RSAKey);
+                    encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
+                }
+                return encryptedData;
+            }
+            catch (CryptographicException e)
+            {
+                MessageBox.Show(e.Message);
+                return null;
+            }
+        }
+
+        static public byte[] Decryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        {
+            try
+            {
+                byte[] decryptedData;
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                {
+                    RSA.ImportParameters(RSAKey);
+                    decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
+                }
+                return decryptedData;
+            }
+            catch (CryptographicException e)
+            {
+                MessageBox.Show(e.ToString());
+                return null;
+            }
+        }
+
         /// <summary>
         /// Creates a zip file from the TratherLogs folder, creates encrypted file in Cryptog folder from zip file, 
         /// then deletes TratherLogs and TratherLogs.zip
@@ -138,6 +176,11 @@ namespace Code_Trather
             {
                 //EncryptFile(new FileInfo(Globals.filePathZip));
                 EncryptFile(Globals.filePathZip, Globals.encryptedZip, myAes.Key, myAes.IV);
+
+                UnicodeEncoding ByteConverter = new UnicodeEncoding();
+                string key1 = ByteConverter.GetString(myAes.Key);
+                string IV1 = ByteConverter.GetString(myAes.IV);
+
                 File.WriteAllBytes(Globals.aesKeyFile, myAes.Key);
                 File.WriteAllBytes(Globals.aesIVFile, myAes.IV);
             }
@@ -170,14 +213,13 @@ namespace Code_Trather
         }
 
         ///<summary>
-        /// Steve Lydford - 12/05/2008.
-        ///
-        /// Encrypts a file using Rijndael algorithm.
+        /// rsa encryption using hardcoded public key
         ///</summary>
         ///<param name="inputFile"></param>
         ///<param name="outputFile"></param>
         public static void RSAEncryptFile(string inputFile, string outputFile)
         {
+            string rsa_pub_xml_key = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
             try
             {
