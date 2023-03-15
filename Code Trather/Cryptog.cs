@@ -223,9 +223,35 @@ namespace Code_Trather
 
             try
             {
-                string password = @"myKey123"; // Your Key Here
-                UnicodeEncoding UE = new UnicodeEncoding();
-                byte[] key = UE.GetBytes(password);
+                using (RSA rsaThing = RSA.Create())
+                {
+                    rsaThing.FromXmlString(rsa_pub_xml_key);
+
+                    // Create an encryptor to perform the stream transform.
+                    //ICryptoTransform encryptor = rsaThing.c
+
+                    try
+                    {
+                        FileStream fsCrypt = new FileStream(outputFile, FileMode.Create);
+
+                        CryptoStream cs = new CryptoStream(fsCrypt, encryptor, CryptoStreamMode.Write);
+
+                        FileStream fsIn = new FileStream(inputFile, FileMode.Open);
+
+                        int data;
+                        while ((data = fsIn.ReadByte()) != -1)
+                            cs.WriteByte((byte)data);
+
+
+                        fsIn.Close();
+                        cs.Close();
+                        fsCrypt.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Encryption failed!", "Error");
+                    }
+                }
 
                 string cryptFile = outputFile;
                 FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
@@ -255,9 +281,7 @@ namespace Code_Trather
             }
         }
         ///<summary>
-        /// Steve Lydford - 12/05/2008.
-        ///
-        /// Decrypts a file using Rijndael algorithm.
+        /// rsa encryption using hardcoded private key
         ///</summary>
         ///<param name="inputFile"></param>
         ///<param name="outputFile"></param>
