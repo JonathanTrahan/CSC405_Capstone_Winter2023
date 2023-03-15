@@ -52,6 +52,14 @@ public static class Globals
     /// </summary>
     public static string aesIVFile = cryptFolder + "aesIV.txt";
     /// <summary>
+    /// Downloads/Cryptog/aeskey.rsa
+    /// </summary>
+    public static string aesKeyFile_encrypted = cryptFolder + "aeskey.rsa";
+    /// <summary>
+    /// Downloads/Cryptog/aesIV.rsa
+    /// </summary>
+    public static string aesIVFile_encrypted = cryptFolder + "aesIV.rsa";
+    /// <summary>
     /// Downloads/Cryptog/TratherLogs.aes
     /// </summary>
     public static string encryptedZip = cryptFolder + "TratherLogs.aes";

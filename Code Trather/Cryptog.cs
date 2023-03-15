@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -122,41 +123,60 @@ namespace Code_Trather
             }
         }
 
-        static public byte[] Encryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        /// <summary>
+        /// Uses a hardcoded public key to encrypt a byte array and write it to the filepath.
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        static public void RsaEncryption(byte[] Data, string filePath)
         {
+            string rsaPubKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            bool DoOAEPPadding = true;
+
             try
             {
                 byte[] encryptedData;
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
-                    RSA.ImportParameters(RSAKey);
+                    RSA.FromXmlString(rsaPubKey);
                     encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
                 }
-                return encryptedData;
+                //return encryptedData;
+                File.WriteAllBytes(filePath, encryptedData);
             }
             catch (CryptographicException e)
             {
                 MessageBox.Show(e.Message);
-                return null;
+                //return null;
             }
         }
 
-        static public byte[] Decryption(byte[] Data, RSAParameters RSAKey, bool DoOAEPPadding)
+        /// <summary>
+        /// Uses a hardcoded private key to decrypt a byte array and write it to the filepath.
+        /// </summary>
+        /// <param name="Data"></param>
+        /// <param name="filePath"></param>
+        static public void RsaDecryption(byte[] Data, string filePath)
         {
+            string rsaPrivKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent><P>5QN1nMWA+hVflwJY5+h4sK2KoVNsfUi/fLrtNi0S4WBTmNE3nOmsM9oKsOWJD4x2119ChAYLzfJIQNxNWLt2Zw==</P><Q>88pVyw8+kH5bEatyIocezzCWXUE2qSv/LZX3RrmsCvuBaGtJGDrKes8kegjQkmt4JbaWS9vNtF3QRo4dG3npyw==</Q><DP>f4y2s7MYy7Cdxchr5fYHSjfNr158XSboZ7rgpTzjeB0jUkisVbubymFVdQLSnJNaGUgYDtojNvgLH/zTI2l9Xw==</DP><DQ>sTCBlLn6viioZjpXFVNiCDMHRrZMVT7eFDLoa+YtbjoIf21izhKE8ie2GmBnv9QOmlKQAIi8hPielXlbHIpKaw==</DQ><InverseQ>npTpOi55D4qg8smqUV+KIOYyUXTjHmTAyRRyGdhiry+fcSx5sA1+rT78U3G64kYX1yVsoLSMjYqX8OIBsJDfSw==</InverseQ><D>lAIsRho53OT0Hi9HIZlS0sY7uES5XI7ymRFhhUrJpOMqhs6FjEYH4JvrF9NEalmYYi0otDFEyEUuVVEoR/zxEcYROKRh2EjfPHmENVDElI64TDnNItQn4GJ5+2FA2GPaJc8gbf6+TFbRj0fxuOxJHmB721qv41T59WN8eXnl4Y0=</D></RSAKeyValue>";
+            bool DoOAEPPadding = true;
+
             try
             {
                 byte[] decryptedData;
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
-                    RSA.ImportParameters(RSAKey);
+                    RSA.FromXmlString(rsaPrivKey);
                     decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
                 }
-                return decryptedData;
+                //return decryptedData;
+                File.WriteAllBytes(filePath, decryptedData);
             }
             catch (CryptographicException e)
             {
-                MessageBox.Show(e.ToString());
-                return null;
+                MessageBox.Show(e.Message);
+                //return null;
             }
         }
 
@@ -169,13 +189,13 @@ namespace Code_Trather
             System.IO.File.Delete(Globals.filePathZip);
             System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
 
-            // Create a new instance of the Aes
-            // class.  This generates a new key and initialization
-            // vector (IV).
+            // Create a new instance of the Aes class.
+            // This generates a new key and initialization vector (IV).
             using (Aes myAes = Aes.Create())
             {
                 //EncryptFile(new FileInfo(Globals.filePathZip));
                 EncryptFile(Globals.filePathZip, Globals.encryptedZip, myAes.Key, myAes.IV);
+
 
                 UnicodeEncoding ByteConverter = new UnicodeEncoding();
                 string key1 = ByteConverter.GetString(myAes.Key);
@@ -183,6 +203,8 @@ namespace Code_Trather
 
                 File.WriteAllBytes(Globals.aesKeyFile, myAes.Key);
                 File.WriteAllBytes(Globals.aesIVFile, myAes.IV);
+                MessageBox.Show(key1, "aes key in string form");
+                MessageBox.Show(IV1, "aes IV in string form");
             }
 
             System.IO.Directory.Delete(Globals.filePath, true);
@@ -212,113 +234,5 @@ namespace Code_Trather
             }
         }
 
-        ///<summary>
-        /// rsa encryption using hardcoded public key
-        ///</summary>
-        ///<param name="inputFile"></param>
-        ///<param name="outputFile"></param>
-        public static void RSAEncryptFile(string inputFile, string outputFile)
-        {
-            string rsa_pub_xml_key = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-
-            try
-            {
-                using (RSA rsaThing = RSA.Create())
-                {
-                    rsaThing.FromXmlString(rsa_pub_xml_key);
-
-                    // Create an encryptor to perform the stream transform.
-                    //ICryptoTransform encryptor = rsaThing.c
-
-                    try
-                    {
-                        FileStream fsCrypt = new FileStream(outputFile, FileMode.Create);
-
-                        CryptoStream cs = new CryptoStream(fsCrypt, encryptor, CryptoStreamMode.Write);
-
-                        FileStream fsIn = new FileStream(inputFile, FileMode.Open);
-
-                        int data;
-                        while ((data = fsIn.ReadByte()) != -1)
-                            cs.WriteByte((byte)data);
-
-
-                        fsIn.Close();
-                        cs.Close();
-                        fsCrypt.Close();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Encryption failed!", "Error");
-                    }
-                }
-
-                string cryptFile = outputFile;
-                FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
-
-                #pragma warning disable SYSLIB0022 // Type or member is obsolete
-                RijndaelManaged RMCrypto = new RijndaelManaged();
-                #pragma warning restore SYSLIB0022 // Type or member is obsolete
-
-                CryptoStream cs = new CryptoStream(fsCrypt,
-                    RMCrypto.CreateEncryptor(key, key),
-                    CryptoStreamMode.Write);
-
-                FileStream fsIn = new FileStream(inputFile, FileMode.Open);
-
-                int data;
-                while ((data = fsIn.ReadByte()) != -1)
-                    cs.WriteByte((byte)data);
-
-
-                fsIn.Close();
-                cs.Close();
-                fsCrypt.Close();
-            }
-            catch
-            {
-                MessageBox.Show("Encryption failed!", "Error");
-            }
-        }
-        ///<summary>
-        /// rsa encryption using hardcoded private key
-        ///</summary>
-        ///<param name="inputFile"></param>
-        ///<param name="outputFile"></param>
-        public static void RSADecryptFile(string inputFile, string outputFile)
-        {
-            string pass = @"myKey123"; // Your Key Here
-            string password = @$"{Interaction.InputBox("Password", "Decrypt File", "")}";
-
-            if (pass == password)
-            {
-                UnicodeEncoding UE = new UnicodeEncoding();
-                byte[] key = UE.GetBytes(password);
-
-                FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
-
-                #pragma warning disable SYSLIB0022 // Type or member is obsolete
-                RijndaelManaged RMCrypto = new RijndaelManaged();
-                #pragma warning restore SYSLIB0022 // Type or member is obsolete
-
-                CryptoStream cs = new CryptoStream(fsCrypt,
-                    RMCrypto.CreateDecryptor(key, key),
-                    CryptoStreamMode.Read);
-
-                FileStream fsOut = new FileStream(outputFile, FileMode.Create);
-
-                int data;
-                while ((data = cs.ReadByte()) != -1)
-                    fsOut.WriteByte((byte)data);
-
-                fsOut.Close();
-                cs.Close();
-                fsCrypt.Close();
-            }
-            else
-            {
-                MessageBox.Show("Wrong Password");
-            }
-        }
     }
 }
