@@ -156,6 +156,7 @@ public class WriteTo
             writeToFile(address, log);
             // Increments the counter so that the Counter is up to date
             Globals.hotkeyCounter += 1;
+            Globals.usedHotKeys.Add(write);
         }
     }
     /// <summary>

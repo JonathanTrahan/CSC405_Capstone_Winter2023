@@ -323,7 +323,10 @@ namespace Code_Trather
         {
             if (Globals.hotKeys.Any(e.KeyData.ToString().Contains))
             {
-                WriteTo.writeToHotKeyHTML(e.KeyData.ToString());
+                if (!Globals.nonHotKeys.Any(e.KeyData.ToString().Contains))
+                {
+                    WriteTo.writeToHotKeyHTML(e.KeyData.ToString());
+                }
             }
 
 

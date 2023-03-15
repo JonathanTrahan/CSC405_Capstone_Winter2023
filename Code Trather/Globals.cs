@@ -7,8 +7,9 @@ using System.Drawing.Text;
 public static class Globals
 {
     // List of Hot Key word to check inputs for
-    public static string[] hotKeys = { "Menu", "Alt", "F11", "F12", "Insert", "Delete", "ControlKey", "Control" };
-    //public static string[] usedHotKeys = new string[];
+    public static string[] hotKeys = { "Alt", "F11", "F12", "Insert", "Delete", "Control" , "Escape","LWin"};
+    public static string[] nonHotKeys = { "Menu", "ControlKey" };
+    public static List<string> usedHotKeys = new List<string> { };
 
     // Makes a long list of every key press over a time interval
     public static string keyTracker = "";
@@ -49,7 +50,7 @@ public static class Globals
     //Files to be added - The are premade files to be added the log folder to assist the html log files
     public static string logFile = "/* Style the button that is used to open and close the collapsible content */\r\n.collapsible {\r\n  background-color: #eee;\r\n  color: #444;\r\n  cursor: pointer;\r\n  padding: 18px;\r\n  width: 100%;\r\n  border: none;\r\n  text-align: left;\r\n  outline: none;\r\n  font-size: 15px;\r\n}\r\n\r\n/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */\r\n.active, .collapsible:hover {\r\n  background-color: #ccc;\r\n}\r\n\r\n/* Style the collapsible content. Note: hidden by default */\r\n.content {\r\n  padding: 0 18px;\r\n  display: none;\r\n  overflow: hidden;\r\n  background-color: #f1f1f1;\r\n}\r\n.collapsible:after {\r\n  content: '\\02795'; /* Unicode character for \"plus\" sign (+) */\r\n  font-size: 13px;\r\n  color: white;\r\n  float: right;\r\n  margin-left: 5px;\r\n}\r\n\r\n.active:after {\r\n  content: \"\\2796\"; /* Unicode character for \"minus\" sign (-) */\r\n}";
     public static string collapseFile = "var coll = document.getElementsByClassName(\"collapsible\");\r\nvar i;\r\n\r\nfor (i = 0; i < coll.length; i++) {\r\n  coll[i].addEventListener(\"click\", function() {\r\n    this.classList.toggle(\"active\");\r\n    var content = this.nextElementSibling;\r\n    if (content.style.display === \"block\") {\r\n      content.style.display = \"none\";\r\n    } else {\r\n      content.style.display = \"block\";\r\n    }\r\n  });\r\n}  function ShowAll(){\r\n  for (let i = 0; i<coll.length;i++){\r\n      let bt = coll[i];\r\n      bt.click();\r\n    } \r\n} \r\n";
-    public static string indexFile = "\r\n<!DOCTYPE html> \r\n<html> \r\n\t<!-- Inside head tags contain header information for the webpage-->\r\n\t<head>\r\n\t\t<!-- meta -  data about the document -->\r\n\t\t<meta charset=\"utf-8\">\r\n\t\t<meta name = \"description\" content=\"awesome content\">\r\n\t\t<!-- Title tag chenges the title in the web browser tab -->\r\n\t\t<title>\r\n\t\t\tStudent Log Landing Page\r\n\t\t</title>\r\n\r\n\t</head>\r\n\t<!-- Inside body tags contain the contents of the webpage-->\r\n\t<body>\r\n\t\t<header>\r\n\t\t\t<nav></nav>\r\n\t\t</header>\r\n\t\t\r\n\t\t<main>\r\n\t\t\t<h1>Fname Lname, CWID, Log Page</h1>\r\n\t\t\t<p><big><big><b>Assignments</b></big></big></p>\r\n\t\t\t<ul>\r\n\t\t\t\t<li><a href=\"snapshots.html\" target=\"_blank\">Snapshot Log</a></li>\r\n\t\t\t\t<li><a href=\"attention.html\" target=\"_blank\">Attention Log</a></li>\r\n\t\t\t\t<li><a href=\"hotkeys.html\" target=\"_blank\">Hot Key Log</a></li>\r\n\t\t\t\t<li><a href=\"output.html\" target=\"_blank\">Output Log</a></li>\r\n\t\t\t\t<li><a href=\"error.html\" target=\"_blank\">Error Log</a></li>\r\n\t\t\t\t<li><a href=\"clipboard.html\" target=\"_blank\">Clipboard Log</a></li>\r\n\t\t\t\t<li><a href=\"keylogger.html\" target=\"_blank\">Key Logger Html</a></li>\r\n\t\t\t\r\n\t\t</main>\r\n\r\n\t</body>\r\n\r\n\r\n</html>";
+    public static string indexFile = "<!DOCTYPE html> \r\n<html> \r\n\t<!-- Inside head tags contain header information for the webpage-->\r\n\t<head>\r\n\t\t<!-- meta -  data about the document -->\r\n\t\t<meta charset=\"utf-8\">\r\n\t\t<meta name = \"description\" content=\"awesome content\">\r\n\t\t<!-- Title tag chenges the title in the web browser tab -->\r\n\t\t<title>\r\n\t\t\tStudent Log Landing Page\r\n\t\t</title>\r\n\r\n\t</head>\r\n\t<!-- Inside body tags contain the contents of the webpage-->\r\n\t<body>\r\n\t\t<header>\r\n\t\t\t<nav></nav>\r\n\t\t</header>\r\n\t\t\r\n\t\t<main>\r\n\t\t\t<h1>Fname Lname, CWID, Log Page</h1>\r\n\t\t\t<p><big><big><b>Assignments</b></big></big></p>\r\n\t\t\t<ul>\r\n\t\t\t\t<li><a href=\"snapshots.html\" target=\"_blank\">Snapshot Log</a></li>\r\n\t\t\t\t<li><a href=\"attention.html\" target=\"_blank\">Attention Log</a></li>\r\n\t\t\t\t<li><a href=\"hotkeys.html\" target=\"_blank\">Hot Key Log</a></li>\r\n\t\t\t\t<li><a href=\"output.html\" target=\"_blank\">Output Log</a></li>\r\n\t\t\t\t<li><a href=\"error.html\" target=\"_blank\">Error Log</a></li>\r\n\t\t\t\t<li><a href=\"clipboard.html\" target=\"_blank\">Clipboard Log</a></li>\r\n\t\t\t\t<li><a href=\"keylogger.html\" target=\"_blank\">Key Logger Html</a></li>\r\n\t\t\t\r\n\t\t</main>\r\n\r\n\t</body>\r\n\r\n\r\n</html>";
    
     // Time
     public static DateTime start = DateTime.Now;
@@ -58,7 +59,7 @@ public static class Globals
     // Headers for html log files
     public static string getHeader(string title)
     {
-        return $"<!DOCTYPE html> \n<html> \n\t<!-- Inside head tags contain header information for the webpage-->\n\t<head>\n\t\t<!-- meta -  data about the document -->\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name = \"description\" content=\"awesome content\">\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"./logs.css\">\n\t\t<!-- Title tag chenges the title in the web browser tab -->\n\t\t<title>\n\t\t\t {title} Log\n\t\t</title>\n\n\t</head>\n\t<!-- Inside body tags contain the contents of the webpage-->\n\t<body>\n\t\t\n\t\t\t<h1>{Program.studentName} {title} Log</h1><button type=\"button\" class=\"showall\" onclick =\"ShowAll()\">Toggle Logs</button>";
+        return $"<!DOCTYPE html> \n<html> \n\t<!-- Inside head tags contain header information for the webpage-->\n\t<head>\n\t\t<!-- meta -  data about the document -->\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name = \"description\" content=\"awesome content\">\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"./logs.css\">\n\t\t<!-- Title tag chenges the title in the web browser tab -->\n\t\t<title>\n\t\t\t {title} Log\n\t\t</title>\n\n\t</head>\n\t<!-- Inside body tags contain the contents of the webpage-->\n\t<body>\n\t\t\n\t\t\t<h1>{Program.studentName} {title} Log</h1><button type=\"button\" class=\"showall\" onclick =\"ShowAll()\">Toggle Logs</button><a  href=\"index.html\">Back to Landing Page</a>";
     }
     /// <summary>
     /// Footer for the html log files
@@ -83,6 +84,39 @@ public static class Globals
 
         return ts;
     }
+    public static List<string> listReader(List<string> listToRead)
+    {
+        List<string> checkedlist = new List<string> { };
+        List<string> instances = new List<string> { };
+
+
+        foreach (string e in listToRead)
+        {
+            int temp = 0;
+            bool contains = false;
+            foreach (string k in checkedlist)
+            {
+                if (k == e)
+                {
+                    contains = true;
+                }
+            }
+            if (!contains)
+            {
+                foreach (string m in listToRead)
+                {
+                    if (e == m)
+                    {
+                        temp++;
+                    }
+                }
+                instances.Add($"{e}: {temp}");
+                checkedlist.Add(e);
+            }
+        }
+        return instances;
+    }
+
 }
 
 
