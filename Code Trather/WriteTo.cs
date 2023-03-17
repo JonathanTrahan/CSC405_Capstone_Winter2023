@@ -95,7 +95,7 @@ public class WriteTo
         // Creates premade landing page to the log folder
         File.AppendAllText(Globals.indexAddress, "");
         System.IO.File.WriteAllText(Globals.indexAddress, string.Empty);
-        WriteTo.writeToFile(Globals.indexAddress, Globals.indexFile);
+        WriteTo.writeToFile(Globals.indexAddress, Globals.getIndexFile());
 
 
 
