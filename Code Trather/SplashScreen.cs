@@ -103,8 +103,13 @@ namespace Code_Trather
             //get inputs
             Program.studentName = nameTextBox.Text;
             string[] sName = Program.studentName.Split(' ');
+            
             Globals.fName = sName[0];
-            Globals.lName = sName[1];
+            if (sName.Length > 1)
+            {
+                Globals.lName = sName[1];
+            }
+
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
             Program.hasUnitTest = false;
