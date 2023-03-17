@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
@@ -22,7 +23,7 @@ namespace Code_Trather
         ///<param name="outputFile"></param>
         ///<param name="Key"></param>
         ///<param name="IV"></param>
-        public static void EncryptFile(string inputFile, string outputFile, byte[] Key, byte[] IV)
+        public static void AesEncryptFile(string inputFile, string outputFile, byte[] Key, byte[] IV)
         {
             // Check arguments.
             if (inputFile == null || inputFile.Length <= 0)
@@ -78,7 +79,7 @@ namespace Code_Trather
         ///<param name="outputFile"></param>
         ///<param name="Key"></param>
         ///<param name="IV"></param>
-        public static void DecryptFile(string inputFile, string outputFile, byte[] Key, byte[] IV)
+        public static void AesDecryptFile(string inputFile, string outputFile, byte[] Key, byte[] IV)
         {
             // Check arguments.
             if (inputFile == null || inputFile.Length <= 0)
@@ -156,8 +157,7 @@ namespace Code_Trather
         /// Uses a hardcoded private key to decrypt a byte array and write it to the filepath.
         /// </summary>
         /// <param name="Data"></param>
-        /// <param name="filePath"></param>
-        static public void RsaDecryption(byte[] Data, string filePath)
+        static public byte[]? RsaDecryption(byte[] Data)
         {
             string rsaPrivKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent><P>5QN1nMWA+hVflwJY5+h4sK2KoVNsfUi/fLrtNi0S4WBTmNE3nOmsM9oKsOWJD4x2119ChAYLzfJIQNxNWLt2Zw==</P><Q>88pVyw8+kH5bEatyIocezzCWXUE2qSv/LZX3RrmsCvuBaGtJGDrKes8kegjQkmt4JbaWS9vNtF3QRo4dG3npyw==</Q><DP>f4y2s7MYy7Cdxchr5fYHSjfNr158XSboZ7rgpTzjeB0jUkisVbubymFVdQLSnJNaGUgYDtojNvgLH/zTI2l9Xw==</DP><DQ>sTCBlLn6viioZjpXFVNiCDMHRrZMVT7eFDLoa+YtbjoIf21izhKE8ie2GmBnv9QOmlKQAIi8hPielXlbHIpKaw==</DQ><InverseQ>npTpOi55D4qg8smqUV+KIOYyUXTjHmTAyRRyGdhiry+fcSx5sA1+rT78U3G64kYX1yVsoLSMjYqX8OIBsJDfSw==</InverseQ><D>lAIsRho53OT0Hi9HIZlS0sY7uES5XI7ymRFhhUrJpOMqhs6FjEYH4JvrF9NEalmYYi0otDFEyEUuVVEoR/zxEcYROKRh2EjfPHmENVDElI64TDnNItQn4GJ5+2FA2GPaJc8gbf6+TFbRj0fxuOxJHmB721qv41T59WN8eXnl4Y0=</D></RSAKeyValue>";
             bool DoOAEPPadding = true;
@@ -170,13 +170,13 @@ namespace Code_Trather
                     RSA.FromXmlString(rsaPrivKey);
                     decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
                 }
-                //return decryptedData;
-                File.WriteAllBytes(filePath, decryptedData);
+                return decryptedData;
+                //File.WriteAllBytes(filePath, decryptedData);
             }
             catch (CryptographicException e)
             {
                 MessageBox.Show(e.Message);
-                //return null;
+                return null;
             }
         }
 
@@ -193,18 +193,10 @@ namespace Code_Trather
             // This generates a new key and initialization vector (IV).
             using (Aes myAes = Aes.Create())
             {
-                //EncryptFile(new FileInfo(Globals.filePathZip));
-                EncryptFile(Globals.filePathZip, Globals.encryptedZip, myAes.Key, myAes.IV);
+                AesEncryptFile(Globals.filePathZip, Globals.encryptedZip, myAes.Key, myAes.IV);
 
-
-                UnicodeEncoding ByteConverter = new UnicodeEncoding();
-                string key1 = ByteConverter.GetString(myAes.Key);
-                string IV1 = ByteConverter.GetString(myAes.IV);
-
-                File.WriteAllBytes(Globals.aesKeyFile, myAes.Key);
-                File.WriteAllBytes(Globals.aesIVFile, myAes.IV);
-                MessageBox.Show(key1, "aes key in string form");
-                MessageBox.Show(IV1, "aes IV in string form");
+                RsaEncryption(myAes.Key, Globals.aesKeyFile_encrypted);
+                RsaEncryption(myAes.IV, Globals.aesIVFile_encrypted);
             }
 
             System.IO.Directory.Delete(Globals.filePath, true);
@@ -216,21 +208,28 @@ namespace Code_Trather
         /// </summary>
         public static void decryptSubmit()
         {
-            if (File.Exists(Globals.encryptedZip) && File.Exists(Globals.aesKeyFile) && File.Exists(Globals.aesIVFile))
+            if (File.Exists(Globals.encryptedZip) && File.Exists(Globals.aesKeyFile_encrypted) && File.Exists(Globals.aesIVFile_encrypted))
             {
-                byte[] key = File.ReadAllBytes(Globals.aesKeyFile);
-                byte[] iv = File.ReadAllBytes(Globals.aesIVFile);
+                var key = RsaDecryption(File.ReadAllBytes(Globals.aesKeyFile_encrypted));
+                var iv = RsaDecryption(File.ReadAllBytes(Globals.aesIVFile_encrypted));
 
-                DecryptFile(Globals.encryptedZip, Globals.decryptedZip, key, iv);
-
-                if (File.Exists(Globals.decryptedZip))
+                if (key != null && iv != null)
                 {
-                    MessageBox.Show("Decryption Succesful!");
+                    AesDecryptFile(Globals.encryptedZip, Globals.decryptedZip, key, iv);
+
+                    if (File.Exists(Globals.decryptedZip))
+                    {
+                        MessageBox.Show("Decryption Succesful!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No file to decrypt, key file is missing, or IV file is missing.", "Error!");
                 }
             }
-            else 
+            else
             {
-                MessageBox.Show("No file to decrypt.", "Error!");
+                MessageBox.Show("No file to decrypt, key file is missing, or IV file is missing.", "Error!");
             }
         }
 
