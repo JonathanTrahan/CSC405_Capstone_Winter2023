@@ -51,6 +51,7 @@
             this.zoomOutTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.zoom100TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptFileTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -73,6 +74,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.enterInput);
             this.splitContainer1.Panel2.Controls.Add(this.userInput);
             this.splitContainer1.Panel2.Controls.Add(this.textOutput);
@@ -110,7 +112,7 @@
             // 
             this.userInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.userInput.Location = new System.Drawing.Point(17, 419);
+            this.userInput.Location = new System.Drawing.Point(16, 406);
             this.userInput.Name = "userInput";
             this.userInput.ReadOnly = true;
             this.userInput.Size = new System.Drawing.Size(218, 23);
@@ -126,7 +128,7 @@
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(364, 403);
+            this.textOutput.Size = new System.Drawing.Size(364, 384);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -269,6 +271,16 @@
             this.decryptFileTSM.Text = "Decrypt File";
             this.decryptFileTSM.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(262, 389);
+            this.button1.Name = "Stop";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Stop";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -314,5 +326,6 @@
         private ToolStripMenuItem decryptFileTSM;
         private Button enterInput;
         private TextBox userInput;
+        private Button button1;
     }
 }

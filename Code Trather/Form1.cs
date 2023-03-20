@@ -163,19 +163,32 @@ namespace Code_Trather
                 thread2.Join();
                 output += val;
 
+                if (buttonWasClicked) {
+                    process.Close();
+                    buttonWasClicked = false;
+                    return output;
+                }
+
             }
             string error = process.StandardError.ReadToEnd();
 
             if (error != "") {
                 WriteTo.writeToError(error);
+                List<string> errorList = error.Split(' ').ToList();
+                appendError(error, Globals.errorList);
             }
             process.WaitForExit();
             Globals.inputFilePath = "";
-            if (error != "")
-            {
-                WriteTo.writeToError(error);
-            }
             return output + error;
+        }
+
+        private void appendError(string error, List<string> errorList) {
+
+            foreach (var e in errorList) {
+                if (error.Contains(e)) {
+                    Globals.words.Add(e);
+                }
+            }
         }
 
         private void UpdateOutput(char line) {
@@ -232,6 +245,20 @@ namespace Code_Trather
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+
+            List<string> newWord = Globals.listReader(Globals.words);
+            List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in newWord) {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in usedKeys) {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+
             WriteTo.Complete();
             Globals.DONE = true;
             Cryptog.encryptSubmit();
@@ -377,6 +404,12 @@ namespace Code_Trather
 
                 Globals.DONE = true;
             }
+        }
+
+        private bool buttonWasClicked = false;
+        private void button1_Click(object sender, EventArgs e) {
+            buttonWasClicked = true;
+
         }
     }
 }
