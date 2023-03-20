@@ -201,6 +201,8 @@ namespace Code_Trather
 
             System.IO.Directory.Delete(Globals.filePath, true);
             System.IO.File.Delete(Globals.filePathZip);
+
+            ///Directory.CreateDirectory(Globals.);
         }
 
         /// <summary>
@@ -233,5 +235,9 @@ namespace Code_Trather
             }
         }
 
+        public static void massDecrypt(string folder)
+        {
+            string[] files = Directory.GetFiles(folder, "*ProfileHandler.cs", SearchOption.AllDirectories);
+        }
     }
 }
