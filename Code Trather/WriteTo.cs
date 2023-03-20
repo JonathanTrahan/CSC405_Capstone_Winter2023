@@ -47,6 +47,17 @@ public class WriteTo
         return text;
     }
 
+    public static string addPlus(string text)
+    {
+        string[] textlist = text.Split(",");
+        string newstring = "";
+        newstring += textlist[0];
+        newstring += " +";
+        newstring += textlist[1];
+        return newstring;
+
+    }
+
     /// <summary>
     /// Method to clear the files if the exist and create the files if they don't
     /// </summary>

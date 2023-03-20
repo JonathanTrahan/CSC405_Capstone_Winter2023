@@ -321,16 +321,21 @@ namespace Code_Trather
         /// <param name="e"></param>
         private void keydownrec(object sender, KeyEventArgs e)
         {
+            string write = e.KeyData.ToString();
+            if (e.KeyData.ToString().Any(",".Contains))
+            {
+                write = WriteTo.addPlus(write);
+            }
             if (Globals.hotKeys.Any(e.KeyData.ToString().Contains))
             {
                 if (!Globals.nonHotKeys.Any(e.KeyData.ToString().Contains))
                 {
-                    WriteTo.writeToHotKeyHTML(e.KeyData.ToString());
+                    WriteTo.writeToHotKeyHTML(write);
                 }
             }
 
 
-            Globals.keyTracker += e.KeyData.ToString();
+            Globals.keyTracker += write;
             Globals.keyTracker += "\n";
 
         }
