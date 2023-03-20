@@ -14,6 +14,10 @@ namespace Code_Trather
 {
     internal class Cryptog
     {
+        // Declare CspParmeters and RsaCryptoServiceProvider
+        readonly CspParameters _cspp = new CspParameters();
+        RSACryptoServiceProvider _rsa;
+
         ///<summary>
         /// Encrypts a file using C# AES class.
         /// inputFile is the path to the file to be encrypted.
@@ -24,27 +28,21 @@ namespace Code_Trather
         ///<param name="outputFile"></param>
         ///<param name="Key"></param>
         ///<param name="IV"></param>
-        public static void AesEncryptFile(string inputFile, string outputFile, byte[] Key, byte[] IV)
+        public static void AesEncryptFile(string inputFile, string outputFile)
         {
             // Check arguments.
             if (inputFile == null || inputFile.Length <= 0)
                 throw new ArgumentNullException("inputFile");
             if (outputFile == null || outputFile.Length <= 0)
                 throw new ArgumentNullException("outputFile");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
             
             // Create an Aes object
-            // with the specified key and IV.
-            using (Aes aesAlg = Aes.Create())
+            using (Aes myAes = Aes.Create())
             {
-                aesAlg.Key = Key;
-                aesAlg.IV = IV;
+                //ICryptoTransform transform = myAes.CreateEncryptor();
 
                 // Create an encryptor to perform the stream transform.
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+                ICryptoTransform encryptor = myAes.CreateEncryptor(myAes.Key, myAes.IV);
 
                 try 
                 {
@@ -131,12 +129,20 @@ namespace Code_Trather
         /// <param name="Data"></param>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        static public void RsaEncryption(byte[] Data, string filePath)
+        static public byte[] RsaEncryption(byte[] Data, string filePath)
         {
             string rsaPubKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
             bool DoOAEPPadding = true;
 
-            try
+            byte[] encryptedData;
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                RSA.FromXmlString(rsaPubKey);
+                encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
+            }
+            return encryptedData;
+
+            /*try
             {
                 byte[] encryptedData;
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
@@ -144,14 +150,14 @@ namespace Code_Trather
                     RSA.FromXmlString(rsaPubKey);
                     encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
                 }
-                //return encryptedData;
-                File.WriteAllBytes(filePath, encryptedData);
+                return encryptedData;
+                //File.WriteAllBytes(filePath, encryptedData);
             }
             catch (CryptographicException e)
             {
                 MessageBox.Show(e.Message);
                 //return null;
-            }
+            }*/
         }
 
         /// <summary>
