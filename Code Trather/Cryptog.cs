@@ -202,17 +202,6 @@ namespace Code_Trather
 
             System.IO.Directory.Delete(Globals.filePath, true);
             System.IO.File.Delete(Globals.filePathZip);
-
-            /*// create folder to store the encryptedZip and the aes key/IV
-            string newFolder = Globals.cryptFolder + Program.studentName;
-            Directory.CreateDirectory(newFolder);
-            File.Move(Globals.encryptedZip, newFolder + "/TratherLogs.aes");
-            File.Move(Globals.aesKeyFile_encrypted, newFolder + "/aeskey.rsa");
-            File.Move(Globals.aesIVFile_encrypted, newFolder + "/aesIV.rsa");
-
-            // convert the final folder into a zip
-            System.IO.File.Delete(newFolder + ".katb");
-            System.IO.Compression.ZipFile.CreateFromDirectory(newFolder, newFolder + ".katb");*/
         }
 
         /// <summary>
@@ -244,10 +233,5 @@ namespace Code_Trather
                 MessageBox.Show("No file to decrypt, key file is missing, or IV file is missing.", "Error!");
             }
         }
-
-        /*public static void massDecrypt(string folder)
-        {
-            string[] files = Directory.GetFiles(folder, "*ProfileHandler.cs", SearchOption.AllDirectories);
-        }*/
     }
 }
