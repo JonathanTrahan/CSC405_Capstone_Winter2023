@@ -245,9 +245,9 @@ namespace Code_Trather
             }
         }
 
-        public static void massDecrypt(string folder)
+        /*public static void massDecrypt(string folder)
         {
             string[] files = Directory.GetFiles(folder, "*ProfileHandler.cs", SearchOption.AllDirectories);
-        }
+        }*/
     }
 }
