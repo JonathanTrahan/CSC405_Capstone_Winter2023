@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
@@ -202,7 +203,16 @@ namespace Code_Trather
             System.IO.Directory.Delete(Globals.filePath, true);
             System.IO.File.Delete(Globals.filePathZip);
 
-            ///Directory.CreateDirectory(Globals.);
+            /*// create folder to store the encryptedZip and the aes key/IV
+            string newFolder = Globals.cryptFolder + Program.studentName;
+            Directory.CreateDirectory(newFolder);
+            File.Move(Globals.encryptedZip, newFolder + "/TratherLogs.aes");
+            File.Move(Globals.aesKeyFile_encrypted, newFolder + "/aeskey.rsa");
+            File.Move(Globals.aesIVFile_encrypted, newFolder + "/aesIV.rsa");
+
+            // convert the final folder into a zip
+            System.IO.File.Delete(newFolder + ".katb");
+            System.IO.Compression.ZipFile.CreateFromDirectory(newFolder, newFolder + ".katb");*/
         }
 
         /// <summary>
