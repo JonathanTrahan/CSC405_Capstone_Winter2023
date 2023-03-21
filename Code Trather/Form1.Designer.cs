@@ -276,9 +276,13 @@
             this.ClientSize = new System.Drawing.Size(1189, 518);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
