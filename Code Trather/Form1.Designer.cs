@@ -276,8 +276,6 @@
             this.ClientSize = new System.Drawing.Size(1189, 518);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
