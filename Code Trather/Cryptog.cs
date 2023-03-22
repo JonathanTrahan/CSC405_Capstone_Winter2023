@@ -14,27 +14,21 @@ namespace Code_Trather
 {
     internal class Cryptog
     {
-        // Declare CspParmeters and RsaCryptoServiceProvider
-        readonly CspParameters _cspp = new CspParameters();
-        RSACryptoServiceProvider _rsa;
-
         ///<summary>
-        /// Encrypts a file using C# AES class.
+        /// Encrypts a file using AES.
         /// inputFile is the path to the file to be encrypted.
         /// outputFile is the path to where the encrypted file is written to.
-        /// Key and IV are the AES parameters.
+        /// The AES key and IV are encrypted with RSA and written to the output file for decryption later.
         ///</summary>
         ///<param name="inputFile"></param>
         ///<param name="outputFile"></param>
-        ///<param name="Key"></param>
-        ///<param name="IV"></param>
-        public static void AesEncryptFile(string inputFile, string outputFile)
+        public static void encryptFile(string inputFile, string outputFile)
         {
             // Check arguments.
             if (inputFile == null || inputFile.Length <= 0)
-                throw new ArgumentNullException("inputFile");
+                throw new ArgumentNullException("aes encrypt inputFile null");
             if (outputFile == null || outputFile.Length <= 0)
-                throw new ArgumentNullException("outputFile");
+                throw new ArgumentNullException("aes encrypt outputFile  null");
             
             // Create an Aes object
             using (Aes myAes = Aes.Create())
@@ -44,26 +38,57 @@ namespace Code_Trather
                 // Create an encryptor to perform the stream transform.
                 ICryptoTransform encryptor = myAes.CreateEncryptor(myAes.Key, myAes.IV);
 
-                try 
+                string rsaPubKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+                bool DoOAEPPadding = false;
+
+                byte[] keyEncrypted;
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
-                FileStream fsCrypt = new FileStream(outputFile, FileMode.Create);
-
-                CryptoStream cs = new CryptoStream(fsCrypt, encryptor, CryptoStreamMode.Write);
-
-                FileStream fsIn = new FileStream(inputFile, FileMode.Open);
-                
-                int data;
-                while ((data = fsIn.ReadByte()) != -1)
-                    cs.WriteByte((byte)data);
-
-
-                fsIn.Close();
-                cs.Close();
-                fsCrypt.Close();
+                    RSA.FromXmlString(rsaPubKey);
+                    keyEncrypted = RSA.Encrypt(myAes.Key, DoOAEPPadding);
                 }
-                catch
+
+                // Create byte arrays to contain
+                // the length values of the key and IV.
+                int lKey = keyEncrypted.Length;
+                byte[] LenK = BitConverter.GetBytes(lKey);
+                int lIV = myAes.IV.Length;
+                byte[] LenIV = BitConverter.GetBytes(lIV);
+
+                using (var outFs = new FileStream(outputFile, FileMode.Create))
                 {
-                    MessageBox.Show("Encryption failed!", "Error");
+                    outFs.Write(LenK, 0, 4);
+                    outFs.Write(LenIV, 0, 4);
+                    outFs.Write(keyEncrypted, 0, lKey);
+                    outFs.Write(myAes.IV, 0, lIV);
+
+                    // Now write the cipher text using
+                    // a CryptoStream for encrypting.
+                    using (var outStreamEncrypted = new CryptoStream(outFs, encryptor, CryptoStreamMode.Write))
+                    {
+                        // By encrypting a chunk at
+                        // a time, you can save memory
+                        // and accommodate large files.
+                        int count = 0;
+                        int offset = 0;
+
+                        // blockSizeBytes can be any arbitrary size.
+                        int blockSizeBytes = myAes.BlockSize / 8;
+                        byte[] data = new byte[blockSizeBytes];
+                        int bytesRead = 0;
+
+                        using (var inFs = new FileStream(inputFile, FileMode.Open))
+                        {
+                            do
+                            {
+                                count = inFs.Read(data, 0, blockSizeBytes);
+                                offset += count;
+                                outStreamEncrypted.Write(data, 0, count);
+                                bytesRead += blockSizeBytes;
+                            } while (count > 0);
+                        }
+                        outStreamEncrypted.FlushFinalBlock();
+                    }
                 }
             }
         }
@@ -76,60 +101,105 @@ namespace Code_Trather
         ///</summary>
         ///<param name="inputFile"></param>
         ///<param name="outputFile"></param>
-        ///<param name="Key"></param>
-        ///<param name="IV"></param>
-        public static void AesDecryptFile(string inputFile, string outputFile, byte[] Key, byte[] IV)
+        public static void decryptFile(string inputFile, string outputFile)
         {
             // Check arguments.
             if (inputFile == null || inputFile.Length <= 0)
                 throw new ArgumentNullException("inputFile");
             if (outputFile == null || outputFile.Length <= 0)
                 throw new ArgumentNullException("outputFile");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
 
             // Create an Aes object
-            // with the specified key and IV.
-            using (Aes aesAlg = Aes.Create())
+            using (Aes myAes = Aes.Create())
             {
-                aesAlg.Key = Key;
-                aesAlg.IV = IV;
+                // Create byte arrays to get the length of
+                // the encrypted key and IV.
+                // These values were stored as 4 bytes each
+                // at the beginning of the encrypted package.
+                byte[] LenK = new byte[4];
+                byte[] LenIV = new byte[4];
 
-                // Create an decryptor to perform the stream transform.
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-                try
+                // Use FileStream objects to read the encrypted
+                // file (inFs) and save the decrypted file (outFs).
+                using (var inFs = new FileStream(inputFile, FileMode.Open))
                 {
-                    FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+                    inFs.Seek(0, SeekOrigin.Begin);
+                    inFs.Read(LenK, 0, 3);
+                    inFs.Seek(4, SeekOrigin.Begin);
+                    inFs.Read(LenIV, 0, 3);
 
-                    CryptoStream cs = new CryptoStream(fsCrypt, decryptor, CryptoStreamMode.Read);
+                    // Convert the lengths to integer values.
+                    int lenK = BitConverter.ToInt32(LenK, 0);
+                    int lenIV = BitConverter.ToInt32(LenIV, 0);
 
-                    FileStream fsOut = new FileStream(outputFile, FileMode.Create);
+                    // Determine the start postition of the ciphter text (startC) and its length(lenC).
+                    int startC = lenK + lenIV + 8;
+                    int lenC = (int)inFs.Length - startC;
 
-                    int data;
-                    while ((data = cs.ReadByte()) != -1)
-                        fsOut.WriteByte((byte)data);
+                    // Create the byte arrays for the encrypted Aes key and the IV
+                    byte[] KeyEncrypted = new byte[lenK];
+                    byte[] IV = new byte[lenIV];
 
-                    fsOut.Close();
-                    cs.Close();
-                    fsCrypt.Close();
-                }
-                catch
-                {
-                    MessageBox.Show("Decryption failed!", "Error");
+                    // Extract the key and IV starting from index 8 after the length values.
+                    inFs.Seek(8, SeekOrigin.Begin);
+                    inFs.Read(KeyEncrypted, 0, lenK);
+                    inFs.Seek(8 + lenK, SeekOrigin.Begin);
+                    inFs.Read(IV, 0, lenIV);
+
+                    // Use RSACryptoServiceProvider to decrypt the AES key.
+                    string rsaPrivKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent><P>5QN1nMWA+hVflwJY5+h4sK2KoVNsfUi/fLrtNi0S4WBTmNE3nOmsM9oKsOWJD4x2119ChAYLzfJIQNxNWLt2Zw==</P><Q>88pVyw8+kH5bEatyIocezzCWXUE2qSv/LZX3RrmsCvuBaGtJGDrKes8kegjQkmt4JbaWS9vNtF3QRo4dG3npyw==</Q><DP>f4y2s7MYy7Cdxchr5fYHSjfNr158XSboZ7rgpTzjeB0jUkisVbubymFVdQLSnJNaGUgYDtojNvgLH/zTI2l9Xw==</DP><DQ>sTCBlLn6viioZjpXFVNiCDMHRrZMVT7eFDLoa+YtbjoIf21izhKE8ie2GmBnv9QOmlKQAIi8hPielXlbHIpKaw==</DQ><InverseQ>npTpOi55D4qg8smqUV+KIOYyUXTjHmTAyRRyGdhiry+fcSx5sA1+rT78U3G64kYX1yVsoLSMjYqX8OIBsJDfSw==</InverseQ><D>lAIsRho53OT0Hi9HIZlS0sY7uES5XI7ymRFhhUrJpOMqhs6FjEYH4JvrF9NEalmYYi0otDFEyEUuVVEoR/zxEcYROKRh2EjfPHmENVDElI64TDnNItQn4GJ5+2FA2GPaJc8gbf6+TFbRj0fxuOxJHmB721qv41T59WN8eXnl4Y0=</D></RSAKeyValue>";
+                    bool DoOAEPPadding = false;
+
+                    byte[] KeyDecrypted;
+                    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                    {
+                        RSA.FromXmlString(rsaPrivKey);
+                        KeyDecrypted = RSA.Decrypt(KeyEncrypted, DoOAEPPadding);
+                    }
+
+                    // Decrypt the key.
+                    ICryptoTransform transform = myAes.CreateDecryptor(KeyDecrypted, IV);
+
+                    // Decrypt the cipher text from  the FileSteam of the encrypted file (inFs) into the FileStream for the decrypted file (outFs).
+                    using (var outFs = new FileStream(outputFile, FileMode.Create))
+                    {
+                        int count = 0;
+                        int offset = 0;
+
+                        // blockSizeBytes can be any arbitrary size.
+                        int blockSizeBytes = myAes.BlockSize / 8;
+                        byte[] data = new byte[blockSizeBytes];
+
+                        // By decrypting a chunk a time,
+                        // you can save memory and
+                        // accommodate large files.
+
+                        // Start at the beginning
+                        // of the cipher text.
+                        inFs.Seek(startC, SeekOrigin.Begin);
+                        using (var outStreamDecrypted = new CryptoStream(outFs, transform, CryptoStreamMode.Write))
+                        {
+                            do
+                            {
+                                count = inFs.Read(data, 0, blockSizeBytes);
+                                offset += count;
+                                outStreamDecrypted.Write(data, 0, count);
+                            } while (count > 0);
+
+                            outStreamDecrypted.FlushFinalBlock();
+                        }
+                    }
                 }
             }
         }
 
+        /*
         /// <summary>
-        /// Uses a hardcoded public key to encrypt a byte array and write it to the filepath.
+        /// Uses a hardcoded public key to encrypt a byte array and return the encrypted byte array.
         /// </summary>
         /// <param name="Data"></param>
-        /// <param name="filePath"></param>
         /// <returns></returns>
-        static public byte[] RsaEncryption(byte[] Data, string filePath)
+        static public byte[] RsaEncryption(byte[] Data)
         {
             string rsaPubKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
             bool DoOAEPPadding = true;
@@ -142,70 +212,76 @@ namespace Code_Trather
             }
             return encryptedData;
 
-            /*try
-            {
-                byte[] encryptedData;
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.FromXmlString(rsaPubKey);
-                    encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
-                }
-                return encryptedData;
-                //File.WriteAllBytes(filePath, encryptedData);
-            }
-            catch (CryptographicException e)
-            {
-                MessageBox.Show(e.Message);
-                //return null;
-            }*/
+            //try
+            //{
+            //    byte[] encryptedData;
+            //    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            //    {
+            //        RSA.FromXmlString(rsaPubKey);
+            //        encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
+            //    }
+            //    return encryptedData;
+            //    //File.WriteAllBytes(filePath, encryptedData);
+            //}
+            //catch (CryptographicException e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //    //return null;
+            //}
         }
 
         /// <summary>
         /// Uses a hardcoded private key to decrypt a byte array and write it to the filepath.
         /// </summary>
         /// <param name="Data"></param>
-        static public byte[]? RsaDecryption(byte[] Data)
+        static public byte[] RsaDecryption(byte[] Data)
         {
             string rsaPrivKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent><P>5QN1nMWA+hVflwJY5+h4sK2KoVNsfUi/fLrtNi0S4WBTmNE3nOmsM9oKsOWJD4x2119ChAYLzfJIQNxNWLt2Zw==</P><Q>88pVyw8+kH5bEatyIocezzCWXUE2qSv/LZX3RrmsCvuBaGtJGDrKes8kegjQkmt4JbaWS9vNtF3QRo4dG3npyw==</Q><DP>f4y2s7MYy7Cdxchr5fYHSjfNr158XSboZ7rgpTzjeB0jUkisVbubymFVdQLSnJNaGUgYDtojNvgLH/zTI2l9Xw==</DP><DQ>sTCBlLn6viioZjpXFVNiCDMHRrZMVT7eFDLoa+YtbjoIf21izhKE8ie2GmBnv9QOmlKQAIi8hPielXlbHIpKaw==</DQ><InverseQ>npTpOi55D4qg8smqUV+KIOYyUXTjHmTAyRRyGdhiry+fcSx5sA1+rT78U3G64kYX1yVsoLSMjYqX8OIBsJDfSw==</InverseQ><D>lAIsRho53OT0Hi9HIZlS0sY7uES5XI7ymRFhhUrJpOMqhs6FjEYH4JvrF9NEalmYYi0otDFEyEUuVVEoR/zxEcYROKRh2EjfPHmENVDElI64TDnNItQn4GJ5+2FA2GPaJc8gbf6+TFbRj0fxuOxJHmB721qv41T59WN8eXnl4Y0=</D></RSAKeyValue>";
             bool DoOAEPPadding = true;
 
-            try
+            byte[] decryptedData;
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
-                byte[] decryptedData;
-                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-                {
-                    RSA.FromXmlString(rsaPrivKey);
-                    decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
-                }
-                return decryptedData;
-                //File.WriteAllBytes(filePath, decryptedData);
+                RSA.FromXmlString(rsaPrivKey);
+                decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
             }
-            catch (CryptographicException e)
-            {
-                MessageBox.Show(e.Message);
-                return null;
-            }
+            return decryptedData;
+
+            //try
+            //{
+            //    byte[] decryptedData;
+            //    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            //    {
+            //        RSA.FromXmlString(rsaPrivKey);
+            //        decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
+            //    }
+            //    return decryptedData;
+            //    //File.WriteAllBytes(filePath, decryptedData);
+            //}
+            //catch (CryptographicException e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //    return null;
+            //}
         }
+        */
 
         /// <summary>
-        /// Creates a zip file from the TratherLogs folder, creates encrypted file in Cryptog folder from zip file, 
+        /// Creates a zip file from the TratherLogs folder
+        /// creates encrypted file in Cryptog folder from zip file
         /// then deletes TratherLogs and TratherLogs.zip
         /// </summary>
         public static void encryptSubmit()
         {
+            // zip the TratherLogs folder.
+            // try to delete the old TratherLogs.zip first so there are no conflicts.
             System.IO.File.Delete(Globals.filePathZip);
             System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
 
-            // Create a new instance of the Aes class.
-            // This generates a new key and initialization vector (IV).
-            using (Aes myAes = Aes.Create())
-            {
-                AesEncryptFile(Globals.filePathZip, Globals.encryptedZip, myAes.Key, myAes.IV);
+            // encrypt the TratherLogs zip file
+            encryptFile(Globals.filePathZip, Globals.encryptedZip);
 
-                RsaEncryption(myAes.Key, Globals.aesKeyFile_encrypted);
-                RsaEncryption(myAes.IV, Globals.aesIVFile_encrypted);
-            }
-
+            // delete the TratherLogs folder and TratherLogs zip so that only the encrypted TratherLogs exists
             System.IO.Directory.Delete(Globals.filePath, true);
             System.IO.File.Delete(Globals.filePathZip);
         }
@@ -215,28 +291,21 @@ namespace Code_Trather
         /// </summary>
         public static void decryptSubmit()
         {
-            if (File.Exists(Globals.encryptedZip) && File.Exists(Globals.aesKeyFile_encrypted) && File.Exists(Globals.aesIVFile_encrypted))
+            // check that the encrypted TratherLogs file exists
+            if (File.Exists(Globals.encryptedZip))
             {
-                var key = RsaDecryption(File.ReadAllBytes(Globals.aesKeyFile_encrypted));
-                var iv = RsaDecryption(File.ReadAllBytes(Globals.aesIVFile_encrypted));
+                // decrypt the file
+                decryptFile(Globals.encryptedZip, Globals.decryptedZip);
 
-                if (key != null && iv != null)
+                // check to see if decryption was succesful
+                if (File.Exists(Globals.decryptedZip))
                 {
-                    AesDecryptFile(Globals.encryptedZip, Globals.decryptedZip, key, iv);
-
-                    if (File.Exists(Globals.decryptedZip))
-                    {
-                        MessageBox.Show("Decryption Succesful!");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No file to decrypt, key file is missing, or IV file is missing.", "Error!");
+                    MessageBox.Show("Decryption Succesful!");
                 }
             }
             else
             {
-                MessageBox.Show("No file to decrypt, key file is missing, or IV file is missing.", "Error!");
+                MessageBox.Show("No file to decrypt.", "Error!");
             }
         }
     }
