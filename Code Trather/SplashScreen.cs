@@ -113,6 +113,8 @@ namespace Code_Trather
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
             Program.hasUnitTest = false;
+            File.WriteAllText(Globals.execSum, nameTextBox.Text);
+            File.AppendAllText(Globals.execSum, "," + cwidInputBox.Value.ToString());
             WriteTo.CreateFiles();
 
             //lanch main program
