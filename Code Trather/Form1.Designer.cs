@@ -98,6 +98,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(299, 519);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
@@ -110,7 +111,7 @@
             // enterInput
             // 
             this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterInput.Location = new System.Drawing.Point(299, 557);
+            this.enterInput.Location = new System.Drawing.Point(298, 557);
             this.enterInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.enterInput.Name = "enterInput";
             this.enterInput.Size = new System.Drawing.Size(86, 29);
@@ -127,7 +128,7 @@
             this.userInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userInput.Name = "userInput";
             this.userInput.ReadOnly = true;
-            this.userInput.Size = new System.Drawing.Size(249, 27);
+            this.userInput.Size = new System.Drawing.Size(248, 27);
             this.userInput.TabIndex = 1;
             // 
             // textOutput
@@ -139,7 +140,7 @@
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(415, 511);
+            this.textOutput.Size = new System.Drawing.Size(414, 511);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
