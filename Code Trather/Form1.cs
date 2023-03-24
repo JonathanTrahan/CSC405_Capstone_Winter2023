@@ -305,7 +305,6 @@ namespace Code_Trather
         private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Cryptog.decryptSubmit();
-            //Cryptog.AesDecryptFile(Globals.encryptedZip, Globals.decryptedZip);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
