@@ -62,6 +62,11 @@ namespace Code_Trather
                     using (Process process = Process.GetProcessById(processId))
                     {
                         System.Diagnostics.Debug.WriteLine("  Name: {0}, Id: {1}, Process: {2}", name, id, process.ProcessName);
+                        if(process.ProcessName != "Code_Trather")
+                        {
+                            WriteTo.writeToAttention($"  Name: {name}, Id: {id}, Process: {process.ProcessName}");
+                        }
+                        
                     }
                 }
             }
@@ -69,6 +74,7 @@ namespace Code_Trather
             catch (System.Windows.Automation.ElementNotAvailableException)
             {
                 System.Diagnostics.Debug.WriteLine("  Name: Unknown, Id: Unknown, Process: Unknown");
+                WriteTo.writeToAttention("  Name: Unknown, Id: Unknown, Process: Unknown");
             }
         }
     }
