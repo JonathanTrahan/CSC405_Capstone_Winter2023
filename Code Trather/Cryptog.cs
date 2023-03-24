@@ -9,6 +9,7 @@ using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 namespace Code_Trather
 {
@@ -279,7 +280,7 @@ namespace Code_Trather
             System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
 
             // encrypt the TratherLogs zip file
-            encryptFile(Globals.filePathZip, Globals.encryptedZip);
+            encryptFile(Globals.filePathZip, Globals.cryptFolder + Program.studentName + ".katb");
 
             // delete the TratherLogs folder and TratherLogs zip so that only the encrypted TratherLogs exists
             System.IO.Directory.Delete(Globals.filePath, true);
@@ -291,22 +292,63 @@ namespace Code_Trather
         /// </summary>
         public static void decryptSubmit()
         {
-            // check that the encrypted TratherLogs file exists
-            if (File.Exists(Globals.encryptedZip))
-            {
-                // decrypt the file
-                decryptFile(Globals.encryptedZip, Globals.decryptedZip);
+            OpenFileDialog x = new OpenFileDialog();
+            x.Filter = "KatBee Files (*.katb)|*.katb";
+            x.Multiselect = true;
+            x.ShowDialog();
+            string[] result = x.FileNames;
+            string[] decrypted = new string[result.Length];
+            int index = 0;
 
-                // check to see if decryption was succesful
-                if (File.Exists(Globals.decryptedZip))
+            foreach (string inputFilePath in result)
+            {
+                //MessageBox.Show(y, "Selected Item", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                string outFile = GetFileNameAppendVariation(inputFilePath, @"_decrypted");
+
+                outFile = Path.ChangeExtension(outFile, @".zip");
+
+                // decrypt the file
+                decryptFile(inputFilePath, outFile);
+
+                decrypted[index] = outFile;
+                index++;
+            }
+
+            // check to see if decryption was succesful
+            bool check = true;
+            foreach (string file in decrypted)
+            {
+                if (!File.Exists(file))
                 {
-                    MessageBox.Show("Decryption Succesful!");
+                    MessageBox.Show(file);
+                    check = false;
                 }
+                
+            }
+            if (check == true)
+            {
+                MessageBox.Show("Decryption Succesful!");
             }
             else
             {
-                MessageBox.Show("No file to decrypt.", "Error!");
+                MessageBox.Show("Not all files were decrypted.");
             }
+        }
+
+        /// <summary>
+        /// helper function to change name of file from file path
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="variation"></param>
+        /// <returns></returns>
+        private static string GetFileNameAppendVariation(string fileName, string variation)
+        {
+            string finalPath = Path.GetDirectoryName(fileName);
+
+            string newfilename = String.Concat(Path.GetFileNameWithoutExtension(fileName), variation, Path.GetExtension(fileName));
+
+            return Path.Combine(finalPath, newfilename);
         }
     }
 }
