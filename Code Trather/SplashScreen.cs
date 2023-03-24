@@ -60,6 +60,8 @@ namespace Code_Trather
             Program.cwid = (int)cwidInputBox.Value;
             Program.testID = testIDtextBox.Text;
             Program.hasUnitTest = true;
+            File.WriteAllText(Globals.execSum, nameTextBox.Text);
+            File.AppendAllText(Globals.execSum, "," + cwidInputBox.Value.ToString());
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
