@@ -31,6 +31,9 @@ namespace Code_Trather
             if (outputFile == null || outputFile.Length <= 0)
                 throw new ArgumentNullException("aes encrypt outputFile  null");
 
+            // delete outputFile path so that the old one is overwritten if it is there
+            File.Delete(outputFile);
+
             // Create an Aes object
             using (Aes myAes = Aes.Create())
             {
@@ -95,10 +98,10 @@ namespace Code_Trather
         }
 
         ///<summary>
-        /// Decrypts a file using C# AES class.
+        /// Decrypts a file using AES.
+        /// AES Key and IV are pulled from the begining of the file.
         /// inputFile is the path to the file to be decrypted.
         /// outputFile is the path to where the decrypted file is written to.
-        /// Key and IV are the AES parameters.
         ///</summary>
         ///<param name="inputFile"></param>
         ///<param name="outputFile"></param>
@@ -194,79 +197,6 @@ namespace Code_Trather
             }
         }
 
-        /*
-        /// <summary>
-        /// Uses a hardcoded public key to encrypt a byte array and return the encrypted byte array.
-        /// </summary>
-        /// <param name="Data"></param>
-        /// <returns></returns>
-        static public byte[] RsaEncryption(byte[] Data)
-        {
-            string rsaPubKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-            bool DoOAEPPadding = true;
-
-            byte[] encryptedData;
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            {
-                RSA.FromXmlString(rsaPubKey);
-                encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
-            }
-            return encryptedData;
-
-            //try
-            //{
-            //    byte[] encryptedData;
-            //    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            //    {
-            //        RSA.FromXmlString(rsaPubKey);
-            //        encryptedData = RSA.Encrypt(Data, DoOAEPPadding);
-            //    }
-            //    return encryptedData;
-            //    //File.WriteAllBytes(filePath, encryptedData);
-            //}
-            //catch (CryptographicException e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //    //return null;
-            //}
-        }
-
-        /// <summary>
-        /// Uses a hardcoded private key to decrypt a byte array and write it to the filepath.
-        /// </summary>
-        /// <param name="Data"></param>
-        static public byte[] RsaDecryption(byte[] Data)
-        {
-            string rsaPrivKey = "<RSAKeyValue><Modulus>2hdKHmqbwgm1x6ugtliJs7ImbbI/rYhsq1aKpjG8QKdUKqr7vVKUP+k6eLZeHcrAcAQ08B6gWn4CVAUezkhnAV07oWi7VCjnh5MsZvKSYytsewnbuBdoocjo+4eXVMjt4Jq0RRKqAoCgIwC8RK6CtZV6ENGmkK+ite9Y2s8Zoq0=</Modulus><Exponent>AQAB</Exponent><P>5QN1nMWA+hVflwJY5+h4sK2KoVNsfUi/fLrtNi0S4WBTmNE3nOmsM9oKsOWJD4x2119ChAYLzfJIQNxNWLt2Zw==</P><Q>88pVyw8+kH5bEatyIocezzCWXUE2qSv/LZX3RrmsCvuBaGtJGDrKes8kegjQkmt4JbaWS9vNtF3QRo4dG3npyw==</Q><DP>f4y2s7MYy7Cdxchr5fYHSjfNr158XSboZ7rgpTzjeB0jUkisVbubymFVdQLSnJNaGUgYDtojNvgLH/zTI2l9Xw==</DP><DQ>sTCBlLn6viioZjpXFVNiCDMHRrZMVT7eFDLoa+YtbjoIf21izhKE8ie2GmBnv9QOmlKQAIi8hPielXlbHIpKaw==</DQ><InverseQ>npTpOi55D4qg8smqUV+KIOYyUXTjHmTAyRRyGdhiry+fcSx5sA1+rT78U3G64kYX1yVsoLSMjYqX8OIBsJDfSw==</InverseQ><D>lAIsRho53OT0Hi9HIZlS0sY7uES5XI7ymRFhhUrJpOMqhs6FjEYH4JvrF9NEalmYYi0otDFEyEUuVVEoR/zxEcYROKRh2EjfPHmENVDElI64TDnNItQn4GJ5+2FA2GPaJc8gbf6+TFbRj0fxuOxJHmB721qv41T59WN8eXnl4Y0=</D></RSAKeyValue>";
-            bool DoOAEPPadding = true;
-
-            byte[] decryptedData;
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            {
-                RSA.FromXmlString(rsaPrivKey);
-                decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
-            }
-            return decryptedData;
-
-            //try
-            //{
-            //    byte[] decryptedData;
-            //    using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            //    {
-            //        RSA.FromXmlString(rsaPrivKey);
-            //        decryptedData = RSA.Decrypt(Data, DoOAEPPadding);
-            //    }
-            //    return decryptedData;
-            //    //File.WriteAllBytes(filePath, decryptedData);
-            //}
-            //catch (CryptographicException e)
-            //{
-            //    MessageBox.Show(e.Message);
-            //    return null;
-            //}
-        }
-        */
-
         /// <summary>
         /// Creates a zip file from the TratherLogs folder
         /// creates encrypted file in Cryptog folder from zip file
@@ -288,7 +218,7 @@ namespace Code_Trather
         }
 
         /// <summary>
-        /// gets the aes key and IV from crytog folder and decrypts the encrypted file. Needs to have required files in cryptog folder
+        /// Select multiple files to decrypt at once and check that the decrypted version was created.
         /// </summary>
         public static void decryptSubmit()
         {
