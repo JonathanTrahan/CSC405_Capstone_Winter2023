@@ -413,5 +413,21 @@ namespace Code_Trather
             buttonWasClicked = true;
 
         }
+
+        private void textInput_InsertCheck(object sender, InsertCheckEventArgs e)
+        {
+            if (e.Text.EndsWith("\r") || e.Text.EndsWith("\n"))
+            {
+                int startPos = textInput.Lines[textInput.LineFromPosition(textInput.CurrentPosition)].Position;
+                int endPos = e.Position;
+                string curLineText = textInput.GetTextRange(startPos, (endPos - startPos)); //Text until the caret.
+                Match indent = Regex.Match(curLineText, @"^[ \s\t]*");
+                e.Text = e.Text + indent.Value;
+                if (Regex.IsMatch(curLineText, @"^[ \s\t]*(def|for|while|if|elif|else|try|except|finally|with).*:$"))
+                {
+                    e.Text = e.Text + "\t";
+                }
+            }
+        }
     }
 }
