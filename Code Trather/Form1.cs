@@ -279,10 +279,12 @@ namespace Code_Trather
             System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             textOutput.Text = "";
             userInput.ReadOnly = false;
+            enterInput.Enabled = true;
             string result = await Task.Run(() => runProcess());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
             userInput.ReadOnly = true;
+            enterInput.Enabled = false;
         }
         /// <summary>
         /// InputFile_Click
@@ -340,8 +342,11 @@ namespace Code_Trather
         /// redirects input enter by user in <see cref="userInput"/> to command line
         /// </summary>
         private void enterInput_Click(object sender, EventArgs e) {
-            myStreamWriter.WriteLine(userInput.Text);
-            userInput.Text = "";
+            if (userInput.Text != null){
+                myStreamWriter.WriteLine(userInput.Text);
+                userInput.Text = "";
+            }
+            
         }
         /// <summary>
         /// Records what keys are pressed. Will record key presses to log file every update interval 
