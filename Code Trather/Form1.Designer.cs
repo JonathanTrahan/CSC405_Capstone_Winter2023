@@ -52,6 +52,9 @@
             this.zoomOutTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.zoom100TSM = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptFileTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.lang = new System.Windows.Forms.ToolStripDropDownButton();
+            this.switchToPy = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchToJava = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -100,7 +103,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(296, 519);
+            this.button1.Location = new System.Drawing.Point(293, 519);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(86, 31);
@@ -112,7 +115,7 @@
             // enterInput
             // 
             this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterInput.Location = new System.Drawing.Point(295, 557);
+            this.enterInput.Location = new System.Drawing.Point(292, 557);
             this.enterInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.enterInput.Name = "enterInput";
             this.enterInput.Size = new System.Drawing.Size(86, 29);
@@ -129,7 +132,7 @@
             this.userInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userInput.Name = "userInput";
             this.userInput.ReadOnly = true;
-            this.userInput.Size = new System.Drawing.Size(245, 27);
+            this.userInput.Size = new System.Drawing.Size(242, 27);
             this.userInput.TabIndex = 1;
             // 
             // textOutput
@@ -141,7 +144,7 @@
             this.textOutput.Multiline = true;
             this.textOutput.Name = "textOutput";
             this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(411, 511);
+            this.textOutput.Size = new System.Drawing.Size(408, 511);
             this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -158,7 +161,8 @@
             this.Test,
             this.InputFile,
             this.toolsDropDown,
-            this.decryptFileTSM});
+            this.decryptFileTSM,
+            this.lang});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
@@ -284,6 +288,32 @@
             this.decryptFileTSM.Text = "Decrypt Files";
             this.decryptFileTSM.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
             // 
+            // lang
+            // 
+            this.lang.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.lang.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.switchToPy,
+            this.switchToJava});
+            this.lang.Image = ((System.Drawing.Image)(resources.GetObject("lang.Image")));
+            this.lang.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lang.Name = "lang";
+            this.lang.Size = new System.Drawing.Size(88, 24);
+            this.lang.Text = "Language";
+            // 
+            // switchToPy
+            // 
+            this.switchToPy.Name = "switchToPy";
+            this.switchToPy.Size = new System.Drawing.Size(224, 26);
+            this.switchToPy.Text = "Python";
+            this.switchToPy.Click += new System.EventHandler(this.switchToPy_Click);
+            // 
+            // switchToJava
+            // 
+            this.switchToJava.Name = "switchToJava";
+            this.switchToJava.Size = new System.Drawing.Size(224, 26);
+            this.switchToJava.Text = "Java";
+            this.switchToJava.Click += new System.EventHandler(this.switchToJava_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -332,5 +362,8 @@
         private Button enterInput;
         private TextBox userInput;
         private Button button1;
+        private ToolStripDropDownButton lang;
+        private ToolStripMenuItem switchToPy;
+        private ToolStripMenuItem switchToJava;
     }
 }

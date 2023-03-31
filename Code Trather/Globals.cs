@@ -33,6 +33,7 @@ public static class Globals
     public static string snapshotsAddress = filePath + "snapshots.txt";
     public static string clipboardhtmlAddress = filePath + "clipboard.html";
     public static string downloadAddress = filePath + "assignment.py";
+    public static string downloadAddressJava = filePath + "assignment.java";
     public static string snapshothtmlAddress = filePath + "snapshots.html";
     public static string outputAddress = filePath + "output.html";
     public static string inputFilePath = "";

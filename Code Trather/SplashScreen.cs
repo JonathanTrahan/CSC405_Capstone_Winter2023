@@ -22,6 +22,7 @@ namespace Code_Trather
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
             System.IO.File.Create(Globals.downloadAddress).Close();
+            System.IO.File.Create(Globals.downloadAddressJava).Close();
             
 
             // create folder for encryption
