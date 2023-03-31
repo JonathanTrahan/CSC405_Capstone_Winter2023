@@ -66,14 +66,22 @@ namespace Code_Trather
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Python Files (*.py)|*.py";
+            openFileDialog.Filter = "Python Files (*.py)|*.py; Java Class Files (*.class)|*.class";
 
             //open the main form if file has been selected
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 //Get the path of specified file and save it in the output directory 
                 string unitTestFile = openFileDialog.FileName;
-                System.IO.File.WriteAllText(Globals.unitTestFilePath, System.IO.File.ReadAllText(unitTestFile));
+                if (Path.GetExtension(unitTestFile) == ".class")
+                {
+                    File.Move(unitTestFile, Globals.unitTestFilePathJava);
+                    //File.WriteAllText(Globals.unitTestFilePath, File.ReadAllText(unitTestFile));
+                }
+                else 
+                {
+                    File.WriteAllText(Globals.unitTestFilePath, File.ReadAllText(unitTestFile));
+                }
 
                 //lanch main program
                 Program.hasUnitTest = true;
