@@ -30,7 +30,7 @@ namespace Code_Trather
             inputFile = new OpenFileDialog();
             inputFile.Filter = "Text files (*.txt) | *.txt";
 
-            
+
             // initialize scintilla
             InitSelectionColor();
             InitPythonSyntaxColoring();
@@ -370,21 +370,27 @@ namespace Code_Trather
             }
         }
 
-        private void appendError(string error, List<string> errorList) {
+        private void appendError(string error, List<string> errorList)
+        {
 
-            foreach (var e in errorList) {
-                if (error.Contains(e)) {
+            foreach (var e in errorList)
+            {
+                if (error.Contains(e))
+                {
                     Globals.words.Add(e);
                 }
             }
         }
 
-        private void UpdateOutput(char line) {
-            if (textOutput.InvokeRequired) {
+        private void UpdateOutput(char line)
+        {
+            if (textOutput.InvokeRequired)
+            {
                 Action safeWrite = delegate { UpdateOutput(line); };
                 textOutput.Invoke(safeWrite);
             }
-            else {
+            else
+            {
                 textOutput.Text += line;
             }
         }
@@ -439,12 +445,14 @@ namespace Code_Trather
             List<string> newWord = Globals.listReader(Globals.words);
             List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
             System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in newWord) {
+            foreach (var word in newWord)
+            {
                 System.IO.File.AppendAllText(Globals.execSum, word);
                 Console.WriteLine(word + " ");
             }
             System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in usedKeys) {
+            foreach (var word in usedKeys)
+            {
                 System.IO.File.AppendAllText(Globals.execSum, word);
                 Console.WriteLine(word + " ");
             }
@@ -528,7 +536,8 @@ namespace Code_Trather
         /// enterInput_Click
         /// redirects input enter by user in <see cref="userInput"/> to command line
         /// </summary>
-        private void enterInput_Click(object sender, EventArgs e) {
+        private void enterInput_Click(object sender, EventArgs e)
+        {
             myStreamWriter.WriteLine(userInput.Text);
             userInput.Text = "";
         }
@@ -600,11 +609,17 @@ namespace Code_Trather
         }
 
         private bool buttonWasClicked = false;
-        private void button1_Click(object sender, EventArgs e) {
+        private void button1_Click(object sender, EventArgs e)
+        {
             buttonWasClicked = true;
 
         }
 
+        /// <summary>
+        /// Auto indents when a \n is added after a ':' or a '{'. if a \n is added between two brackets {\n}, then add indent and another \n for formatting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textInput_InsertCheck(object sender, InsertCheckEventArgs e)
         {
             if (e.Text.EndsWith("\r") || e.Text.EndsWith("\n"))
@@ -612,14 +627,33 @@ namespace Code_Trather
                 int startPos = textInput.Lines[textInput.LineFromPosition(textInput.CurrentPosition)].Position;
                 int endPos = e.Position;
                 string curLineText = textInput.GetTextRange(startPos, (endPos - startPos)); //Text until the caret.
+                // get the first group of spaces/tabs
                 Match indent = Regex.Match(curLineText, @"^[ \s\t]*");
-                e.Text = e.Text + indent.Value;
+                string spaces = new string(' ', (indent.Value.Length / 4) * 4);
+
+                e.Text = e.Text + spaces;
                 if (Regex.IsMatch(curLineText, @"^[ \s\t]*(def|for|while|if|elif|else|try|except|finally|with).*:$"))
                 {
-                    e.Text = e.Text + "\t";
+                    e.Text = e.Text + new string(' ', 4);
+                }
+                else if (Regex.IsMatch(curLineText, @"^[ \s\t]*.*{$"))
+                {
+                    e.Text = e.Text + new string(' ', 4);
                 }
             }
         }
+
+        /*private void textInput_CharAdded(object sender, CharAddedEventArgs e)
+        {
+            if (e.Char == 125)  //The '}' char.
+            {
+                int curLine = textInput.LineFromPosition(textInput.CurrentPosition);
+                if (textInput.Lines[curLine].Text.Trim() == "}") //Check whether the bracket is the only thing on the line.. For cases like "if() { }".
+                {
+                    textInput.Lines[curLine].Indentation -= 4;
+                }
+            }
+        }*/
 
         private void saveAssignment()
         {
