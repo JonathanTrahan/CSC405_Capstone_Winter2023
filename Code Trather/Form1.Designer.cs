@@ -101,7 +101,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.Location = new Point(291, 519);
+            button1.Location = new Point(289, 519);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(86, 31);
@@ -113,7 +113,7 @@
             // enterInput
             // 
             enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            enterInput.Location = new Point(290, 557);
+            enterInput.Location = new Point(288, 557);
             enterInput.Margin = new Padding(3, 4, 3, 4);
             enterInput.Name = "enterInput";
             enterInput.Size = new Size(86, 29);
@@ -129,7 +129,7 @@
             userInput.Margin = new Padding(3, 4, 3, 4);
             userInput.Name = "userInput";
             userInput.ReadOnly = true;
-            userInput.Size = new Size(240, 27);
+            userInput.Size = new Size(238, 27);
             userInput.TabIndex = 1;
             // 
             // textOutput
@@ -139,7 +139,7 @@
             textOutput.Multiline = true;
             textOutput.Name = "textOutput";
             textOutput.ReadOnly = true;
-            textOutput.Size = new Size(406, 511);
+            textOutput.Size = new Size(404, 511);
             textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -202,14 +202,14 @@
             // runTSM
             // 
             runTSM.Name = "runTSM";
-            runTSM.Size = new Size(149, 26);
+            runTSM.Size = new Size(224, 26);
             runTSM.Text = "Run";
             runTSM.Click += runToolStripMenuItem_Click;
             // 
             // unitTestTSM
             // 
             unitTestTSM.Name = "unitTestTSM";
-            unitTestTSM.Size = new Size(149, 26);
+            unitTestTSM.Size = new Size(224, 26);
             unitTestTSM.Text = "Unit Test";
             unitTestTSM.Click += runToolUnitTest;
             // 
@@ -237,7 +237,7 @@
             // 
             magnifyTSM.DropDownItems.AddRange(new ToolStripItem[] { zoomInTSM, zoomOutTSM, zoom100TSM });
             magnifyTSM.Name = "magnifyTSM";
-            magnifyTSM.Size = new Size(146, 26);
+            magnifyTSM.Size = new Size(224, 26);
             magnifyTSM.Text = "Magnify";
             // 
             // zoomInTSM
@@ -280,15 +280,17 @@
             // 
             // switchToPy
             // 
+            switchToPy.Checked = true;
+            switchToPy.CheckState = CheckState.Checked;
             switchToPy.Name = "switchToPy";
-            switchToPy.Size = new Size(137, 26);
+            switchToPy.Size = new Size(224, 26);
             switchToPy.Text = "Python";
             switchToPy.Click += switchToPy_Click;
             // 
             // switchToJava
             // 
             switchToJava.Name = "switchToJava";
-            switchToJava.Size = new Size(137, 26);
+            switchToJava.Size = new Size(224, 26);
             switchToJava.Text = "Java";
             switchToJava.Click += switchToJava_Click;
             // 

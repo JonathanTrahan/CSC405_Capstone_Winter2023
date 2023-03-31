@@ -671,12 +671,16 @@ namespace Code_Trather
         {
             isjava = true;
             CreateJavaLexer();
+            switchToPy.Checked = false;
+            switchToJava.Checked = true;
         }
 
         private void switchToPy_Click(object sender, EventArgs e)
         {
             isjava = false;
             InitPythonSyntaxColoring();
+            switchToPy.Checked = true;
+            switchToJava.Checked = false;
         }
     }
 }
