@@ -571,21 +571,41 @@ namespace Code_Trather
 
         private string runUnitTest()
         {
-            System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            //pProcess.StartInfo.CreateNoWindow = true;
-            pProcess.StartInfo.UseShellExecute = false;
-            pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Globals.unitTestFilePath + " " + Globals.inputFilePath;
-            // code either compiles or it doesn't
-            pProcess.StartInfo.RedirectStandardOutput = true;
-            pProcess.StartInfo.RedirectStandardError = true;
-            // start the command prompt
-            pProcess.Start();
-            string output = pProcess.StandardOutput.ReadToEnd();
-            string error = pProcess.StandardError.ReadToEnd();
-            pProcess.WaitForExit();
-            Globals.inputFilePath = "";
-            return output + error;
+            if (isjava)
+            {
+                Process jProcess = new Process();
+                jProcess.StartInfo.UseShellExecute = false;
+                jProcess.StartInfo.FileName = "cmd.exe";
+                jProcess.StartInfo.Arguments = "/C java " + Globals.unitTestFilePathJava + " " + Globals.inputFilePath;
+                // code either compiles or it doesn't
+                jProcess.StartInfo.RedirectStandardOutput = true;
+                jProcess.StartInfo.RedirectStandardError = true;
+                // start the command prompt
+                jProcess.Start();
+                string output = jProcess.StandardOutput.ReadToEnd();
+                string error = jProcess.StandardError.ReadToEnd();
+                jProcess.WaitForExit();
+                Globals.inputFilePath = "";
+                return output + error;
+            }
+            else
+            {
+                System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+                //pProcess.StartInfo.CreateNoWindow = true;
+                pProcess.StartInfo.UseShellExecute = false;
+                pProcess.StartInfo.FileName = "cmd.exe";
+                pProcess.StartInfo.Arguments = "/C python " + Globals.unitTestFilePath + " " + Globals.inputFilePath;
+                // code either compiles or it doesn't
+                pProcess.StartInfo.RedirectStandardOutput = true;
+                pProcess.StartInfo.RedirectStandardError = true;
+                // start the command prompt
+                pProcess.Start();
+                string output = pProcess.StandardOutput.ReadToEnd();
+                string error = pProcess.StandardError.ReadToEnd();
+                pProcess.WaitForExit();
+                Globals.inputFilePath = "";
+                return output + error;
+            }
         }
 
         private async void runToolUnitTest(object sender, EventArgs e)

@@ -44,7 +44,7 @@ public static class Globals
     public static string keyloggerAddress = filePath + "keylogger.html";
     public static string hotkeyAddress = filePath + "hotkeys.html";
     public static string unitTestFilePath = filePath + "unitTest.py";
-    public static string unitTestFilePathJava = filePath + "unitTest.class";
+    public static string unitTestFilePathJava = filePath + "unitTest.java";
     public static string indexAddress = filePath + "index.html";
     // Crypt Folder Addresses
     /// <summary>
