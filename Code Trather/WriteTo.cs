@@ -245,7 +245,7 @@ public class WriteTo
             string log = $"<button type=\"button\" class=\"collapsible\">Log #{Globals.errorCounter} ; {DateTime.Now.ToString("hh:mm:ss tt")} ; {Globals.timeElapsed().ToString().Remove(8)} time elapsed</button>\r\n\t\t\t<div class=\"content\">\r\n\t\t\t  <p>{addDiv(write)}</p>\r\n\t\t\t</div>";
             writeToFile(address, log);
             // Increments the counter so that the Counter is up to date
-            Globals.attentionCounter += 1;
+            Globals.errorCounter += 1;
         }
     }
 
