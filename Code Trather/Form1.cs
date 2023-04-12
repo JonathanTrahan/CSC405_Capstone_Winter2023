@@ -573,10 +573,21 @@ namespace Code_Trather
         {
             if (isjava)
             {
+                //System.IO.File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\n" + textInput.Text);
+
+                /*Process jProcessCompile = new Process();
+                jProcessCompile.StartInfo.UseShellExecute = false;
+                jProcessCompile.StartInfo.FileName = "cmd.exe";
+                jProcessCompile.StartInfo.Arguments = "/C javac " + Globals.javaUnitTestVersion;
+                // code either compiles or it doesn't
+                // start the command prompt
+                jProcessCompile.Start();
+                jProcessCompile.WaitForExit();*/
+
                 Process jProcess = new Process();
                 jProcess.StartInfo.UseShellExecute = false;
                 jProcess.StartInfo.FileName = "cmd.exe";
-                jProcess.StartInfo.Arguments = "/C java " + Globals.unitTestFilePathJava + " " + Globals.inputFilePath;
+                jProcess.StartInfo.Arguments = "/C javac " + Globals.javaUnitTestVersion + " && java " + Globals.unitTestFilePathJava;
                 // code either compiles or it doesn't
                 jProcess.StartInfo.RedirectStandardOutput = true;
                 jProcess.StartInfo.RedirectStandardError = true;
@@ -680,6 +691,7 @@ namespace Code_Trather
             if (isjava)
             {
                 System.IO.File.WriteAllText(Globals.downloadAddressJava, textInput.Text);
+                System.IO.File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\n" + textInput.Text);
             }
             else
             {

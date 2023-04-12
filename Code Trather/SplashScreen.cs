@@ -77,6 +77,10 @@ namespace Code_Trather
                 {
                     //File.Move(unitTestFile, Globals.unitTestFilePathJava);
                     File.WriteAllText(Globals.unitTestFilePathJava, File.ReadAllText(unitTestFile));
+
+                    Directory.CreateDirectory(Globals.filePath + "/Test");
+                    File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\npublic class assignment \r\n{\r\n\t\r\n}");
+
                 }
                 else 
                 {
