@@ -12,6 +12,9 @@ using static System.Windows.Forms.DataFormats;
 
 namespace Code_Trather
 {
+    /// <summary>
+    /// Form that the contains the area that the students can code, run test, and submit their code
+    /// </summary>
     public partial class Form1 : Form
     {
         StreamWriter myStreamWriter;
@@ -186,6 +189,11 @@ namespace Code_Trather
             return output + error;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="error"></param>
+        /// <param name="errorList"></param>
         private void appendError(string error, List<string> errorList) {
 
             foreach (var e in errorList) {
@@ -195,6 +203,10 @@ namespace Code_Trather
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="line"></param>
         private void UpdateOutput(char line) {
             if (textOutput.InvokeRequired) {
                 Action safeWrite = delegate { UpdateOutput(line); };
@@ -205,6 +217,11 @@ namespace Code_Trather
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateTime(object sender, EventArgs e)
         {
             WriteTo.writeToSnapshotHTML(textInput.Text);
