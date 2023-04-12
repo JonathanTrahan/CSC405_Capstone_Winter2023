@@ -17,6 +17,7 @@ namespace Code_Trather
     public partial class Form1 : Form
     {
         StreamWriter myStreamWriter;
+        bool isjava = false;
 
         public Form1()
         {
@@ -32,7 +33,7 @@ namespace Code_Trather
             inputFile = new OpenFileDialog();
             inputFile.Filter = "Text files (*.txt) | *.txt";
 
-            
+
             // initialize scintilla
             InitSelectionColor();
             InitPythonSyntaxColoring();
@@ -72,27 +73,159 @@ namespace Code_Trather
             textInput.Styles[Style.Default].ForeColor = IntToColor(0x000000);
             textInput.StyleClearAll();
 
-            // Configure the Python lexer styles
+            // Character
             textInput.Styles[Style.Python.Character].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.Character].BackColor = IntToColor(0xFFFFFF);
+
+            // ClassName
             textInput.Styles[Style.Python.ClassName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.ClassName].BackColor = IntToColor(0xFFFFFF);
+
+            // CommentBlock
             textInput.Styles[Style.Python.CommentBlock].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.CommentBlock].BackColor = IntToColor(0xFFFFFF);
+
+            // CommentLine
             textInput.Styles[Style.Python.CommentLine].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.CommentLine].BackColor = IntToColor(0xFFFFFF);
+
+            // Decorator
             textInput.Styles[Style.Python.Decorator].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.Decorator].BackColor = IntToColor(0xFFFFFF);
+
+            // DefName
             textInput.Styles[Style.Python.DefName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.DefName].BackColor = IntToColor(0xFFFFFF);
+
+            // Identifier
             textInput.Styles[Style.Python.Identifier].ForeColor = IntToColor(0x000000);
-            textInput.Styles[Style.Python.Number].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.Identifier].BackColor = IntToColor(0xFFFFFF);
+
+            // Number
+            textInput.Styles[Style.Python.Number].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.Number].BackColor = IntToColor(0xFFFFFF);
+
+            // Operator
             textInput.Styles[Style.Python.Operator].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.Operator].BackColor = IntToColor(0xFFFFFF);
+
+            // String
             textInput.Styles[Style.Python.String].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.String].BackColor = IntToColor(0xFFFFFF);
+
+            // StringEol
             textInput.Styles[Style.Python.StringEol].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.StringEol].BackColor = IntToColor(0xFFFFFF);
+
+            // Triple
             textInput.Styles[Style.Python.Triple].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.Triple].BackColor = IntToColor(0xFFFFFF);
+
+            // TripleDouble
             textInput.Styles[Style.Python.TripleDouble].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.TripleDouble].BackColor = IntToColor(0xFFFFFF);
+
+            // Word
             textInput.Styles[Style.Python.Word].ForeColor = IntToColor(0xFF7700);
+            textInput.Styles[Style.Python.Word].BackColor = IntToColor(0xFFFFFF);
+
+            // Word2
             textInput.Styles[Style.Python.Word2].ForeColor = IntToColor(0x900090);
+            textInput.Styles[Style.Python.Word2].BackColor = IntToColor(0xFFFFFF);
 
             textInput.Lexer = Lexer.Python;
 
+            // Word
             textInput.SetKeywords(0, "False await else import pass None break except in raise True class finally is return and continue for lambda try as def from nonlocal while assert del global not with async elif if or yield");
+            // Word2
             textInput.SetKeywords(1, "self ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip");
+        }
+
+        /// <summary>
+        /// Creates the lexer for the Java programming language.
+        /// </summary>
+        public void CreateJavaLexer()
+        {
+            // Configure the default style
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Courier New";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(0xFFFFFF);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0x000000);
+            textInput.StyleClearAll();
+
+            // PREPROCESSOR
+            textInput.Styles[Style.Cpp.Preprocessor].ForeColor = Color.FromArgb(128, 64, 0); // #804000
+            textInput.Styles[Style.Cpp.Preprocessor].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // DEFAULT
+            textInput.Styles[Style.Cpp.Default].ForeColor = Color.FromArgb(0, 0, 0); // #000000;
+            textInput.Styles[Style.Cpp.Default].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // INSTRUCTION WORD
+            textInput.Styles[Style.Cpp.Word].Bold = true;
+            textInput.Styles[Style.Cpp.Word].ForeColor = Color.FromArgb(0, 0, 255); // #0000FF
+            textInput.Styles[Style.Cpp.Word].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // TYPE WORD
+            textInput.Styles[Style.Cpp.Word2].ForeColor = Color.FromArgb(128, 0, 255); // #8000FF 
+            textInput.Styles[Style.Cpp.Word2].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // NUMBER
+            textInput.Styles[Style.Cpp.Number].ForeColor = Color.FromArgb(255, 128, 0); // #FF8000 
+            textInput.Styles[Style.Cpp.Number].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // STRING
+            textInput.Styles[Style.Cpp.String].ForeColor = Color.FromArgb(128, 128, 128); // #808080 
+            textInput.Styles[Style.Cpp.String].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // CHARACTER
+            textInput.Styles[Style.Cpp.Character].ForeColor = Color.FromArgb(128, 128, 128); // #808080 
+            textInput.Styles[Style.Cpp.Character].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // OPERATOR
+            textInput.Styles[Style.Cpp.Operator].Bold = true;
+            textInput.Styles[Style.Cpp.Operator].ForeColor = Color.FromArgb(0, 0, 128); // #000080 
+            textInput.Styles[Style.Cpp.Operator].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // VERBATIM
+            textInput.Styles[Style.Cpp.Verbatim].ForeColor = Color.FromArgb(0, 0, 0); // #000000 
+            textInput.Styles[Style.Cpp.Verbatim].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // REGEX
+            textInput.Styles[Style.Cpp.Regex].Bold = true;
+            textInput.Styles[Style.Cpp.Regex].ForeColor = Color.FromArgb(0, 0, 0); // #000000 
+            textInput.Styles[Style.Cpp.Regex].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT
+            textInput.Styles[Style.Cpp.Comment].ForeColor = Color.FromArgb(0, 128, 0); // #008000 
+            textInput.Styles[Style.Cpp.Comment].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT LINE
+            textInput.Styles[Style.Cpp.CommentLine].ForeColor = Color.FromArgb(0, 128, 0); // #008000 
+            textInput.Styles[Style.Cpp.CommentLine].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT DOC
+            textInput.Styles[Style.Cpp.CommentDoc].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDoc].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT LINE DOC
+            textInput.Styles[Style.Cpp.CommentLineDoc].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentLineDoc].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT DOC KEYWORD
+            textInput.Styles[Style.Cpp.CommentDocKeyword].Bold = true;
+            textInput.Styles[Style.Cpp.CommentDocKeyword].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDocKeyword].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT DOC KEYWORD ERROR
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            textInput.Lexer = Lexer.Cpp;
+
+            textInput.SetKeywords(0, "instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null");
+            textInput.SetKeywords(1, "package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum");
         }
 
         /// <summary>
@@ -146,46 +279,98 @@ namespace Code_Trather
         /// </summary>
         private string runProcess()
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
-            // code either compiles or it doesn't
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardInput = true;
-            // start the command prompt
-            process.Start();
+            if (isjava)
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.FileName = "cmd.exe";
+                process.StartInfo.Arguments = "/C java " + Globals.downloadAddressJava + " " + Globals.inputFilePath;
+                // code either compiles or it doesn't
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.RedirectStandardInput = true;
+                // start the command prompt
+                process.Start();
 
-            myStreamWriter = process.StandardInput;
+                myStreamWriter = process.StandardInput;
 
-            string output = "";
-            while (!process.StandardOutput.EndOfStream) {
-                char val = (char)process.StandardOutput.Read();
-                var threadParam = new System.Threading.ThreadStart(delegate { UpdateOutput(val); });
-                var thread2 = new System.Threading.Thread(threadParam);
-                thread2.Start();
-                thread2.Join();
-                output += val;
+                string output = "";
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    char val = (char)process.StandardOutput.Read();
+                    var threadParam = new System.Threading.ThreadStart(delegate { UpdateOutput(val); });
+                    var thread2 = new System.Threading.Thread(threadParam);
+                    thread2.Start();
+                    thread2.Join();
+                    output += val;
 
-                if (buttonWasClicked) {
-                    process.Close();
-                    buttonWasClicked = false;
-                    return output;
+                    if (buttonWasClicked)
+                    {
+                        process.Close();
+                        buttonWasClicked = false;
+                        return output;
+                    }
+
                 }
+                string error = process.StandardError.ReadToEnd();
 
+                if (error != "")
+                {
+                    WriteTo.writeToError(error);
+                    List<string> errorList = error.Split(' ').ToList();
+                    appendError(error, Globals.errorList);
+                }
+                process.WaitForExit();
+                Globals.inputFilePath = "";
+                return output + error;
             }
-            string error = process.StandardError.ReadToEnd();
+            else
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.FileName = "cmd.exe";
+                process.StartInfo.Arguments = "/C python " + Globals.downloadAddress + " " + Globals.inputFilePath;
+                // code either compiles or it doesn't
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.RedirectStandardInput = true;
+                // start the command prompt
+                process.Start();
 
-            if (error != "") {
-                WriteTo.writeToError(error);
-                List<string> errorList = error.Split(' ').ToList();
-                appendError(error, Globals.errorList);
+                myStreamWriter = process.StandardInput;
+
+                string output = "";
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    char val = (char)process.StandardOutput.Read();
+                    var threadParam = new System.Threading.ThreadStart(delegate { UpdateOutput(val); });
+                    var thread2 = new System.Threading.Thread(threadParam);
+                    thread2.Start();
+                    thread2.Join();
+                    output += val;
+
+                    if (buttonWasClicked)
+                    {
+                        process.Close();
+                        buttonWasClicked = false;
+                        return output;
+                    }
+
+                }
+                string error = process.StandardError.ReadToEnd();
+
+                if (error != "")
+                {
+                    WriteTo.writeToError(error);
+                    List<string> errorList = error.Split(' ').ToList();
+                    appendError(error, Globals.errorList);
+                }
+                process.WaitForExit();
+                Globals.inputFilePath = "";
+                return output + error;
             }
-            process.WaitForExit();
-            Globals.inputFilePath = "";
-            return output + error;
         }
 
         /// <summary>
@@ -193,10 +378,13 @@ namespace Code_Trather
         /// </summary>
         /// <param name="error"></param>
         /// <param name="errorList"></param>
-        private void appendError(string error, List<string> errorList) {
+        private void appendError(string error, List<string> errorList)
+        {
 
-            foreach (var e in errorList) {
-                if (error.Contains(e)) {
+            foreach (var e in errorList)
+            {
+                if (error.Contains(e))
+                {
                     Globals.words.Add(e);
                 }
             }
@@ -206,12 +394,15 @@ namespace Code_Trather
         /// 
         /// </summary>
         /// <param name="line"></param>
-        private void UpdateOutput(char line) {
-            if (textOutput.InvokeRequired) {
+        private void UpdateOutput(char line)
+        {
+            if (textOutput.InvokeRequired)
+            {
                 Action safeWrite = delegate { UpdateOutput(line); };
                 textOutput.Invoke(safeWrite);
             }
-            else {
+            else
+            {
                 textOutput.Text += line;
             }
         }
@@ -239,7 +430,8 @@ namespace Code_Trather
         /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            saveAssignment();
         }
 
         /// <summary>
@@ -264,6 +456,27 @@ namespace Code_Trather
         /// </summary>
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            saveAssignment();
+
+            List<string> newWord = Globals.listReader(Globals.words);
+            List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in newWord)
+            {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in usedKeys)
+            {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+
+            WriteTo.Complete();
+            Globals.DONE = true;
+            Cryptog.encryptSubmit();
             Application.Exit();
         }
 
@@ -275,7 +488,9 @@ namespace Code_Trather
         /// </summary>
         private async void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            saveAssignment();
+
             textOutput.Text = "";
             userInput.ReadOnly = false;
             enterInput.Enabled = true;
@@ -359,12 +574,14 @@ namespace Code_Trather
         /// enterInput_Click
         /// redirects input enter by user in <see cref="userInput"/> to command line
         /// </summary>
-        private void enterInput_Click(object sender, EventArgs e) {
-            if (userInput.Text != null){
+        private void enterInput_Click(object sender, EventArgs e)
+        {
+            if (userInput.Text != null)
+            {
                 myStreamWriter.WriteLine(userInput.Text);
                 userInput.Text = "";
             }
-            
+
         }
         /// <summary>
         /// Records what keys are pressed. Will record key presses to log file every update interval 
@@ -396,26 +613,59 @@ namespace Code_Trather
 
         private string runUnitTest()
         {
-            System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
-            //pProcess.StartInfo.CreateNoWindow = true;
-            pProcess.StartInfo.UseShellExecute = false;
-            pProcess.StartInfo.FileName = "cmd.exe";
-            pProcess.StartInfo.Arguments = "/C python " + Globals.unitTestFilePath + " " + Globals.inputFilePath;
-            // code either compiles or it doesn't
-            pProcess.StartInfo.RedirectStandardOutput = true;
-            pProcess.StartInfo.RedirectStandardError = true;
-            // start the command prompt
-            pProcess.Start();
-            string output = pProcess.StandardOutput.ReadToEnd();
-            string error = pProcess.StandardError.ReadToEnd();
-            pProcess.WaitForExit();
-            Globals.inputFilePath = "";
-            return output + error;
+            if (isjava)
+            {
+                //System.IO.File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\n" + textInput.Text);
+
+                /*Process jProcessCompile = new Process();
+                jProcessCompile.StartInfo.UseShellExecute = false;
+                jProcessCompile.StartInfo.FileName = "cmd.exe";
+                jProcessCompile.StartInfo.Arguments = "/C javac " + Globals.javaUnitTestVersion;
+                // code either compiles or it doesn't
+                // start the command prompt
+                jProcessCompile.Start();
+                jProcessCompile.WaitForExit();*/
+
+                Process jProcess = new Process();
+                jProcess.StartInfo.UseShellExecute = false;
+                jProcess.StartInfo.FileName = "cmd.exe";
+                jProcess.StartInfo.Arguments = "/C javac " + Globals.javaUnitTestVersion + " && java " + Globals.unitTestFilePathJava;
+                // code either compiles or it doesn't
+                jProcess.StartInfo.RedirectStandardOutput = true;
+                jProcess.StartInfo.RedirectStandardError = true;
+                // start the command prompt
+                jProcess.Start();
+                string output = jProcess.StandardOutput.ReadToEnd();
+                string error = jProcess.StandardError.ReadToEnd();
+                jProcess.WaitForExit();
+                Globals.inputFilePath = "";
+                return output + error;
+            }
+            else
+            {
+                System.Diagnostics.Process pProcess = new System.Diagnostics.Process();
+                //pProcess.StartInfo.CreateNoWindow = true;
+                pProcess.StartInfo.UseShellExecute = false;
+                pProcess.StartInfo.FileName = "cmd.exe";
+                pProcess.StartInfo.Arguments = "/C python " + Globals.unitTestFilePath + " " + Globals.inputFilePath;
+                // code either compiles or it doesn't
+                pProcess.StartInfo.RedirectStandardOutput = true;
+                pProcess.StartInfo.RedirectStandardError = true;
+                // start the command prompt
+                pProcess.Start();
+                string output = pProcess.StandardOutput.ReadToEnd();
+                string error = pProcess.StandardError.ReadToEnd();
+                pProcess.WaitForExit();
+                Globals.inputFilePath = "";
+                return output + error;
+            }
         }
 
         private async void runToolUnitTest(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            saveAssignment();
+
             textOutput.Text = "";
             string result = await Task.Run(() => runUnitTest());
             textOutput.Text = result;
@@ -432,7 +682,8 @@ namespace Code_Trather
         }
 
         private bool buttonWasClicked = false;
-        private void button1_Click(object sender, EventArgs e) {
+        private void button1_Click(object sender, EventArgs e)
+        {
             buttonWasClicked = true;
 
         }
@@ -444,6 +695,75 @@ namespace Code_Trather
             {
                 e.Cancel = true;
             }
+        }
+
+        /// <summary>
+        /// Auto indents when a \n is added after a ':' or a '{'. if a \n is added between two brackets {\n}, then add indent and another \n for formatting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textInput_InsertCheck(object sender, InsertCheckEventArgs e)
+        {
+            if (e.Text.EndsWith("\r") || e.Text.EndsWith("\n"))
+            {
+                int startPos = textInput.Lines[textInput.LineFromPosition(textInput.CurrentPosition)].Position;
+                int endPos = e.Position;
+                string curLineText = textInput.GetTextRange(startPos, (endPos - startPos)); //Text until the caret.
+                // get the first group of spaces/tabs
+                Match indent = Regex.Match(curLineText, @"^[ \s\t]*");
+                string spaces = new string(' ', (indent.Value.Length / 4) * 4);
+
+                e.Text = e.Text + spaces;
+                if (Regex.IsMatch(curLineText, @"^[ \s\t]*(def|for|while|if|elif|else|try|except|finally|with).*:$"))
+                {
+                    e.Text = e.Text + new string(' ', 4);
+                }
+                else if (Regex.IsMatch(curLineText, @"^[ \s\t]*.*{$"))
+                {
+                    e.Text = e.Text + new string(' ', 4);
+                }
+            }
+        }
+
+        /*private void textInput_CharAdded(object sender, CharAddedEventArgs e)
+        {
+            if (e.Char == 125)  //The '}' char.
+            {
+                int curLine = textInput.LineFromPosition(textInput.CurrentPosition);
+                if (textInput.Lines[curLine].Text.Trim() == "}") //Check whether the bracket is the only thing on the line.. For cases like "if() { }".
+                {
+                    textInput.Lines[curLine].Indentation -= 4;
+                }
+            }
+        }*/
+
+        private void saveAssignment()
+        {
+            if (isjava)
+            {
+                System.IO.File.WriteAllText(Globals.downloadAddressJava, textInput.Text);
+                System.IO.File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\n" + textInput.Text);
+            }
+            else
+            {
+                System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            }
+        }
+
+        private void switchToJava_Click(object sender, EventArgs e)
+        {
+            isjava = true;
+            CreateJavaLexer();
+            switchToPy.Checked = false;
+            switchToJava.Checked = true;
+        }
+
+        private void switchToPy_Click(object sender, EventArgs e)
+        {
+            isjava = false;
+            InitPythonSyntaxColoring();
+            switchToPy.Checked = true;
+            switchToJava.Checked = false;
         }
     }
 }

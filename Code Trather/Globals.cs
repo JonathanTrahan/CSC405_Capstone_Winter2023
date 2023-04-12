@@ -59,6 +59,8 @@ public static class Globals
     public static string snapshotsAddress = filePath + "snapshots.txt";
     public static string clipboardhtmlAddress = filePath + "clipboard.html";
     public static string downloadAddress = filePath + "assignment.py";
+    public static string downloadAddressJava = filePath + "assignment.java";
+    public static string javaUnitTestVersion = filePath + "Test/assignment.java";
     public static string snapshothtmlAddress = filePath + "snapshots.html";
     public static string outputAddress = filePath + "output.html";
     public static string inputFilePath = "";
@@ -69,6 +71,7 @@ public static class Globals
     public static string keyloggerAddress = filePath + "keylogger.html";
     public static string hotkeyAddress = filePath + "hotkeys.html";
     public static string unitTestFilePath = filePath + "unitTest.py";
+    public static string unitTestFilePathJava = filePath + "unitTest.java";
     public static string indexAddress = filePath + "index.html";
     /// <summary>
     ///  Crypt Folder Addresses
