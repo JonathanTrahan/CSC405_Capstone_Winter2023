@@ -21,7 +21,8 @@ namespace Code_Trather
         public Form1()
         {
             this.TopMost = true;
-            this.FormBorderStyle = FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
             /// Set up the open file dialog
@@ -263,24 +264,6 @@ namespace Code_Trather
         /// </summary>
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
-
-            List<string> newWord = Globals.listReader(Globals.words);
-            List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
-            System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in newWord) {
-                System.IO.File.AppendAllText(Globals.execSum, word);
-                Console.WriteLine(word + " ");
-            }
-            System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in usedKeys) {
-                System.IO.File.AppendAllText(Globals.execSum, word);
-                Console.WriteLine(word + " ");
-            }
-
-            WriteTo.Complete();
-            Globals.DONE = true;
-            Cryptog.encryptSubmit();
             Application.Exit();
         }
 
@@ -350,6 +333,25 @@ namespace Code_Trather
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            List<string> newWord = Globals.listReader(Globals.words);
+            List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in newWord)
+            {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in usedKeys)
+            {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+
+            WriteTo.Complete();
+            Globals.DONE = true;
+            Cryptog.encryptSubmit();
             Application.Exit();
         }
 
@@ -433,6 +435,15 @@ namespace Code_Trather
         private void button1_Click(object sender, EventArgs e) {
             buttonWasClicked = true;
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("You are about to close the application. You will NOT be able to view/edit your work. Close application and submit work?", "Are you sure you want to quit?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
