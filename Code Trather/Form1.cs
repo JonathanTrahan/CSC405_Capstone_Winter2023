@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic;
 using System.IO;
 using System;
+using static System.Windows.Forms.DataFormats;
 
 namespace Code_Trather
 {
@@ -21,10 +22,11 @@ namespace Code_Trather
         public Form1()
         {
             this.TopMost = true;
-            this.FormBorderStyle = FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
-            /// Set up the open file dialog
+            // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
             //openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";
             openFileDialog.Filter = "Python Files (*.py)|*.py";
@@ -263,25 +265,30 @@ namespace Code_Trather
         /// </summary>
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
-
+            //DialogResult dialogResult = MessageBox.Show("You are about to close the application. You will NOT be able to view/edit your work. Close application and submit work?", "Are you sure you want to quit?", MessageBoxButtons.YesNo);
+            //if (dialogResult == DialogResult.Yes)
+            //{
+            /*System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             List<string> newWord = Globals.listReader(Globals.words);
             List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
             System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in newWord) {
+            foreach (var word in newWord)
+            {
                 System.IO.File.AppendAllText(Globals.execSum, word);
                 Console.WriteLine(word + " ");
             }
             System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in usedKeys) {
+            foreach (var word in usedKeys)
+            {
                 System.IO.File.AppendAllText(Globals.execSum, word);
                 Console.WriteLine(word + " ");
             }
 
             WriteTo.Complete();
             Globals.DONE = true;
-            Cryptog.encryptSubmit();
+            Cryptog.encryptSubmit();*/
             Application.Exit();
+            //}
         }
 
         /// <summary>
@@ -350,6 +357,25 @@ namespace Code_Trather
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            List<string> newWord = Globals.listReader(Globals.words);
+            List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in newWord)
+            {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+            System.IO.File.AppendAllText(Globals.execSum, ",");
+            foreach (var word in usedKeys)
+            {
+                System.IO.File.AppendAllText(Globals.execSum, word);
+                Console.WriteLine(word + " ");
+            }
+
+            WriteTo.Complete();
+            Globals.DONE = true;
+            Cryptog.encryptSubmit();
             Application.Exit();
         }
 
@@ -357,7 +383,8 @@ namespace Code_Trather
         /// enterInput_Click
         /// redirects input enter by user in <see cref="userInput"/> to command line
         /// </summary>
-        private void enterInput_Click(object sender, EventArgs e) {
+        private void enterInput_Click(object sender, EventArgs e) 
+        {
             if (userInput.Text != null){
                 myStreamWriter.WriteLine(userInput.Text);
                 userInput.Text = "";
@@ -433,6 +460,15 @@ namespace Code_Trather
         private void button1_Click(object sender, EventArgs e) {
             buttonWasClicked = true;
 
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("You are about to close the application. You will NOT be able to view/edit your work. Close application and submit work?", "Are you sure you want to quit?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
