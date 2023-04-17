@@ -40,18 +40,15 @@
             toolStrip1 = new ToolStrip();
             File = new ToolStripDropDownButton();
             saveTSM = new ToolStripMenuItem();
-            openTSM = new ToolStripMenuItem();
             submitTSM = new ToolStripMenuItem();
             Test = new ToolStripDropDownButton();
             runTSM = new ToolStripMenuItem();
             unitTestTSM = new ToolStripMenuItem();
-            InputFile = new ToolStripButton();
             toolsDropDown = new ToolStripDropDownButton();
             magnifyTSM = new ToolStripMenuItem();
             zoomInTSM = new ToolStripMenuItem();
             zoomOutTSM = new ToolStripMenuItem();
             zoom100TSM = new ToolStripMenuItem();
-            decryptFileTSM = new ToolStripMenuItem();
             lang = new ToolStripDropDownButton();
             switchToPy = new ToolStripMenuItem();
             switchToJava = new ToolStripMenuItem();
@@ -152,7 +149,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, InputFile, toolsDropDown, decryptFileTSM, lang });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, toolsDropDown, lang });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0, 0, 2, 0);
@@ -164,7 +161,7 @@
             // 
             File.AccessibleName = "File";
             File.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            File.DropDownItems.AddRange(new ToolStripItem[] { saveTSM, openTSM, submitTSM });
+            File.DropDownItems.AddRange(new ToolStripItem[] { saveTSM, submitTSM });
             File.Name = "File";
             File.Size = new Size(46, 24);
             File.Text = "File";
@@ -175,13 +172,6 @@
             saveTSM.Size = new Size(139, 26);
             saveTSM.Text = "Save";
             saveTSM.Click += saveToolStripMenuItem_Click;
-            // 
-            // openTSM
-            // 
-            openTSM.Name = "openTSM";
-            openTSM.Size = new Size(139, 26);
-            openTSM.Text = "Open";
-            openTSM.Click += openToolStripMenuItem_Click;
             // 
             // submitTSM
             // 
@@ -213,16 +203,6 @@
             unitTestTSM.Size = new Size(149, 26);
             unitTestTSM.Text = "Unit Test";
             unitTestTSM.Click += runToolUnitTest;
-            // 
-            // InputFile
-            // 
-            InputFile.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            InputFile.Image = (Image)resources.GetObject("InputFile.Image");
-            InputFile.ImageTransparentColor = Color.Magenta;
-            InputFile.Name = "InputFile";
-            InputFile.Size = new Size(74, 24);
-            InputFile.Text = "Input File";
-            InputFile.Click += InputFile_Click;
             // 
             // toolsDropDown
             // 
@@ -261,13 +241,6 @@
             zoom100TSM.Size = new Size(172, 26);
             zoom100TSM.Text = "Zoom 100%";
             zoom100TSM.Click += zoom100ToolStripMenuItem_Click;
-            // 
-            // decryptFileTSM
-            // 
-            decryptFileTSM.Name = "decryptFileTSM";
-            decryptFileTSM.Size = new Size(108, 27);
-            decryptFileTSM.Text = "Decrypt Files";
-            decryptFileTSM.Click += decryptFileToolStripMenuItem_Click;
             // 
             // lang
             // 
