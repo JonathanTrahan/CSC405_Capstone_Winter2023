@@ -4,21 +4,42 @@ using System.Collections.Generic;
 using Code_Trather;
 using System.Drawing.Text;
 
+/// <summary>
+/// Class that contains the global variables for the whole application 
+/// </summary>
 public static class Globals
 {
-    // Name Variables
+
+    /// <summary>
+    /// Variable that contains the first name of the student
+    /// </summary>
     public static string fName = "";
+    /// <summary>
+    /// Variable that contains the last name of the student
+    /// </summary>
     public static string lName = "";
-    
-    // List of Hot Key word to check inputs for
+
+    /// <summary>
+    /// List of Hot Key word to check inputs for
+    /// </summary>
     public static string[] hotKeys = { "Alt", "F11", "F12", "Insert", "Delete", "Control" , "Escape","LWin"};
+    /// <summary>
+    /// List of the Hot keys that wont be logged 
+    /// </summary>
     public static string[] nonHotKeys = { "Menu", "ControlKey" };
+    /// <summary>
+    /// List of the used Hot Keys 
+    /// </summary>
     public static List<string> usedHotKeys = new List<string> { };
 
-    // Makes a long list of every key press over a time interval
+    /// <summary>
+    /// Makes a long list of every key press over a time interval
+    /// </summary>
     public static string keyTracker = "";
-    
-    // Counters - These keep track of what the log number is currently next
+
+    /// <summary>
+    /// Counters - These keep track of what the log number is currently next
+    /// </summary>
     public static int snapshotCounter = 1;
     public static int clipboardCounter = 1;
     public static int outputCounter = 1;
@@ -27,12 +48,19 @@ public static class Globals
     public static int pressCounter = 1;
     public static int keyloggerCounter = 1;
     public static int hotkeyCounter = 1;
-    // Addresses - FilePaths to a specified file or folder to be used by the program
-    // Log Folder addresses
+    /// <summary>
+    /// Addresses - FilePaths to a specified file or folder to be used by the program
+    /// </summary>
+
+    /// <summary>
+    /// Log Folder addresses
+    /// </summary>
     public static string filePath = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/TratherLogs/";
     public static string snapshotsAddress = filePath + "snapshots.txt";
     public static string clipboardhtmlAddress = filePath + "clipboard.html";
     public static string downloadAddress = filePath + "assignment.py";
+    public static string downloadAddressJava = filePath + "assignment.java";
+    public static string javaUnitTestVersion = filePath + "Test/assignment.java";
     public static string snapshothtmlAddress = filePath + "snapshots.html";
     public static string outputAddress = filePath + "output.html";
     public static string inputFilePath = "";
@@ -43,10 +71,13 @@ public static class Globals
     public static string keyloggerAddress = filePath + "keylogger.html";
     public static string hotkeyAddress = filePath + "hotkeys.html";
     public static string unitTestFilePath = filePath + "unitTest.py";
+    public static string unitTestFilePathJava = filePath + "unitTest.java";
     public static string indexAddress = filePath + "index.html";
-    // Crypt Folder Addresses
     /// <summary>
-    /// Downloads/Cryptog/
+    ///  Crypt Folder Addresses
+    /// </summary>
+    /// <summary>
+    ///  Downloads/Cryptog/
     /// </summary>
     public static string cryptFolder = Environment.GetEnvironmentVariable("USERPROFILE") + @"\" + "Downloads/Cryptog/";
     /// <summary>
@@ -118,6 +149,12 @@ public static class Globals
 
         return ts;
     }
+
+    /// <summary>
+    /// Method that reads a list and returns a list that contains how many times a string was repeated in a list
+    /// </summary>
+    /// <param name="listToRead">List to be read for repeated values</param>
+    /// <returns>List of repeated values and how many times they are repeated</returns>
     public static List<string> listReader(List<string> listToRead)
     {
         List<string> checkedlist = new List<string> { };

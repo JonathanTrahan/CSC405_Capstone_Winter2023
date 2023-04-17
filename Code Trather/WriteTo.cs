@@ -3,11 +3,14 @@ using System.Diagnostics;
 using System.Timers;
 using static ScintillaNET.Style;
 
+/// <summary>
+/// Class that handles most/all methods that have to do with writing to the log files 
+/// </summary>
 public class WriteTo
 {
 
     /// <summary>
-    /// Method to be run when the submit button is pressed
+    /// Method to be run when the submit button is pressed. Will add tails to all the html files so that they are complete files.
     /// </summary>
     public static void Complete()
     {
@@ -23,20 +26,17 @@ public class WriteTo
     /// <summary>
     /// Method to write to a specific File 
     /// </summary>
-    /// <param name="fileName"></param>
-    /// <param name="write"></param>
+    /// <param name="fileName">name of the file to be written to</param>
+    /// <param name="write">string to be written to the file</param>
     public static void writeToFile(string fileName, string write)
     {
         File.AppendAllText(fileName, write + Environment.NewLine);
     }
-    public static void writeToFileCSV(string fileName, string write)
-    {
-        File.AppendAllText(fileName, write);
-    }
+   
 
-    ///<summary>
+    /// <summary>
     /// Method to replace all "\n" with "</div><div>" so that the logs are not all on one line
-    ///</summary> 
+    /// </summary> 
     public static string addDiv(string text)
     {
 
@@ -46,7 +46,11 @@ public class WriteTo
         text = temp + text + temp2;
         return text;
     }
-
+    /// <summary>
+    /// Replaces comma with a plus sign so that it can be put into a csv file
+    /// </summary>
+    /// <param name="text">text to be parsed for commas</param>
+    /// <returns>text that had a comma now have a plus sign instead</returns>
     public static string addPlus(string text)
     {
         string[] textlist = text.Split(",");
@@ -107,17 +111,12 @@ public class WriteTo
         File.AppendAllText(Globals.indexAddress, "");
         System.IO.File.WriteAllText(Globals.indexAddress, string.Empty);
         WriteTo.writeToFile(Globals.indexAddress, Globals.getIndexFile());
-
-
-
-
-
     }
 
     /// <summary>
     /// Method to write to the Snapshot HTML log file
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToSnapshotHTML(string write)
     {
         // If project is not complete then update log file
@@ -136,7 +135,7 @@ public class WriteTo
     /// <summary>
     /// Method to write to the Key Logger HTML log file
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToKeyLoggerHTML(string write)
     {
         // If project is not complete then update log file
@@ -154,7 +153,7 @@ public class WriteTo
     /// <summary>
     /// Method to write to the Hot Key Logger HTML log file
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToHotKeyHTML(string write)
     {
         // If project is not complete then update log file
@@ -173,7 +172,7 @@ public class WriteTo
     /// <summary>
     /// Method to write to the Clipboard HTML log file 
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToClipboard(string write)
     {
         // If project is not complete then update log file
@@ -196,7 +195,7 @@ public class WriteTo
     /// <summary>
     /// Method to write to the Output HTML log file
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToOutput(string write)
     {
         // If project is not complete then update log file
@@ -215,7 +214,7 @@ public class WriteTo
     /// <summary>
     /// Method to write to the Attention HTML log file
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToAttention(string write)
     {
         // If project is not complete then update log file
@@ -234,7 +233,7 @@ public class WriteTo
     /// <summary>
     /// Method to write to the Error HTML log file
     /// </summary>
-    /// <param name="write"></param>
+    /// <param name="write">text to be written to to the log file</param>
     public static void writeToError(string write)
     {
         // If project is not complete then update log file
@@ -246,7 +245,7 @@ public class WriteTo
             string log = $"<button type=\"button\" class=\"collapsible\">Log #{Globals.errorCounter} ; {DateTime.Now.ToString("hh:mm:ss tt")} ; {Globals.timeElapsed().ToString().Remove(8)} time elapsed</button>\r\n\t\t\t<div class=\"content\">\r\n\t\t\t  <p>{addDiv(write)}</p>\r\n\t\t\t</div>";
             writeToFile(address, log);
             // Increments the counter so that the Counter is up to date
-            Globals.attentionCounter += 1;
+            Globals.errorCounter += 1;
         }
     }
 

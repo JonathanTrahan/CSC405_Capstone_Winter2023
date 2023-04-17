@@ -206,15 +206,15 @@ namespace Code_Trather
         {
             // zip the TratherLogs folder.
             // try to delete the old TratherLogs.zip first so there are no conflicts.
-            System.IO.File.Delete(Globals.filePathZip);
-            System.IO.Compression.ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
+            File.Delete(Globals.filePathZip);
+            ZipFile.CreateFromDirectory(Globals.filePath, Globals.filePathZip);
 
             // encrypt the TratherLogs zip file
             encryptFile(Globals.filePathZip, Globals.cryptFolder + Program.studentName + ".katb");
 
             // delete the TratherLogs folder and TratherLogs zip so that only the encrypted TratherLogs exists
-            System.IO.Directory.Delete(Globals.filePath, true);
-            System.IO.File.Delete(Globals.filePathZip);
+            Directory.Delete(Globals.filePath, true);
+            File.Delete(Globals.filePathZip);
         }
 
         /// <summary>

@@ -28,280 +28,296 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.textInput = new ScintillaNET.Scintilla();
-            this.enterInput = new System.Windows.Forms.Button();
-            this.userInput = new System.Windows.Forms.TextBox();
-            this.textOutput = new System.Windows.Forms.TextBox();
-            this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.File = new System.Windows.Forms.ToolStripDropDownButton();
-            this.saveTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.submitTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.Test = new System.Windows.Forms.ToolStripDropDownButton();
-            this.runTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.unitTestTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.InputFile = new System.Windows.Forms.ToolStripButton();
-            this.toolsDropDown = new System.Windows.Forms.ToolStripDropDownButton();
-            this.magnifyTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomInTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomOutTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoom100TSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.decryptFileTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            splitContainer1 = new SplitContainer();
+            textInput = new ScintillaNET.Scintilla();
+            button1 = new Button();
+            enterInput = new Button();
+            userInput = new TextBox();
+            textOutput = new TextBox();
+            UpdateTimer = new System.Windows.Forms.Timer(components);
+            toolStrip1 = new ToolStrip();
+            File = new ToolStripDropDownButton();
+            saveTSM = new ToolStripMenuItem();
+            openTSM = new ToolStripMenuItem();
+            submitTSM = new ToolStripMenuItem();
+            Test = new ToolStripDropDownButton();
+            runTSM = new ToolStripMenuItem();
+            unitTestTSM = new ToolStripMenuItem();
+            InputFile = new ToolStripButton();
+            toolsDropDown = new ToolStripDropDownButton();
+            magnifyTSM = new ToolStripMenuItem();
+            zoomInTSM = new ToolStripMenuItem();
+            zoomOutTSM = new ToolStripMenuItem();
+            zoom100TSM = new ToolStripMenuItem();
+            decryptFileTSM = new ToolStripMenuItem();
+            lang = new ToolStripDropDownButton();
+            switchToPy = new ToolStripMenuItem();
+            switchToJava = new ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.Panel1.SuspendLayout();
+            splitContainer1.Panel2.SuspendLayout();
+            splitContainer1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(10, 42);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.splitContainer1.Name = "splitContainer1";
+            splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            splitContainer1.Location = new Point(11, 56);
+            splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.textInput);
+            splitContainer1.Panel1.Controls.Add(textInput);
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
-            this.splitContainer1.Panel2.Controls.Add(this.enterInput);
-            this.splitContainer1.Panel2.Controls.Add(this.userInput);
-            this.splitContainer1.Panel2.Controls.Add(this.textOutput);
-            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(1168, 458);
-            this.splitContainer1.SplitterDistance = 796;
-            this.splitContainer1.TabIndex = 2;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            splitContainer1.Panel2.Controls.Add(button1);
+            splitContainer1.Panel2.Controls.Add(enterInput);
+            splitContainer1.Panel2.Controls.Add(userInput);
+            splitContainer1.Panel2.Controls.Add(textOutput);
+            splitContainer1.Panel2.Paint += splitContainer1_Panel2_Paint;
+            splitContainer1.Size = new Size(1335, 611);
+            splitContainer1.SplitterDistance = 908;
+            splitContainer1.SplitterWidth = 5;
+            splitContainer1.TabIndex = 2;
+            splitContainer1.SplitterMoved += splitContainer1_SplitterMoved;
             // 
             // textInput
             // 
-            this.textInput.AutoCMaxHeight = 9;
-            this.textInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
-            this.textInput.Location = new System.Drawing.Point(0, 0);
-            this.textInput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textInput.Name = "textInput";
-            this.textInput.Size = new System.Drawing.Size(796, 458);
-            this.textInput.TabIndents = true;
-            this.textInput.TabIndex = 4;
-            this.textInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keydownrec);
-            // 
-            // enterInput
-            // 
-            this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.enterInput.Location = new System.Drawing.Point(262, 418);
-            this.enterInput.Name = "enterInput";
-            this.enterInput.Size = new System.Drawing.Size(75, 22);
-            this.enterInput.TabIndex = 2;
-            this.enterInput.Text = "Enter";
-            this.enterInput.UseVisualStyleBackColor = true;
-            this.enterInput.Click += new System.EventHandler(this.enterInput_Click);
-            // 
-            // userInput
-            // 
-            this.userInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.userInput.Location = new System.Drawing.Point(16, 406);
-            this.userInput.Name = "userInput";
-            this.userInput.ReadOnly = true;
-            this.userInput.Size = new System.Drawing.Size(218, 23);
-            this.userInput.TabIndex = 1;
-            // 
-            // textOutput
-            // 
-            this.textOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textOutput.Location = new System.Drawing.Point(0, 0);
-            this.textOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textOutput.Multiline = true;
-            this.textOutput.Name = "textOutput";
-            this.textOutput.ReadOnly = true;
-            this.textOutput.Size = new System.Drawing.Size(364, 384);
-            this.textOutput.TabIndex = 0;
-            // 
-            // UpdateTimer
-            // 
-            this.UpdateTimer.Enabled = true;
-            this.UpdateTimer.Interval = 3000;
-            this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTime);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.File,
-            this.Test,
-            this.InputFile,
-            this.toolsDropDown,
-            this.decryptFileTSM});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(1189, 25);
-            this.toolStrip1.TabIndex = 6;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // File
-            // 
-            this.File.AccessibleName = "File";
-            this.File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveTSM,
-            this.openTSM,
-            this.submitTSM});
-            this.File.Name = "File";
-            this.File.Size = new System.Drawing.Size(38, 22);
-            this.File.Text = "File";
-            // 
-            // saveTSM
-            // 
-            this.saveTSM.Name = "saveTSM";
-            this.saveTSM.Size = new System.Drawing.Size(112, 22);
-            this.saveTSM.Text = "Save";
-            this.saveTSM.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // openTSM
-            // 
-            this.openTSM.Name = "openTSM";
-            this.openTSM.Size = new System.Drawing.Size(112, 22);
-            this.openTSM.Text = "Open";
-            this.openTSM.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // submitTSM
-            // 
-            this.submitTSM.Name = "submitTSM";
-            this.submitTSM.Size = new System.Drawing.Size(112, 22);
-            this.submitTSM.Text = "Submit";
-            this.submitTSM.Click += new System.EventHandler(this.submitToolStripMenuItem_Click);
-            // 
-            // Test
-            // 
-            this.Test.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.Test.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runTSM,
-            this.unitTestTSM});
-            this.Test.Image = ((System.Drawing.Image)(resources.GetObject("Test.Image")));
-            this.Test.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Test.Name = "Test";
-            this.Test.Size = new System.Drawing.Size(40, 22);
-            this.Test.Text = "Test";
-            // 
-            // runTSM
-            // 
-            this.runTSM.Name = "runTSM";
-            this.runTSM.Size = new System.Drawing.Size(119, 22);
-            this.runTSM.Text = "Run";
-            this.runTSM.Click += new System.EventHandler(this.runToolStripMenuItem_Click);
-            // 
-            // unitTestTSM
-            // 
-            this.unitTestTSM.Name = "unitTestTSM";
-            this.unitTestTSM.Size = new System.Drawing.Size(119, 22);
-            this.unitTestTSM.Text = "Unit Test";
-            this.unitTestTSM.Click += new System.EventHandler(this.runToolUnitTest);
-            // 
-            // InputFile
-            // 
-            this.InputFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.InputFile.Image = ((System.Drawing.Image)(resources.GetObject("InputFile.Image")));
-            this.InputFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.InputFile.Name = "InputFile";
-            this.InputFile.Size = new System.Drawing.Size(60, 22);
-            this.InputFile.Text = "Input File";
-            this.InputFile.Click += new System.EventHandler(this.InputFile_Click);
-            // 
-            // toolsDropDown
-            // 
-            this.toolsDropDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolsDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.magnifyTSM});
-            this.toolsDropDown.Image = ((System.Drawing.Image)(resources.GetObject("toolsDropDown.Image")));
-            this.toolsDropDown.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolsDropDown.Name = "toolsDropDown";
-            this.toolsDropDown.Size = new System.Drawing.Size(47, 22);
-            this.toolsDropDown.Text = "Tools";
-            // 
-            // magnifyTSM
-            // 
-            this.magnifyTSM.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zoomInTSM,
-            this.zoomOutTSM,
-            this.zoom100TSM});
-            this.magnifyTSM.Name = "magnifyTSM";
-            this.magnifyTSM.Size = new System.Drawing.Size(118, 22);
-            this.magnifyTSM.Text = "Magnify";
-            // 
-            // zoomInTSM
-            // 
-            this.zoomInTSM.Name = "zoomInTSM";
-            this.zoomInTSM.Size = new System.Drawing.Size(137, 22);
-            this.zoomInTSM.Text = "Zoom In";
-            this.zoomInTSM.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
-            // 
-            // zoomOutTSM
-            // 
-            this.zoomOutTSM.Name = "zoomOutTSM";
-            this.zoomOutTSM.Size = new System.Drawing.Size(137, 22);
-            this.zoomOutTSM.Text = "Zoom Out";
-            this.zoomOutTSM.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
-            // 
-            // zoom100TSM
-            // 
-            this.zoom100TSM.Name = "zoom100TSM";
-            this.zoom100TSM.Size = new System.Drawing.Size(137, 22);
-            this.zoom100TSM.Text = "Zoom 100%";
-            this.zoom100TSM.Click += new System.EventHandler(this.zoom100ToolStripMenuItem_Click);
-            // 
-            // decryptFileTSM
-            // 
-            this.decryptFileTSM.Name = "decryptFileTSM";
-            this.decryptFileTSM.Size = new System.Drawing.Size(81, 25);
-            this.decryptFileTSM.Text = "Decrypt File";
-            this.decryptFileTSM.Click += new System.EventHandler(this.decryptFileToolStripMenuItem_Click);
+            textInput.AutoCMaxHeight = 9;
+            textInput.Dock = DockStyle.Fill;
+            textInput.IndentationGuides = ScintillaNET.IndentView.LookBoth;
+            textInput.Location = new Point(0, 0);
+            textInput.Name = "textInput";
+            textInput.Size = new Size(908, 611);
+            textInput.TabIndents = true;
+            textInput.TabIndex = 4;
+            textInput.InsertCheck += textInput_InsertCheck;
+            textInput.KeyDown += keydownrec;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(262, 389);
-            this.button1.Name = "Stop";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Stop";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button1.Location = new Point(298, 519);
+            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(86, 31);
+            button1.TabIndex = 3;
+            button1.Text = "Stop";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // enterInput
+            // 
+            enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            enterInput.Enabled = false;
+            enterInput.Location = new Point(297, 557);
+            enterInput.Margin = new Padding(3, 4, 3, 4);
+            enterInput.Name = "enterInput";
+            enterInput.Size = new Size(86, 29);
+            enterInput.TabIndex = 2;
+            enterInput.Text = "Enter";
+            enterInput.UseVisualStyleBackColor = true;
+            enterInput.Click += enterInput_Click;
+            // 
+            // userInput
+            // 
+            userInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            userInput.Location = new Point(18, 541);
+            userInput.Margin = new Padding(3, 4, 3, 4);
+            userInput.Name = "userInput";
+            userInput.ReadOnly = true;
+            userInput.Size = new Size(248, 27);
+            userInput.TabIndex = 1;
+            // 
+            // textOutput
+            // 
+            textOutput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textOutput.Location = new Point(0, 0);
+            textOutput.Multiline = true;
+            textOutput.Name = "textOutput";
+            textOutput.ReadOnly = true;
+            textOutput.Size = new Size(413, 511);
+            textOutput.TabIndex = 0;
+            // 
+            // UpdateTimer
+            // 
+            UpdateTimer.Enabled = true;
+            UpdateTimer.Interval = 3000;
+            UpdateTimer.Tick += UpdateTime;
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, InputFile, toolsDropDown, decryptFileTSM, lang });
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Padding = new Padding(0, 0, 2, 0);
+            toolStrip1.Size = new Size(1359, 27);
+            toolStrip1.TabIndex = 6;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // File
+            // 
+            File.AccessibleName = "File";
+            File.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            File.DropDownItems.AddRange(new ToolStripItem[] { saveTSM, openTSM, submitTSM });
+            File.Name = "File";
+            File.Size = new Size(46, 24);
+            File.Text = "File";
+            // 
+            // saveTSM
+            // 
+            saveTSM.Name = "saveTSM";
+            saveTSM.Size = new Size(139, 26);
+            saveTSM.Text = "Save";
+            saveTSM.Click += saveToolStripMenuItem_Click;
+            // 
+            // openTSM
+            // 
+            openTSM.Name = "openTSM";
+            openTSM.Size = new Size(139, 26);
+            openTSM.Text = "Open";
+            openTSM.Click += openToolStripMenuItem_Click;
+            // 
+            // submitTSM
+            // 
+            submitTSM.Name = "submitTSM";
+            submitTSM.Size = new Size(139, 26);
+            submitTSM.Text = "Submit";
+            submitTSM.Click += submitToolStripMenuItem_Click;
+            // 
+            // Test
+            // 
+            Test.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            Test.DropDownItems.AddRange(new ToolStripItem[] { runTSM, unitTestTSM });
+            Test.Image = (Image)resources.GetObject("Test.Image");
+            Test.ImageTransparentColor = Color.Magenta;
+            Test.Name = "Test";
+            Test.Size = new Size(49, 24);
+            Test.Text = "Test";
+            // 
+            // runTSM
+            // 
+            runTSM.Name = "runTSM";
+            runTSM.Size = new Size(149, 26);
+            runTSM.Text = "Run";
+            runTSM.Click += runToolStripMenuItem_Click;
+            // 
+            // unitTestTSM
+            // 
+            unitTestTSM.Name = "unitTestTSM";
+            unitTestTSM.Size = new Size(149, 26);
+            unitTestTSM.Text = "Unit Test";
+            unitTestTSM.Click += runToolUnitTest;
+            // 
+            // InputFile
+            // 
+            InputFile.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            InputFile.Image = (Image)resources.GetObject("InputFile.Image");
+            InputFile.ImageTransparentColor = Color.Magenta;
+            InputFile.Name = "InputFile";
+            InputFile.Size = new Size(74, 24);
+            InputFile.Text = "Input File";
+            InputFile.Click += InputFile_Click;
+            // 
+            // toolsDropDown
+            // 
+            toolsDropDown.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolsDropDown.DropDownItems.AddRange(new ToolStripItem[] { magnifyTSM });
+            toolsDropDown.Image = (Image)resources.GetObject("toolsDropDown.Image");
+            toolsDropDown.ImageTransparentColor = Color.Magenta;
+            toolsDropDown.Name = "toolsDropDown";
+            toolsDropDown.Size = new Size(58, 24);
+            toolsDropDown.Text = "Tools";
+            // 
+            // magnifyTSM
+            // 
+            magnifyTSM.DropDownItems.AddRange(new ToolStripItem[] { zoomInTSM, zoomOutTSM, zoom100TSM });
+            magnifyTSM.Name = "magnifyTSM";
+            magnifyTSM.Size = new Size(146, 26);
+            magnifyTSM.Text = "Magnify";
+            // 
+            // zoomInTSM
+            // 
+            zoomInTSM.Name = "zoomInTSM";
+            zoomInTSM.Size = new Size(172, 26);
+            zoomInTSM.Text = "Zoom In";
+            zoomInTSM.Click += zoomInToolStripMenuItem_Click;
+            // 
+            // zoomOutTSM
+            // 
+            zoomOutTSM.Name = "zoomOutTSM";
+            zoomOutTSM.Size = new Size(172, 26);
+            zoomOutTSM.Text = "Zoom Out";
+            zoomOutTSM.Click += zoomOutToolStripMenuItem_Click;
+            // 
+            // zoom100TSM
+            // 
+            zoom100TSM.Name = "zoom100TSM";
+            zoom100TSM.Size = new Size(172, 26);
+            zoom100TSM.Text = "Zoom 100%";
+            zoom100TSM.Click += zoom100ToolStripMenuItem_Click;
+            // 
+            // decryptFileTSM
+            // 
+            decryptFileTSM.Name = "decryptFileTSM";
+            decryptFileTSM.Size = new Size(108, 27);
+            decryptFileTSM.Text = "Decrypt Files";
+            decryptFileTSM.Click += decryptFileToolStripMenuItem_Click;
+            // 
+            // lang
+            // 
+            lang.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            lang.DropDownItems.AddRange(new ToolStripItem[] { switchToPy, switchToJava });
+            lang.Image = (Image)resources.GetObject("lang.Image");
+            lang.ImageTransparentColor = Color.Magenta;
+            lang.Name = "lang";
+            lang.Size = new Size(88, 24);
+            lang.Text = "Language";
+            // 
+            // switchToPy
+            // 
+            switchToPy.Checked = true;
+            switchToPy.CheckState = CheckState.Checked;
+            switchToPy.Name = "switchToPy";
+            switchToPy.Size = new Size(224, 26);
+            switchToPy.Text = "Python";
+            switchToPy.Click += switchToPy_Click;
+            // 
+            // switchToJava
+            // 
+            switchToJava.Name = "switchToJava";
+            switchToJava.Size = new Size(224, 26);
+            switchToJava.Text = "Java";
+            switchToJava.Click += switchToJava_Click;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1189, 518);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1359, 691);
+            Controls.Add(toolStrip1);
+            Controls.Add(splitContainer1);
+            MinimizeBox = false;
+            Name = "Form1";
+            Text = "Form1";
+            TopMost = true;
+            WindowState = FormWindowState.Maximized;
+            FormClosing += Form1_FormClosing;
+            FormClosed += Form1_FormClosed;
+            splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel2.ResumeLayout(false);
+            splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -327,5 +343,8 @@
         private Button enterInput;
         private TextBox userInput;
         private Button button1;
+        private ToolStripDropDownButton lang;
+        private ToolStripMenuItem switchToPy;
+        private ToolStripMenuItem switchToJava;
     }
 }
