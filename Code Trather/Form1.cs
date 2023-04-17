@@ -416,7 +416,7 @@ namespace Code_Trather
         {
             WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
-            Clipboard.Clear();
+            //Clipboard.Clear();
             WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
             Globals.keyTracker = "";
         }
