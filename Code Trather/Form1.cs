@@ -456,27 +456,6 @@ namespace Code_Trather
         /// </summary>
         private void submitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
-            saveAssignment();
-
-            List<string> newWord = Globals.listReader(Globals.words);
-            List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
-            System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in newWord)
-            {
-                System.IO.File.AppendAllText(Globals.execSum, word);
-                Console.WriteLine(word + " ");
-            }
-            System.IO.File.AppendAllText(Globals.execSum, ",");
-            foreach (var word in usedKeys)
-            {
-                System.IO.File.AppendAllText(Globals.execSum, word);
-                Console.WriteLine(word + " ");
-            }
-
-            WriteTo.Complete();
-            Globals.DONE = true;
-            Cryptog.encryptSubmit();
             Application.Exit();
         }
 
@@ -548,7 +527,9 @@ namespace Code_Trather
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
+            saveAssignment();
+
             List<string> newWord = Globals.listReader(Globals.words);
             List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
             System.IO.File.AppendAllText(Globals.execSum, ",");
@@ -615,17 +596,6 @@ namespace Code_Trather
         {
             if (isjava)
             {
-                //System.IO.File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\n" + textInput.Text);
-
-                /*Process jProcessCompile = new Process();
-                jProcessCompile.StartInfo.UseShellExecute = false;
-                jProcessCompile.StartInfo.FileName = "cmd.exe";
-                jProcessCompile.StartInfo.Arguments = "/C javac " + Globals.javaUnitTestVersion;
-                // code either compiles or it doesn't
-                // start the command prompt
-                jProcessCompile.Start();
-                jProcessCompile.WaitForExit();*/
-
                 Process jProcess = new Process();
                 jProcess.StartInfo.UseShellExecute = false;
                 jProcess.StartInfo.FileName = "cmd.exe";
