@@ -88,7 +88,7 @@
             this.startUT.Name = "startUT";
             this.startUT.Size = new System.Drawing.Size(95, 55);
             this.startUT.TabIndex = 6;
-            this.startUT.Text = "Start with Unit Test";
+            this.startUT.Text = "Start With Unit Test";
             this.startUT.UseVisualStyleBackColor = true;
             this.startUT.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -98,7 +98,7 @@
             this.startNoUT.Name = "startNoUT";
             this.startNoUT.Size = new System.Drawing.Size(95, 55);
             this.startNoUT.TabIndex = 7;
-            this.startNoUT.Text = "Start No Unit Test";
+            this.startNoUT.Text = "Start With No Unit Test";
             this.startNoUT.UseVisualStyleBackColor = true;
             this.startNoUT.Click += new System.EventHandler(this.button2_Click);
             // 
