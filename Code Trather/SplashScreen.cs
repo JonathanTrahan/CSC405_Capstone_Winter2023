@@ -22,6 +22,7 @@ namespace Code_Trather
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
             System.IO.File.Create(Globals.downloadAddress).Close();
+            System.IO.File.Create(Globals.downloadAddressJava).Close();
             
 
             // create folder for encryption
@@ -66,14 +67,26 @@ namespace Code_Trather
 
             // Set up the open file dialog
             openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Python Files (*.py)|*.py";
+            openFileDialog.Filter = "Python Files (*.py)|*.py|Java Files (*.java)|*.java";
 
             //open the main form if file has been selected
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 //Get the path of specified file and save it in the output directory 
                 string unitTestFile = openFileDialog.FileName;
-                System.IO.File.WriteAllText(Globals.unitTestFilePath, System.IO.File.ReadAllText(unitTestFile));
+                if (Path.GetExtension(unitTestFile) == ".java")
+                {
+                    //File.Move(unitTestFile, Globals.unitTestFilePathJava);
+                    File.WriteAllText(Globals.unitTestFilePathJava, File.ReadAllText(unitTestFile));
+
+                    Directory.CreateDirectory(Globals.filePath + "/Test");
+                    File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\npublic class assignment \r\n{\r\n\t\r\n}");
+
+                }
+                else
+                {
+                    File.WriteAllText(Globals.unitTestFilePath, File.ReadAllText(unitTestFile));
+                }
 
                 //lanch main program
                 Program.hasUnitTest = true;
