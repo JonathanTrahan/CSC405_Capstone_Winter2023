@@ -434,19 +434,6 @@ namespace Code_Trather
             saveAssignment();
         }
 
-        /// <summary>
-        /// openToolStripMenuItem_Click
-        /// open a file from anywhere on the device and display its contents in the input text box
-        /// *TO BE REMOVED IN FUTURE, MEANT FOR DEVELOPER TESTING PURPOSES*
-        /// </summary>
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Load the contents of the file into the text box
-                textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
-            }
-        }
 
         /// <summary>
         /// submitToolStripMenuItem_Click
@@ -479,19 +466,6 @@ namespace Code_Trather
             userInput.ReadOnly = true;
             enterInput.Enabled = false;
         }
-        /// <summary>
-        /// InputFile_Click
-        /// allows user to select a text file to read input from
-        /// *Likely to be removed in final version*
-        /// </summary>
-        private void InputFile_Click(object sender, EventArgs e)
-        {
-            if (inputFile.ShowDialog() == DialogResult.OK)
-            {
-                string path = Path.GetFullPath(inputFile.FileName);
-                Globals.inputFilePath = path;
-            }
-        }
 
         /// <summary>
         /// zoomInToolStripMenuItem_Click
@@ -520,10 +494,6 @@ namespace Code_Trather
             textInput.Zoom = 0;
         }
 
-        private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Cryptog.decryptSubmit();
-        }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
