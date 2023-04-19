@@ -26,13 +26,6 @@ namespace Code_Trather
             this.MinimizeBox = false;
             this.WindowState = FormWindowState.Maximized;
             InitializeComponent();
-            /// Set up the open file dialog
-            openFileDialog = new OpenFileDialog();
-            //openFileDialog.Filter = "Python Files (*.py)|*.py|All Files (*.*)|*.*";
-            openFileDialog.Filter = "Python Files (*.py)|*.py";
-            inputFile = new OpenFileDialog();
-            inputFile.Filter = "Text files (*.txt) | *.txt";
-
 
             // initialize scintilla
             InitSelectionColor();
@@ -271,6 +264,7 @@ namespace Code_Trather
         {
 
         }
+
         /// <summary>
         /// runProcess 
         /// handles the creation, execution, and exit of command prompt process 
@@ -434,20 +428,6 @@ namespace Code_Trather
             saveAssignment();
         }
 
-        /*/// <summary>
-        /// openToolStripMenuItem_Click
-        /// open a file from anywhere on the device and display its contents in the input text box
-        /// *TO BE REMOVED IN FUTURE, MEANT FOR DEVELOPER TESTING PURPOSES*
-        /// </summary>
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Load the contents of the file into the text box
-                textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
-            }
-        }*/
-
         /// <summary>
         /// submitToolStripMenuItem_Click
         /// final save of all text in the input textbox to the assignment file
@@ -479,20 +459,6 @@ namespace Code_Trather
             userInput.ReadOnly = true;
             enterInput.Enabled = false;
         }
-
-        /*/// <summary>
-        /// InputFile_Click
-        /// allows user to select a text file to read input from
-        /// *Likely to be removed in final version*
-        /// </summary>
-        private void InputFile_Click(object sender, EventArgs e)
-        {
-            if (inputFile.ShowDialog() == DialogResult.OK)
-            {
-                string path = Path.GetFullPath(inputFile.FileName);
-                Globals.inputFilePath = path;
-            }
-        }*/
 
         /// <summary>
         /// zoomInToolStripMenuItem_Click
@@ -588,10 +554,7 @@ namespace Code_Trather
 
             Globals.keyTracker += write;
             Globals.keyTracker += "\n";
-
         }
-
-
 
         private string runUnitTest()
         {
@@ -695,18 +658,6 @@ namespace Code_Trather
                 }
             }
         }
-
-        /*private void textInput_CharAdded(object sender, CharAddedEventArgs e)
-        {
-            if (e.Char == 125)  //The '}' char.
-            {
-                int curLine = textInput.LineFromPosition(textInput.CurrentPosition);
-                if (textInput.Lines[curLine].Text.Trim() == "}") //Check whether the bracket is the only thing on the line.. For cases like "if() { }".
-                {
-                    textInput.Lines[curLine].Indentation -= 4;
-                }
-            }
-        }*/
 
         private void saveAssignment()
         {
