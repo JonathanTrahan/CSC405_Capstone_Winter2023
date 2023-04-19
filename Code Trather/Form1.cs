@@ -434,7 +434,7 @@ namespace Code_Trather
             saveAssignment();
         }
 
-        /// <summary>
+        /*/// <summary>
         /// openToolStripMenuItem_Click
         /// open a file from anywhere on the device and display its contents in the input text box
         /// *TO BE REMOVED IN FUTURE, MEANT FOR DEVELOPER TESTING PURPOSES*
@@ -446,7 +446,7 @@ namespace Code_Trather
                 // Load the contents of the file into the text box
                 textInput.Text = System.IO.File.ReadAllText(openFileDialog.FileName);
             }
-        }
+        }*/
 
         /// <summary>
         /// submitToolStripMenuItem_Click
@@ -479,7 +479,8 @@ namespace Code_Trather
             userInput.ReadOnly = true;
             enterInput.Enabled = false;
         }
-        /// <summary>
+
+        /*/// <summary>
         /// InputFile_Click
         /// allows user to select a text file to read input from
         /// *Likely to be removed in final version*
@@ -491,7 +492,7 @@ namespace Code_Trather
                 string path = Path.GetFullPath(inputFile.FileName);
                 Globals.inputFilePath = path;
             }
-        }
+        }*/
 
         /// <summary>
         /// zoomInToolStripMenuItem_Click
@@ -599,7 +600,7 @@ namespace Code_Trather
                 Process jProcess = new Process();
                 jProcess.StartInfo.UseShellExecute = false;
                 jProcess.StartInfo.FileName = "cmd.exe";
-                jProcess.StartInfo.Arguments = "/C javac " + Globals.javaUnitTestVersion + " && java " + Globals.unitTestFilePathJava;
+                jProcess.StartInfo.Arguments = @"/c cd " + Globals.filePath + @" && javac " + Globals.javaUnitTestVersion + @" && java " + Globals.unitTestFilePathJava + @" && cd ..";
                 // code either compiles or it doesn't
                 jProcess.StartInfo.RedirectStandardOutput = true;
                 jProcess.StartInfo.RedirectStandardError = true;

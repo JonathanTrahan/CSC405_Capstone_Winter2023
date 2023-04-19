@@ -40,12 +40,10 @@
             toolStrip1 = new ToolStrip();
             File = new ToolStripDropDownButton();
             saveTSM = new ToolStripMenuItem();
-            openTSM = new ToolStripMenuItem();
             submitTSM = new ToolStripMenuItem();
             Test = new ToolStripDropDownButton();
             runTSM = new ToolStripMenuItem();
             unitTestTSM = new ToolStripMenuItem();
-            InputFile = new ToolStripButton();
             toolsDropDown = new ToolStripDropDownButton();
             magnifyTSM = new ToolStripMenuItem();
             zoomInTSM = new ToolStripMenuItem();
@@ -101,7 +99,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.Location = new Point(298, 519);
+            button1.Location = new Point(297, 519);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(86, 31);
@@ -114,7 +112,7 @@
             // 
             enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             enterInput.Enabled = false;
-            enterInput.Location = new Point(297, 557);
+            enterInput.Location = new Point(296, 557);
             enterInput.Margin = new Padding(3, 4, 3, 4);
             enterInput.Name = "enterInput";
             enterInput.Size = new Size(86, 29);
@@ -130,7 +128,7 @@
             userInput.Margin = new Padding(3, 4, 3, 4);
             userInput.Name = "userInput";
             userInput.ReadOnly = true;
-            userInput.Size = new Size(248, 27);
+            userInput.Size = new Size(247, 27);
             userInput.TabIndex = 1;
             // 
             // textOutput
@@ -140,7 +138,7 @@
             textOutput.Multiline = true;
             textOutput.Name = "textOutput";
             textOutput.ReadOnly = true;
-            textOutput.Size = new Size(413, 511);
+            textOutput.Size = new Size(412, 511);
             textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -152,7 +150,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, InputFile, toolsDropDown, decryptFileTSM, lang });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, toolsDropDown, decryptFileTSM, lang });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0, 0, 2, 0);
@@ -164,7 +162,7 @@
             // 
             File.AccessibleName = "File";
             File.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            File.DropDownItems.AddRange(new ToolStripItem[] { saveTSM, openTSM, submitTSM });
+            File.DropDownItems.AddRange(new ToolStripItem[] { saveTSM, submitTSM });
             File.Name = "File";
             File.Size = new Size(46, 24);
             File.Text = "File";
@@ -172,21 +170,14 @@
             // saveTSM
             // 
             saveTSM.Name = "saveTSM";
-            saveTSM.Size = new Size(139, 26);
+            saveTSM.Size = new Size(224, 26);
             saveTSM.Text = "Save";
             saveTSM.Click += saveToolStripMenuItem_Click;
-            // 
-            // openTSM
-            // 
-            openTSM.Name = "openTSM";
-            openTSM.Size = new Size(139, 26);
-            openTSM.Text = "Open";
-            openTSM.Click += openToolStripMenuItem_Click;
             // 
             // submitTSM
             // 
             submitTSM.Name = "submitTSM";
-            submitTSM.Size = new Size(139, 26);
+            submitTSM.Size = new Size(224, 26);
             submitTSM.Text = "Submit";
             submitTSM.Click += submitToolStripMenuItem_Click;
             // 
@@ -214,16 +205,6 @@
             unitTestTSM.Text = "Unit Test";
             unitTestTSM.Click += runToolUnitTest;
             // 
-            // InputFile
-            // 
-            InputFile.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            InputFile.Image = (Image)resources.GetObject("InputFile.Image");
-            InputFile.ImageTransparentColor = Color.Magenta;
-            InputFile.Name = "InputFile";
-            InputFile.Size = new Size(74, 24);
-            InputFile.Text = "Input File";
-            InputFile.Click += InputFile_Click;
-            // 
             // toolsDropDown
             // 
             toolsDropDown.DisplayStyle = ToolStripItemDisplayStyle.Text;
@@ -238,7 +219,7 @@
             // 
             magnifyTSM.DropDownItems.AddRange(new ToolStripItem[] { zoomInTSM, zoomOutTSM, zoom100TSM });
             magnifyTSM.Name = "magnifyTSM";
-            magnifyTSM.Size = new Size(146, 26);
+            magnifyTSM.Size = new Size(224, 26);
             magnifyTSM.Text = "Magnify";
             // 
             // zoomInTSM
@@ -284,14 +265,14 @@
             switchToPy.Checked = true;
             switchToPy.CheckState = CheckState.Checked;
             switchToPy.Name = "switchToPy";
-            switchToPy.Size = new Size(224, 26);
+            switchToPy.Size = new Size(137, 26);
             switchToPy.Text = "Python";
             switchToPy.Click += switchToPy_Click;
             // 
             // switchToJava
             // 
             switchToJava.Name = "switchToJava";
-            switchToJava.Size = new Size(224, 26);
+            switchToJava.Size = new Size(137, 26);
             switchToJava.Text = "Java";
             switchToJava.Click += switchToJava_Click;
             // 
@@ -328,12 +309,10 @@
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton File;
         private ToolStripMenuItem saveTSM;
-        private ToolStripMenuItem openTSM;
         private ToolStripMenuItem submitTSM;
         private ToolStripDropDownButton Test;
         private ToolStripMenuItem runTSM;
         private ToolStripMenuItem unitTestTSM;
-        private ToolStripButton InputFile;
         private ToolStripDropDownButton toolsDropDown;
         private ToolStripMenuItem magnifyTSM;
         private ToolStripMenuItem zoomInTSM;
