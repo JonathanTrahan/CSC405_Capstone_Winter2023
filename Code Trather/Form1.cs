@@ -487,10 +487,10 @@ namespace Code_Trather
             textInput.Zoom = 0;
         }
 
-        private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
+        /*private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Cryptog.decryptSubmit();
-        }
+        }*/
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {

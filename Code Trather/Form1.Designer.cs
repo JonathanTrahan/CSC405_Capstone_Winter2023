@@ -49,7 +49,6 @@
             zoomInTSM = new ToolStripMenuItem();
             zoomOutTSM = new ToolStripMenuItem();
             zoom100TSM = new ToolStripMenuItem();
-            decryptFileTSM = new ToolStripMenuItem();
             lang = new ToolStripDropDownButton();
             switchToPy = new ToolStripMenuItem();
             switchToJava = new ToolStripMenuItem();
@@ -99,7 +98,7 @@
             // button1
             // 
             button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.Location = new Point(297, 519);
+            button1.Location = new Point(296, 519);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(86, 31);
@@ -112,7 +111,7 @@
             // 
             enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             enterInput.Enabled = false;
-            enterInput.Location = new Point(296, 557);
+            enterInput.Location = new Point(295, 557);
             enterInput.Margin = new Padding(3, 4, 3, 4);
             enterInput.Name = "enterInput";
             enterInput.Size = new Size(86, 29);
@@ -128,7 +127,7 @@
             userInput.Margin = new Padding(3, 4, 3, 4);
             userInput.Name = "userInput";
             userInput.ReadOnly = true;
-            userInput.Size = new Size(247, 27);
+            userInput.Size = new Size(246, 27);
             userInput.TabIndex = 1;
             // 
             // textOutput
@@ -138,7 +137,7 @@
             textOutput.Multiline = true;
             textOutput.Name = "textOutput";
             textOutput.ReadOnly = true;
-            textOutput.Size = new Size(412, 511);
+            textOutput.Size = new Size(411, 511);
             textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -150,7 +149,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, toolsDropDown, decryptFileTSM, lang });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { File, Test, toolsDropDown, lang });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Padding = new Padding(0, 0, 2, 0);
@@ -170,14 +169,14 @@
             // saveTSM
             // 
             saveTSM.Name = "saveTSM";
-            saveTSM.Size = new Size(224, 26);
+            saveTSM.Size = new Size(139, 26);
             saveTSM.Text = "Save";
             saveTSM.Click += saveToolStripMenuItem_Click;
             // 
             // submitTSM
             // 
             submitTSM.Name = "submitTSM";
-            submitTSM.Size = new Size(224, 26);
+            submitTSM.Size = new Size(139, 26);
             submitTSM.Text = "Submit";
             submitTSM.Click += submitToolStripMenuItem_Click;
             // 
@@ -219,7 +218,7 @@
             // 
             magnifyTSM.DropDownItems.AddRange(new ToolStripItem[] { zoomInTSM, zoomOutTSM, zoom100TSM });
             magnifyTSM.Name = "magnifyTSM";
-            magnifyTSM.Size = new Size(224, 26);
+            magnifyTSM.Size = new Size(146, 26);
             magnifyTSM.Text = "Magnify";
             // 
             // zoomInTSM
@@ -243,13 +242,6 @@
             zoom100TSM.Text = "Zoom 100%";
             zoom100TSM.Click += zoom100ToolStripMenuItem_Click;
             // 
-            // decryptFileTSM
-            // 
-            decryptFileTSM.Name = "decryptFileTSM";
-            decryptFileTSM.Size = new Size(108, 27);
-            decryptFileTSM.Text = "Decrypt Files";
-            decryptFileTSM.Click += decryptFileToolStripMenuItem_Click;
-            // 
             // lang
             // 
             lang.DisplayStyle = ToolStripItemDisplayStyle.Text;
@@ -265,14 +257,14 @@
             switchToPy.Checked = true;
             switchToPy.CheckState = CheckState.Checked;
             switchToPy.Name = "switchToPy";
-            switchToPy.Size = new Size(137, 26);
+            switchToPy.Size = new Size(224, 26);
             switchToPy.Text = "Python";
             switchToPy.Click += switchToPy_Click;
             // 
             // switchToJava
             // 
             switchToJava.Name = "switchToJava";
-            switchToJava.Size = new Size(137, 26);
+            switchToJava.Size = new Size(224, 26);
             switchToJava.Text = "Java";
             switchToJava.Click += switchToJava_Click;
             // 
@@ -318,7 +310,6 @@
         private ToolStripMenuItem zoomInTSM;
         private ToolStripMenuItem zoomOutTSM;
         private ToolStripMenuItem zoom100TSM;
-        private ToolStripMenuItem decryptFileTSM;
         private Button enterInput;
         private TextBox userInput;
         private Button button1;
