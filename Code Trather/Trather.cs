@@ -14,12 +14,12 @@ namespace Code_Trather
     /// <summary>
     /// Form that the contains the area that the students can code, run test, and submit their code
     /// </summary>
-    public partial class Form1 : Form
+    public partial class Trather : Form
     {
         StreamWriter myStreamWriter;
         bool isjava = false;
 
-        public Form1()
+        public Trather()
         {
             this.TopMost = true;
             this.MaximizeBox = false;

@@ -14,30 +14,34 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Code_Trather
 {
-    public partial class SplashScreen : Form
+    public partial class Login : Form
     {
-        public SplashScreen()
-        { 
+        public Login()
+        {
             InitializeComponent();
             // path that file will be saved at
             Directory.CreateDirectory(Globals.filePath);
             System.IO.File.Create(Globals.downloadAddress).Close();
             System.IO.File.Create(Globals.downloadAddressJava).Close();
-            
+
 
             // create folder for encryption
             Directory.CreateDirectory(Globals.cryptFolder);
+
+            // java unit test
+            Directory.CreateDirectory(Globals.filePath + "/Test");
+            File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\npublic class assignment \r\n{\r\n\t\r\n}");
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private OpenFileDialog openFileDialog;
 
         //with unit test
-        private void button1_Click(object sender, EventArgs e)
+        private void startUT_Click(object sender, EventArgs e)
         {
             //check if inputs are full
             /*if (string.IsNullOrEmpty(nameTextBox.Text))
@@ -79,7 +83,7 @@ namespace Code_Trather
                     //File.Move(unitTestFile, Globals.unitTestFilePathJava);
                     File.WriteAllText(Globals.unitTestFilePathJava, File.ReadAllText(unitTestFile));
 
-                    Directory.CreateDirectory(Globals.filePath + "/Test");
+                    //Directory.CreateDirectory(Globals.filePath + "/Test");
                     File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\npublic class assignment \r\n{\r\n\t\r\n}");
 
                 }
@@ -90,14 +94,14 @@ namespace Code_Trather
 
                 //lanch main program
                 Program.hasUnitTest = true;
-                Form1 f1 = new Form1();
+                Trather f1 = new Trather();
                 f1.ShowDialog();
                 this.Close();
             }
         }
 
         //without unit test
-        private void button2_Click(object sender, EventArgs e)
+        private void startNoUT_Click(object sender, EventArgs e)
         {
             //check if inputs are full
             if (string.IsNullOrEmpty(nameTextBox.Text))
@@ -119,7 +123,7 @@ namespace Code_Trather
             //get inputs
             Program.studentName = nameTextBox.Text;
             string[] sName = Program.studentName.Split(' ');
-            
+
             Globals.fName = sName[0];
             if (sName.Length > 1)
             {
@@ -137,8 +141,8 @@ namespace Code_Trather
 
             //lanch main program
             Program.hasUnitTest = false;
-            Form1 f1 = new Form1();
-            f1.ShowDialog(); 
+            Trather f1 = new Trather();
+            f1.ShowDialog();
             this.Close();
         }
 

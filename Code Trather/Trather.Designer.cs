@@ -1,6 +1,6 @@
 ﻿namespace Code_Trather
 {
-    partial class Form1
+    partial class Trather
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Trather));
             splitContainer1 = new SplitContainer();
             textInput = new ScintillaNET.Scintilla();
             button1 = new Button();
