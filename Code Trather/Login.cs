@@ -33,14 +33,16 @@ namespace Code_Trather
             File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\npublic class assignment \r\n{\r\n\t\r\n}");
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Dialog for selecting the unit test.
+        /// </summary>
         private OpenFileDialog openFileDialog;
 
-        //with unit test
+        /// <summary>
+        /// select the unit test file and start the Trather form with a unit test.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startUT_Click(object sender, EventArgs e)
         {
             //check if inputs are full
@@ -80,10 +82,7 @@ namespace Code_Trather
                 string unitTestFile = openFileDialog.FileName;
                 if (Path.GetExtension(unitTestFile) == ".java")
                 {
-                    //File.Move(unitTestFile, Globals.unitTestFilePathJava);
                     File.WriteAllText(Globals.unitTestFilePathJava, File.ReadAllText(unitTestFile));
-
-                    //Directory.CreateDirectory(Globals.filePath + "/Test");
                     File.WriteAllText(Globals.javaUnitTestVersion, "package Test;\r\n\r\npublic class assignment \r\n{\r\n\t\r\n}");
 
                 }
@@ -100,7 +99,11 @@ namespace Code_Trather
             }
         }
 
-        //without unit test
+        /// <summary>
+        /// Start the Trather form without a unit test file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startNoUT_Click(object sender, EventArgs e)
         {
             //check if inputs are full
