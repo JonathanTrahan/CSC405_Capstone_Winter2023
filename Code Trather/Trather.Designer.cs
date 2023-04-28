@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Trather));
             splitContainer1 = new SplitContainer();
             textInput = new ScintillaNET.Scintilla();
-            button1 = new Button();
+            stopBTN = new Button();
             enterInput = new Button();
             userInput = new TextBox();
             textOutput = new TextBox();
@@ -71,7 +71,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(button1);
+            splitContainer1.Panel2.Controls.Add(stopBTN);
             splitContainer1.Panel2.Controls.Add(enterInput);
             splitContainer1.Panel2.Controls.Add(userInput);
             splitContainer1.Panel2.Controls.Add(textOutput);
@@ -95,23 +95,23 @@
             textInput.InsertCheck += textInput_InsertCheck;
             textInput.KeyDown += keydownrec;
             // 
-            // button1
+            // stopBTN
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.Location = new Point(296, 519);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(86, 31);
-            button1.TabIndex = 3;
-            button1.Text = "Stop";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            stopBTN.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            stopBTN.Location = new Point(291, 519);
+            stopBTN.Margin = new Padding(3, 4, 3, 4);
+            stopBTN.Name = "stopBTN";
+            stopBTN.Size = new Size(86, 31);
+            stopBTN.TabIndex = 3;
+            stopBTN.Text = "Stop";
+            stopBTN.UseVisualStyleBackColor = true;
+            stopBTN.Click += stopBTN_Click;
             // 
             // enterInput
             // 
             enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             enterInput.Enabled = false;
-            enterInput.Location = new Point(295, 557);
+            enterInput.Location = new Point(290, 557);
             enterInput.Margin = new Padding(3, 4, 3, 4);
             enterInput.Name = "enterInput";
             enterInput.Size = new Size(86, 29);
@@ -127,7 +127,7 @@
             userInput.Margin = new Padding(3, 4, 3, 4);
             userInput.Name = "userInput";
             userInput.ReadOnly = true;
-            userInput.Size = new Size(246, 27);
+            userInput.Size = new Size(241, 27);
             userInput.TabIndex = 1;
             // 
             // textOutput
@@ -137,7 +137,7 @@
             textOutput.Multiline = true;
             textOutput.Name = "textOutput";
             textOutput.ReadOnly = true;
-            textOutput.Size = new Size(411, 511);
+            textOutput.Size = new Size(406, 511);
             textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -169,16 +169,16 @@
             // saveTSM
             // 
             saveTSM.Name = "saveTSM";
-            saveTSM.Size = new Size(139, 26);
+            saveTSM.Size = new Size(224, 26);
             saveTSM.Text = "Save";
-            saveTSM.Click += saveToolStripMenuItem_Click;
+            saveTSM.Click += saveTSM_Click;
             // 
             // submitTSM
             // 
             submitTSM.Name = "submitTSM";
-            submitTSM.Size = new Size(139, 26);
+            submitTSM.Size = new Size(224, 26);
             submitTSM.Text = "Submit";
-            submitTSM.Click += submitToolStripMenuItem_Click;
+            submitTSM.Click += submitTSM_Click;
             // 
             // Test
             // 
@@ -193,16 +193,16 @@
             // runTSM
             // 
             runTSM.Name = "runTSM";
-            runTSM.Size = new Size(149, 26);
+            runTSM.Size = new Size(224, 26);
             runTSM.Text = "Run";
-            runTSM.Click += runToolStripMenuItem_Click;
+            runTSM.Click += runTSM_Click;
             // 
             // unitTestTSM
             // 
             unitTestTSM.Name = "unitTestTSM";
-            unitTestTSM.Size = new Size(149, 26);
+            unitTestTSM.Size = new Size(224, 26);
             unitTestTSM.Text = "Unit Test";
-            unitTestTSM.Click += runToolUnitTest;
+            unitTestTSM.Click += unitTestTSM_Click;
             // 
             // toolsDropDown
             // 
@@ -218,7 +218,7 @@
             // 
             magnifyTSM.DropDownItems.AddRange(new ToolStripItem[] { zoomInTSM, zoomOutTSM, zoom100TSM });
             magnifyTSM.Name = "magnifyTSM";
-            magnifyTSM.Size = new Size(146, 26);
+            magnifyTSM.Size = new Size(224, 26);
             magnifyTSM.Text = "Magnify";
             // 
             // zoomInTSM
@@ -226,21 +226,21 @@
             zoomInTSM.Name = "zoomInTSM";
             zoomInTSM.Size = new Size(172, 26);
             zoomInTSM.Text = "Zoom In";
-            zoomInTSM.Click += zoomInToolStripMenuItem_Click;
+            zoomInTSM.Click += zoomInTSM_Click;
             // 
             // zoomOutTSM
             // 
             zoomOutTSM.Name = "zoomOutTSM";
             zoomOutTSM.Size = new Size(172, 26);
             zoomOutTSM.Text = "Zoom Out";
-            zoomOutTSM.Click += zoomOutToolStripMenuItem_Click;
+            zoomOutTSM.Click += zoomOutTSM_Click;
             // 
             // zoom100TSM
             // 
             zoom100TSM.Name = "zoom100TSM";
             zoom100TSM.Size = new Size(172, 26);
             zoom100TSM.Text = "Zoom 100%";
-            zoom100TSM.Click += zoom100ToolStripMenuItem_Click;
+            zoom100TSM.Click += zoom100TSM_Click;
             // 
             // lang
             // 
@@ -257,18 +257,18 @@
             switchToPy.Checked = true;
             switchToPy.CheckState = CheckState.Checked;
             switchToPy.Name = "switchToPy";
-            switchToPy.Size = new Size(224, 26);
+            switchToPy.Size = new Size(137, 26);
             switchToPy.Text = "Python";
             switchToPy.Click += switchToPy_Click;
             // 
             // switchToJava
             // 
             switchToJava.Name = "switchToJava";
-            switchToJava.Size = new Size(224, 26);
+            switchToJava.Size = new Size(137, 26);
             switchToJava.Text = "Java";
             switchToJava.Click += switchToJava_Click;
             // 
-            // Form1
+            // Trather
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -276,12 +276,12 @@
             Controls.Add(toolStrip1);
             Controls.Add(splitContainer1);
             MinimizeBox = false;
-            Name = "Form1";
+            Name = "Trather";
             Text = "Form1";
             TopMost = true;
             WindowState = FormWindowState.Maximized;
-            FormClosing += Form1_FormClosing;
-            FormClosed += Form1_FormClosed;
+            FormClosing += Trather_FormClosing;
+            FormClosed += Trather_FormClosed;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             splitContainer1.Panel2.PerformLayout();
@@ -312,7 +312,7 @@
         private ToolStripMenuItem zoom100TSM;
         private Button enterInput;
         private TextBox userInput;
-        private Button button1;
+        private Button stopBTN;
         private ToolStripDropDownButton lang;
         private ToolStripMenuItem switchToPy;
         private ToolStripMenuItem switchToJava;
