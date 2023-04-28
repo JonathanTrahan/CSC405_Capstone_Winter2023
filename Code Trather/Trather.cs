@@ -408,9 +408,14 @@ namespace Code_Trather
         /// <param name="e"></param>
         private void UpdateTime(object sender, EventArgs e)
         {
+            TimerTasks();
+        }
+
+        private void TimerTasks()
+        {
             WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
-            //Clipboard.Clear();
+            Clipboard.Clear();
             WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
             Globals.keyTracker = "";
         }
@@ -496,7 +501,7 @@ namespace Code_Trather
         {
             //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             saveAssignment();
-
+            TimerTasks();
             List<string> newWord = Globals.listReader(Globals.words);
             List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
             System.IO.File.AppendAllText(Globals.execSum, ",");
@@ -511,7 +516,7 @@ namespace Code_Trather
                 System.IO.File.AppendAllText(Globals.execSum, word);
                 Console.WriteLine(word + " ");
             }
-
+            
             WriteTo.Complete();
             Globals.DONE = true;
             Cryptog.encryptSubmit();
@@ -572,6 +577,13 @@ namespace Code_Trather
                 string output = jProcess.StandardOutput.ReadToEnd();
                 string error = jProcess.StandardError.ReadToEnd();
                 jProcess.WaitForExit();
+                WriteTo.writeToOutput(output);
+                if (error != "")
+                {
+                    WriteTo.writeToError(error);
+                    List<string> errorList = error.Split(' ').ToList();
+                    appendError(error, Globals.errorList);
+                }
                 Globals.inputFilePath = "";
                 return output + error;
             }
@@ -590,6 +602,13 @@ namespace Code_Trather
                 string output = pProcess.StandardOutput.ReadToEnd();
                 string error = pProcess.StandardError.ReadToEnd();
                 pProcess.WaitForExit();
+                WriteTo.writeToOutput(output);
+                if (error != "")
+                {
+                    WriteTo.writeToError(error);
+                    List<string> errorList = error.Split(' ').ToList();
+                    appendError(error, Globals.errorList);
+                }
                 Globals.inputFilePath = "";
                 return output + error;
             }
@@ -604,15 +623,6 @@ namespace Code_Trather
             string result = await Task.Run(() => runUnitTest());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
-            if (Globals.DONE == false)
-            {
-                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
-
-
-                Globals.DONE = true;
-            }
         }
 
         private bool buttonWasClicked = false;
