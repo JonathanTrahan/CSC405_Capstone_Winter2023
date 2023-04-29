@@ -54,6 +54,99 @@ namespace Code_Trather
         }
 
         /// <summary>
+        /// Defines the python syntax coloring for dark mode
+        /// </summary>
+        private void enableDarkMode()
+        {
+            int BackColor = 0x282C34;
+            // Configure the default style
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Courier New";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(BackColor);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0xfafafa);
+            textInput.StyleClearAll();
+
+            // Character
+            textInput.Styles[Style.Python.Character].ForeColor = IntToColor(0x7bc379);
+            textInput.Styles[Style.Python.Character].BackColor = IntToColor(BackColor);
+
+            // ClassName
+            textInput.Styles[Style.Python.ClassName].ForeColor = IntToColor(0x0000FF);//
+            textInput.Styles[Style.Python.ClassName].BackColor = IntToColor(BackColor);
+
+            // CommentBlock
+            textInput.Styles[Style.Python.CommentBlock].ForeColor = IntToColor(0x5c6370);
+            textInput.Styles[Style.Python.CommentBlock].BackColor = IntToColor(BackColor);
+
+            // CommentLine
+            textInput.Styles[Style.Python.CommentLine].ForeColor = IntToColor(0x5c6370);
+            textInput.Styles[Style.Python.CommentLine].BackColor = IntToColor(BackColor);
+
+            // Decorator
+            textInput.Styles[Style.Python.Decorator].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.Decorator].BackColor = IntToColor(BackColor);
+
+            // DefName
+            textInput.Styles[Style.Python.DefName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.DefName].BackColor = IntToColor(BackColor);
+
+            // Identifier
+            textInput.Styles[Style.Python.Identifier].ForeColor = IntToColor(0xfafafa);
+            textInput.Styles[Style.Python.Identifier].BackColor = IntToColor(BackColor);
+
+            // Number
+            textInput.Styles[Style.Python.Number].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.Number].BackColor = IntToColor(BackColor);
+
+            // Operator
+            textInput.Styles[Style.Python.Operator].ForeColor = IntToColor(0xfafafa);
+            textInput.Styles[Style.Python.Operator].BackColor = IntToColor(BackColor);
+
+            // String
+            textInput.Styles[Style.Python.String].ForeColor = IntToColor(0x7bc379);
+            textInput.Styles[Style.Python.String].BackColor = IntToColor(BackColor);
+
+            // StringEol
+            textInput.Styles[Style.Python.StringEol].ForeColor = IntToColor(0x7bc379);
+            textInput.Styles[Style.Python.StringEol].BackColor = IntToColor(BackColor);
+
+            // Triple
+            textInput.Styles[Style.Python.Triple].ForeColor = IntToColor(0x7bc379);
+            textInput.Styles[Style.Python.Triple].BackColor = IntToColor(BackColor);
+
+            // TripleDouble
+            textInput.Styles[Style.Python.TripleDouble].ForeColor = IntToColor(0x7bc379);
+            textInput.Styles[Style.Python.TripleDouble].BackColor = IntToColor(BackColor);
+
+            // Word
+            textInput.Styles[Style.Python.Word].ForeColor = IntToColor(0xc678dd);
+            textInput.Styles[Style.Python.Word].BackColor = IntToColor(BackColor);
+
+            // Word2
+            textInput.Styles[Style.Python.Word2].ForeColor = IntToColor(0xc678dd);
+            textInput.Styles[Style.Python.Word2].BackColor = IntToColor(BackColor);
+
+            textInput.Lexer = Lexer.Python;
+
+            // Word
+            textInput.SetKeywords(0, "False await else import pass None break except in raise True class finally is return and continue for lambda try as def from nonlocal while assert del global not with async elif if or yield");
+            // Word2
+            textInput.SetKeywords(1, "self ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip");
+
+            textInput.Styles[Style.LineNumber].BackColor = IntToColor(0x495359);
+            textInput.Styles[Style.LineNumber].ForeColor = IntToColor(0xfafafa);
+            textInput.Styles[Style.IndentGuide].ForeColor = IntToColor(0xfafafa);
+            textInput.Styles[Style.IndentGuide].BackColor = IntToColor(0x495359);
+
+            var nums = textInput.Margins[NUMBER_MARGIN];
+            nums.Width = 46;
+            nums.Type = MarginType.Number;
+            nums.Sensitive = true;
+            nums.Mask = 0;
+        }
+
+        /// <summary>
         /// Defines the python syntax coloring
         /// </summary>
         private void InitPythonSyntaxColoring()
@@ -132,6 +225,98 @@ namespace Code_Trather
             textInput.SetKeywords(0, "False await else import pass None break except in raise True class finally is return and continue for lambda try as def from nonlocal while assert del global not with async elif if or yield");
             // Word2
             textInput.SetKeywords(1, "self ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip");
+        }
+
+        /// <summary>
+        /// Defines the python syntax coloring for light mode
+        /// </summary>
+        private void enableLightMode()
+        {
+            // Configure the default style
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Courier New";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(0xFFFFFF);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0x000000);
+            textInput.StyleClearAll();
+
+            // Character
+            textInput.Styles[Style.Python.Character].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.Character].BackColor = IntToColor(0xFFFFFF);
+
+            // ClassName
+            textInput.Styles[Style.Python.ClassName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.ClassName].BackColor = IntToColor(0xFFFFFF);
+
+            // CommentBlock
+            textInput.Styles[Style.Python.CommentBlock].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.CommentBlock].BackColor = IntToColor(0xFFFFFF);
+
+            // CommentLine
+            textInput.Styles[Style.Python.CommentLine].ForeColor = IntToColor(0x808080);
+            textInput.Styles[Style.Python.CommentLine].BackColor = IntToColor(0xFFFFFF);
+
+            // Decorator
+            textInput.Styles[Style.Python.Decorator].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.Decorator].BackColor = IntToColor(0xFFFFFF);
+
+            // DefName
+            textInput.Styles[Style.Python.DefName].ForeColor = IntToColor(0x0000FF);
+            textInput.Styles[Style.Python.DefName].BackColor = IntToColor(0xFFFFFF);
+
+            // Identifier
+            textInput.Styles[Style.Python.Identifier].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.Identifier].BackColor = IntToColor(0xFFFFFF);
+
+            // Number
+            textInput.Styles[Style.Python.Number].ForeColor = IntToColor(0xFF8000);
+            textInput.Styles[Style.Python.Number].BackColor = IntToColor(0xFFFFFF);
+
+            // Operator
+            textInput.Styles[Style.Python.Operator].ForeColor = IntToColor(0x000000);
+            textInput.Styles[Style.Python.Operator].BackColor = IntToColor(0xFFFFFF);
+
+            // String
+            textInput.Styles[Style.Python.String].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.String].BackColor = IntToColor(0xFFFFFF);
+
+            // StringEol
+            textInput.Styles[Style.Python.StringEol].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.StringEol].BackColor = IntToColor(0xFFFFFF);
+
+            // Triple
+            textInput.Styles[Style.Python.Triple].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.Triple].BackColor = IntToColor(0xFFFFFF);
+
+            // TripleDouble
+            textInput.Styles[Style.Python.TripleDouble].ForeColor = IntToColor(0x00AA00);
+            textInput.Styles[Style.Python.TripleDouble].BackColor = IntToColor(0xFFFFFF);
+
+            // Word
+            textInput.Styles[Style.Python.Word].ForeColor = IntToColor(0xFF7700);
+            textInput.Styles[Style.Python.Word].BackColor = IntToColor(0xFFFFFF);
+
+            // Word2
+            textInput.Styles[Style.Python.Word2].ForeColor = IntToColor(0x900090);
+            textInput.Styles[Style.Python.Word2].BackColor = IntToColor(0xFFFFFF);
+
+            textInput.Lexer = Lexer.Python;
+
+            // Word
+            textInput.SetKeywords(0, "False await else import pass None break except in raise True class finally is return and continue for lambda try as def from nonlocal while assert del global not with async elif if or yield");
+            // Word2
+            textInput.SetKeywords(1, "self ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip");
+
+            textInput.Styles[Style.LineNumber].BackColor = IntToColor(BACK_COLOR);
+            textInput.Styles[Style.LineNumber].ForeColor = IntToColor(FORE_COLOR);
+            textInput.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
+            textInput.Styles[Style.IndentGuide].BackColor = IntToColor(BACK_COLOR);
+
+            var nums = textInput.Margins[NUMBER_MARGIN];
+            nums.Width = 46;
+            nums.Type = MarginType.Number;
+            nums.Sensitive = true;
+            nums.Mask = 0;
         }
 
         /// <summary>
@@ -219,6 +404,203 @@ namespace Code_Trather
 
             textInput.SetKeywords(0, "instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null");
             textInput.SetKeywords(1, "package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum");
+        }
+
+        /// <summary>
+        /// Creates the lexer for the Java programming language in the light mode.
+        /// </summary>
+        public void JavaLight()
+        {
+            // Configure the default style
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Courier New";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(0xFFFFFF);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0x000000);
+            textInput.StyleClearAll();
+
+            // PREPROCESSOR
+            textInput.Styles[Style.Cpp.Preprocessor].ForeColor = Color.FromArgb(128, 64, 0); // #804000
+            textInput.Styles[Style.Cpp.Preprocessor].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // DEFAULT
+            textInput.Styles[Style.Cpp.Default].ForeColor = Color.FromArgb(0, 0, 0); // #000000;
+            textInput.Styles[Style.Cpp.Default].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // INSTRUCTION WORD
+            textInput.Styles[Style.Cpp.Word].Bold = true;
+            textInput.Styles[Style.Cpp.Word].ForeColor = Color.FromArgb(0, 0, 255); // #0000FF
+            textInput.Styles[Style.Cpp.Word].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // TYPE WORD
+            textInput.Styles[Style.Cpp.Word2].ForeColor = Color.FromArgb(128, 0, 255); // #8000FF 
+            textInput.Styles[Style.Cpp.Word2].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // NUMBER
+            textInput.Styles[Style.Cpp.Number].ForeColor = Color.FromArgb(255, 128, 0); // #FF8000 
+            textInput.Styles[Style.Cpp.Number].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // STRING
+            textInput.Styles[Style.Cpp.String].ForeColor = Color.FromArgb(128, 128, 128); // #808080 
+            textInput.Styles[Style.Cpp.String].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // CHARACTER
+            textInput.Styles[Style.Cpp.Character].ForeColor = Color.FromArgb(128, 128, 128); // #808080 
+            textInput.Styles[Style.Cpp.Character].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // OPERATOR
+            textInput.Styles[Style.Cpp.Operator].Bold = true;
+            textInput.Styles[Style.Cpp.Operator].ForeColor = Color.FromArgb(0, 0, 128); // #000080 
+            textInput.Styles[Style.Cpp.Operator].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // VERBATIM
+            textInput.Styles[Style.Cpp.Verbatim].ForeColor = Color.FromArgb(0, 0, 0); // #000000 
+            textInput.Styles[Style.Cpp.Verbatim].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // REGEX
+            textInput.Styles[Style.Cpp.Regex].Bold = true;
+            textInput.Styles[Style.Cpp.Regex].ForeColor = Color.FromArgb(0, 0, 0); // #000000 
+            textInput.Styles[Style.Cpp.Regex].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT
+            textInput.Styles[Style.Cpp.Comment].ForeColor = Color.FromArgb(0, 128, 0); // #008000 
+            textInput.Styles[Style.Cpp.Comment].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT LINE
+            textInput.Styles[Style.Cpp.CommentLine].ForeColor = Color.FromArgb(0, 128, 0); // #008000 
+            textInput.Styles[Style.Cpp.CommentLine].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT DOC
+            textInput.Styles[Style.Cpp.CommentDoc].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDoc].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT LINE DOC
+            textInput.Styles[Style.Cpp.CommentLineDoc].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentLineDoc].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT DOC KEYWORD
+            textInput.Styles[Style.Cpp.CommentDocKeyword].Bold = true;
+            textInput.Styles[Style.Cpp.CommentDocKeyword].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDocKeyword].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            // COMMENT DOC KEYWORD ERROR
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].BackColor = Color.FromArgb(255, 255, 255); // #FFFFFF
+
+            textInput.Lexer = Lexer.Cpp;
+
+            textInput.SetKeywords(0, "instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null");
+            textInput.SetKeywords(1, "package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum");
+
+            textInput.Styles[Style.LineNumber].BackColor = IntToColor(BACK_COLOR);
+            textInput.Styles[Style.LineNumber].ForeColor = IntToColor(FORE_COLOR);
+            textInput.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
+            textInput.Styles[Style.IndentGuide].BackColor = IntToColor(BACK_COLOR);
+
+            var nums = textInput.Margins[NUMBER_MARGIN];
+            nums.Width = 46;
+            nums.Type = MarginType.Number;
+            nums.Sensitive = true;
+            nums.Mask = 0;
+        }
+
+        /// <summary>
+        /// Creates the lexer for the Java programming language in the dark mode.
+        /// </summary>
+        public void JavaDark()
+        {
+            // Configure the default style
+            int BackColor = 0x282C34;
+            textInput.StyleResetDefault();
+            textInput.Styles[Style.Default].Font = "Courier New";
+            textInput.Styles[Style.Default].Size = 10;
+            textInput.Styles[Style.Default].BackColor = IntToColor(BackColor);
+            textInput.Styles[Style.Default].ForeColor = IntToColor(0xfafafa);
+            textInput.StyleClearAll();
+
+            // PREPROCESSOR
+            textInput.Styles[Style.Cpp.Preprocessor].ForeColor = Color.FromArgb(128, 64, 0); // #804000
+            textInput.Styles[Style.Cpp.Preprocessor].BackColor = IntToColor(BackColor);
+
+            // DEFAULT
+            textInput.Styles[Style.Cpp.Default].ForeColor = Color.FromArgb(0, 0, 0); // #000000;
+            textInput.Styles[Style.Cpp.Default].BackColor = IntToColor(BackColor);
+
+            // INSTRUCTION WORD
+            textInput.Styles[Style.Cpp.Word].Bold = true;
+            textInput.Styles[Style.Cpp.Word].ForeColor = Color.FromArgb(0, 0, 255); // #0000FF
+            textInput.Styles[Style.Cpp.Word].BackColor = IntToColor(BackColor);
+
+            // TYPE WORD
+            textInput.Styles[Style.Cpp.Word2].ForeColor = Color.FromArgb(128, 0, 255); // #8000FF 
+            textInput.Styles[Style.Cpp.Word2].BackColor = IntToColor(BackColor);
+
+            // NUMBER
+            textInput.Styles[Style.Cpp.Number].ForeColor = Color.FromArgb(255, 128, 0); // #FF8000 
+            textInput.Styles[Style.Cpp.Number].BackColor = IntToColor(BackColor);
+
+            // STRING
+            textInput.Styles[Style.Cpp.String].ForeColor = Color.FromArgb(128, 128, 128); // #808080 
+            textInput.Styles[Style.Cpp.String].BackColor = IntToColor(BackColor);
+
+            // CHARACTER
+            textInput.Styles[Style.Cpp.Character].ForeColor = Color.FromArgb(128, 128, 128); // #808080 
+            textInput.Styles[Style.Cpp.Character].BackColor = IntToColor(BackColor);
+
+            // OPERATOR
+            textInput.Styles[Style.Cpp.Operator].Bold = true;
+            textInput.Styles[Style.Cpp.Operator].ForeColor = Color.FromArgb(0, 0, 128); // #000080 
+            textInput.Styles[Style.Cpp.Operator].BackColor = IntToColor(BackColor);
+
+            // VERBATIM
+            textInput.Styles[Style.Cpp.Verbatim].ForeColor = Color.FromArgb(0, 0, 0); // #000000 
+            textInput.Styles[Style.Cpp.Verbatim].BackColor = IntToColor(BackColor);
+
+            // REGEX
+            textInput.Styles[Style.Cpp.Regex].Bold = true;
+            textInput.Styles[Style.Cpp.Regex].ForeColor = Color.FromArgb(0, 0, 0); // #000000 
+            textInput.Styles[Style.Cpp.Regex].BackColor = IntToColor(BackColor);
+
+            // COMMENT
+            textInput.Styles[Style.Cpp.Comment].ForeColor = Color.FromArgb(0, 128, 0); // #008000 
+            textInput.Styles[Style.Cpp.Comment].BackColor = IntToColor(BackColor);
+
+            // COMMENT LINE
+            textInput.Styles[Style.Cpp.CommentLine].ForeColor = Color.FromArgb(0, 128, 0); // #008000 
+            textInput.Styles[Style.Cpp.CommentLine].BackColor = IntToColor(BackColor);
+
+            // COMMENT DOC
+            textInput.Styles[Style.Cpp.CommentDoc].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDoc].BackColor = IntToColor(BackColor);
+
+            // COMMENT LINE DOC
+            textInput.Styles[Style.Cpp.CommentLineDoc].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentLineDoc].BackColor = IntToColor(BackColor);
+
+            // COMMENT DOC KEYWORD
+            textInput.Styles[Style.Cpp.CommentDocKeyword].Bold = true;
+            textInput.Styles[Style.Cpp.CommentDocKeyword].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDocKeyword].BackColor = IntToColor(BackColor);
+
+            // COMMENT DOC KEYWORD ERROR
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].ForeColor = Color.FromArgb(0, 128, 128); // #008080 
+            textInput.Styles[Style.Cpp.CommentDocKeywordError].BackColor = IntToColor(BackColor);
+
+            textInput.Lexer = Lexer.Cpp;
+
+            textInput.SetKeywords(0, "instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null");
+            textInput.SetKeywords(1, "package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum");
+
+            textInput.Styles[Style.LineNumber].BackColor = IntToColor(0x495359);
+            textInput.Styles[Style.LineNumber].ForeColor = IntToColor(0xfafafa);
+            textInput.Styles[Style.IndentGuide].ForeColor = IntToColor(0xfafafa);
+            textInput.Styles[Style.IndentGuide].BackColor = IntToColor(0x495359);
+
+            var nums = textInput.Margins[NUMBER_MARGIN];
+            nums.Width = 46;
+            nums.Type = MarginType.Number;
+            nums.Sensitive = true;
+            nums.Mask = 0;
         }
 
         /// <summary>
@@ -672,6 +1054,8 @@ namespace Code_Trather
             }
         }
 
+        private bool isLight = true;
+
         private void switchToJava_Click(object sender, EventArgs e)
         {
             isjava = true;
@@ -683,9 +1067,42 @@ namespace Code_Trather
         private void switchToPy_Click(object sender, EventArgs e)
         {
             isjava = false;
-            InitPythonSyntaxColoring();
+            if (isLight)
+            {
+                enableLightMode();
+            }
+            else
+            {
+                enableDarkMode();
+            }
             switchToPy.Checked = true;
             switchToJava.Checked = false;
+        }
+
+        private void DarkMode(object sender, EventArgs e)
+        {
+            if (isjava) 
+            {
+                JavaDark();
+            }
+            else
+            {
+                enableDarkMode();
+            }
+            isLight = false;
+        }
+
+        private void LightMode(object sender, EventArgs e)
+        {
+            if (isjava)
+            {
+                JavaLight();
+            }
+            else
+            {
+                enableLightMode();
+            }
+            isLight = true;
         }
     }
 }
