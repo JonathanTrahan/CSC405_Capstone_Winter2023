@@ -98,7 +98,7 @@
             // stopBTN
             // 
             stopBTN.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            stopBTN.Location = new Point(291, 519);
+            stopBTN.Location = new Point(290, 519);
             stopBTN.Margin = new Padding(3, 4, 3, 4);
             stopBTN.Name = "stopBTN";
             stopBTN.Size = new Size(86, 31);
@@ -111,7 +111,7 @@
             // 
             enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             enterInput.Enabled = false;
-            enterInput.Location = new Point(290, 557);
+            enterInput.Location = new Point(289, 557);
             enterInput.Margin = new Padding(3, 4, 3, 4);
             enterInput.Name = "enterInput";
             enterInput.Size = new Size(86, 29);
@@ -127,7 +127,7 @@
             userInput.Margin = new Padding(3, 4, 3, 4);
             userInput.Name = "userInput";
             userInput.ReadOnly = true;
-            userInput.Size = new Size(241, 27);
+            userInput.Size = new Size(240, 27);
             userInput.TabIndex = 1;
             // 
             // textOutput
@@ -137,7 +137,7 @@
             textOutput.Multiline = true;
             textOutput.Name = "textOutput";
             textOutput.ReadOnly = true;
-            textOutput.Size = new Size(406, 511);
+            textOutput.Size = new Size(405, 511);
             textOutput.TabIndex = 0;
             // 
             // UpdateTimer
@@ -169,14 +169,14 @@
             // saveTSM
             // 
             saveTSM.Name = "saveTSM";
-            saveTSM.Size = new Size(224, 26);
+            saveTSM.Size = new Size(139, 26);
             saveTSM.Text = "Save";
             saveTSM.Click += saveTSM_Click;
             // 
             // submitTSM
             // 
             submitTSM.Name = "submitTSM";
-            submitTSM.Size = new Size(224, 26);
+            submitTSM.Size = new Size(139, 26);
             submitTSM.Text = "Submit";
             submitTSM.Click += submitTSM_Click;
             // 
@@ -193,14 +193,14 @@
             // runTSM
             // 
             runTSM.Name = "runTSM";
-            runTSM.Size = new Size(224, 26);
+            runTSM.Size = new Size(149, 26);
             runTSM.Text = "Run";
             runTSM.Click += runTSM_Click;
             // 
             // unitTestTSM
             // 
             unitTestTSM.Name = "unitTestTSM";
-            unitTestTSM.Size = new Size(224, 26);
+            unitTestTSM.Size = new Size(149, 26);
             unitTestTSM.Text = "Unit Test";
             unitTestTSM.Click += unitTestTSM_Click;
             // 
@@ -218,7 +218,7 @@
             // 
             magnifyTSM.DropDownItems.AddRange(new ToolStripItem[] { zoomInTSM, zoomOutTSM, zoom100TSM });
             magnifyTSM.Name = "magnifyTSM";
-            magnifyTSM.Size = new Size(224, 26);
+            magnifyTSM.Size = new Size(146, 26);
             magnifyTSM.Text = "Magnify";
             // 
             // zoomInTSM
@@ -277,7 +277,7 @@
             Controls.Add(splitContainer1);
             MinimizeBox = false;
             Name = "Trather";
-            Text = "Form1";
+            Text = "Trather";
             TopMost = true;
             WindowState = FormWindowState.Maximized;
             FormClosing += Trather_FormClosing;

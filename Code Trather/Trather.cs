@@ -506,7 +506,7 @@ namespace Code_Trather
                 System.IO.File.AppendAllText(Globals.execSum, word);
                 Console.WriteLine(word + " ");
             }
-            
+
             WriteTo.Complete();
             Globals.DONE = true;
             Cryptog.encryptSubmit();
