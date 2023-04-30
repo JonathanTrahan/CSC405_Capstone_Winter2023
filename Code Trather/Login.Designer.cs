@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             nameTextBox = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
+            nameLabel = new Label();
+            CWIDLabel = new Label();
             testIDtextBox = new TextBox();
-            label3 = new Label();
+            testIDLabel = new Label();
             startUT = new Button();
             startNoUT = new Button();
             cwidInputBox = new NumericUpDown();
@@ -47,24 +47,23 @@
             nameTextBox.Size = new Size(176, 27);
             nameTextBox.TabIndex = 0;
             // 
-            // label1
+            // nameLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(294, 141);
-            label1.Name = "label1";
-            label1.Size = new Size(52, 20);
-            label1.TabIndex = 1;
-            label1.Text = "Name:";
-            label1.Click += label1_Click;
+            nameLabel.AutoSize = true;
+            nameLabel.Location = new Point(294, 141);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new Size(52, 20);
+            nameLabel.TabIndex = 1;
+            nameLabel.Text = "Name:";
             // 
-            // label2
+            // CWIDLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(294, 197);
-            label2.Name = "label2";
-            label2.Size = new Size(50, 20);
-            label2.TabIndex = 3;
-            label2.Text = "CWID:";
+            CWIDLabel.AutoSize = true;
+            CWIDLabel.Location = new Point(294, 197);
+            CWIDLabel.Name = "CWIDLabel";
+            CWIDLabel.Size = new Size(50, 20);
+            CWIDLabel.TabIndex = 3;
+            CWIDLabel.Text = "CWID:";
             // 
             // testIDtextBox
             // 
@@ -73,14 +72,14 @@
             testIDtextBox.Size = new Size(176, 27);
             testIDtextBox.TabIndex = 4;
             // 
-            // label3
+            // testIDLabel
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(294, 249);
-            label3.Name = "label3";
-            label3.Size = new Size(57, 20);
-            label3.TabIndex = 5;
-            label3.Text = "Test ID:";
+            testIDLabel.AutoSize = true;
+            testIDLabel.Location = new Point(294, 249);
+            testIDLabel.Name = "testIDLabel";
+            testIDLabel.Size = new Size(57, 20);
+            testIDLabel.TabIndex = 5;
+            testIDLabel.Text = "Test ID:";
             // 
             // startUT
             // 
@@ -129,10 +128,10 @@
             Controls.Add(cwidInputBox);
             Controls.Add(startNoUT);
             Controls.Add(startUT);
-            Controls.Add(label3);
+            Controls.Add(testIDLabel);
             Controls.Add(testIDtextBox);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(CWIDLabel);
+            Controls.Add(nameLabel);
             Controls.Add(nameTextBox);
             Name = "Login";
             Text = "Login";
@@ -144,10 +143,10 @@
         #endregion
 
         private TextBox nameTextBox;
-        private Label label1;
-        private Label label2;
+        private Label nameLabel;
+        private Label CWIDLabel;
         private TextBox testIDtextBox;
-        private Label label3;
+        private Label testIDLabel;
         private Button startUT;
         private Button startNoUT;
         private NumericUpDown cwidInputBox;

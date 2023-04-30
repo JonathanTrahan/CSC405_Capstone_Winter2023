@@ -12,7 +12,7 @@ using System;
 namespace Code_Trather
 {
     /// <summary>
-    /// Form that the contains the area that the students can code, run test, and submit their code
+    /// Form that the contains the area that the students can code, run, test, and submit their code
     /// </summary>
     public partial class Trather : Form
     {
@@ -648,11 +648,12 @@ namespace Code_Trather
         }
 
         /// <summary>
-        /// runProcess 
-        /// handles the creation, execution, and exit of command prompt process 
-        /// also handles redirection of user input, code output, and error messages
-        /// called by <see cref="runToolStripMenuItem_Click">
+        /// runProcess
+        /// handles the creation, execution, and exit of command prompt process.
+        /// also handles redirection of user input, code output, and error messages.
+        /// called by <seealso cref="runTSM_Click"/>
         /// </summary>
+        /// <returns>string</returns>
         private string runProcess()
         {
             if (isjava)
@@ -681,10 +682,10 @@ namespace Code_Trather
                     thread2.Join();
                     output += val;
 
-                    if (buttonWasClicked)
+                    if (stopButtonWasClicked)
                     {
                         process.Close();
-                        buttonWasClicked = false;
+                        stopButtonWasClicked = false;
                         return output;
                     }
 
@@ -727,10 +728,10 @@ namespace Code_Trather
                     thread2.Join();
                     output += val;
 
-                    if (buttonWasClicked)
+                    if (stopButtonWasClicked)
                     {
                         process.Close();
-                        buttonWasClicked = false;
+                        stopButtonWasClicked = false;
                         return output;
                     }
 
@@ -790,46 +791,44 @@ namespace Code_Trather
         /// <param name="e"></param>
         private void UpdateTime(object sender, EventArgs e)
         {
+            TimerTasks();
+        }
+
+        private void TimerTasks()
+        {
             WriteTo.writeToSnapshotHTML(textInput.Text);
             WriteTo.writeToClipboard(Clipboard.GetText());
-            //Clipboard.Clear();
+            Clipboard.Clear();
             WriteTo.writeToKeyLoggerHTML(Globals.keyTracker);
             Globals.keyTracker = "";
         }
 
-        private OpenFileDialog openFileDialog;
-        private OpenFileDialog inputFile;
-
         /// <summary>
-        /// saveToolStripMenuItem_Click 
         /// saves all text in the input textbox to an assignment file
         /// </summary>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <seealso cref="saveAssignment"/>
+        private void saveTSM_Click(object sender, EventArgs e)
         {
-            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             saveAssignment();
         }
 
         /// <summary>
-        /// submitToolStripMenuItem_Click
         /// final save of all text in the input textbox to the assignment file
         /// then encrypts the folder containing the assigment and all logs
         /// finally it exits the program
         /// </summary>
-        private void submitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void submitTSM_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
         /// <summary>
-        /// runToolStripMenuItem_Click
         /// asynchronous method that unlocks user input text box, calls <see cref="runProcess"/>
         /// sets output textbox to result returned by <see cref="runProcess"/>
         /// and writes necessary information to <see cref="Globals.snapshothtmlAddress"/> <see cref="Globals.clipboardhtmlAddress"/>, and <see cref="Globals.outputAddress"/> log files
         /// </summary>
-        private async void runToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void runTSM_Click(object sender, EventArgs e)
         {
-            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             saveAssignment();
 
             textOutput.Text = "";
@@ -843,42 +842,38 @@ namespace Code_Trather
         }
 
         /// <summary>
-        /// zoomInToolStripMenuItem_Click
         /// increase magnification of text in input text box
         /// </summary>
-        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e)
+        private void zoomInTSM_Click(object sender, EventArgs e)
         {
             textInput.ZoomIn();
         }
 
         /// <summary>
-        /// zoomOutToolStripMenuItem_Click
         /// decrease magnification of text in input text box
         /// </summary>
-        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void zoomOutTSM_Click(object sender, EventArgs e)
         {
             textInput.ZoomOut();
         }
 
         /// <summary>
-        /// zoom100ToolStripMenuItem_Click
         /// reset magnification of text in input text box
         /// </summary>
-        private void zoom100ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void zoom100TSM_Click(object sender, EventArgs e)
         {
             textInput.Zoom = 0;
         }
 
-        /*private void decryptFileToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Submits the assignment and updates the logs after the form is closed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Trather_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Cryptog.decryptSubmit();
-        }*/
-
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             saveAssignment();
-
+            TimerTasks();
             List<string> newWord = Globals.listReader(Globals.words);
             List<string> usedKeys = Globals.listReader(Globals.usedHotKeys);
             System.IO.File.AppendAllText(Globals.execSum, ",");
@@ -901,7 +896,6 @@ namespace Code_Trather
         }
 
         /// <summary>
-        /// enterInput_Click
         /// redirects input enter by user in <see cref="userInput"/> to command line
         /// </summary>
         private void enterInput_Click(object sender, EventArgs e)
@@ -933,11 +927,14 @@ namespace Code_Trather
                 }
             }
 
-
             Globals.keyTracker += write;
             Globals.keyTracker += "\n";
         }
 
+        /// <summary>
+        /// creates a cmd process and executes the assignment file. <see cref="isjava"/> is a boolean that determines what language is being used.
+        /// </summary>
+        /// <returns>string</returns>
         private string runUnitTest()
         {
             if (isjava)
@@ -954,6 +951,13 @@ namespace Code_Trather
                 string output = jProcess.StandardOutput.ReadToEnd();
                 string error = jProcess.StandardError.ReadToEnd();
                 jProcess.WaitForExit();
+                WriteTo.writeToOutput(output);
+                if (error != "")
+                {
+                    WriteTo.writeToError(error);
+                    List<string> errorList = error.Split(' ').ToList();
+                    appendError(error, Globals.errorList);
+                }
                 Globals.inputFilePath = "";
                 return output + error;
             }
@@ -972,39 +976,55 @@ namespace Code_Trather
                 string output = pProcess.StandardOutput.ReadToEnd();
                 string error = pProcess.StandardError.ReadToEnd();
                 pProcess.WaitForExit();
+                WriteTo.writeToOutput(output);
+                if (error != "")
+                {
+                    WriteTo.writeToError(error);
+                    List<string> errorList = error.Split(' ').ToList();
+                    appendError(error, Globals.errorList);
+                }
                 Globals.inputFilePath = "";
                 return output + error;
             }
         }
 
-        private async void runToolUnitTest(object sender, EventArgs e)
+        /// <summary>
+        /// button to run the unit test.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void unitTestTSM_Click(object sender, EventArgs e)
         {
-            //System.IO.File.WriteAllText(Globals.downloadAddress, textInput.Text);
             saveAssignment();
 
             textOutput.Text = "";
             string result = await Task.Run(() => runUnitTest());
             textOutput.Text = result;
             WriteTo.writeToOutput(result);
-            if (Globals.DONE == false)
-            {
-                WriteTo.writeToFile(Globals.snapshothtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.clipboardhtmlAddress, Globals.htmlFoot);
-                WriteTo.writeToFile(Globals.outputAddress, Globals.htmlFoot);
-
-
-                Globals.DONE = true;
-            }
         }
 
-        private bool buttonWasClicked = false;
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// boolean to check whether the stop button was clicked
+        /// </summary>
+        private bool stopButtonWasClicked = false;
+
+        /// <summary>
+        /// sets <see cref="stopButtonWasClicked"/> to true which will stop the code execution if it is running.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void stopBTN_Click(object sender, EventArgs e)
         {
-            buttonWasClicked = true;
+            stopButtonWasClicked = true;
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// Before the form closes double check that the user wants to close the form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Trather_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("You are about to close the application. You will NOT be able to view/edit your work. Close application and submit work?", "Are you sure you want to quit?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.No)
@@ -1014,7 +1034,7 @@ namespace Code_Trather
         }
 
         /// <summary>
-        /// Auto indents when a \n is added after a ':' or a '{'. if a \n is added between two brackets {\n}, then add indent and another \n for formatting
+        /// Auto indents when a '\n' is added after a ':' or a '{'. if a '\n' is added between two brackets like so: {\n}, then add indent and another '\n' for formatting.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1041,6 +1061,9 @@ namespace Code_Trather
             }
         }
 
+        /// <summary>
+        /// saves the assignment to assignment.java if <see cref="isjava"/> is true and saves the assignment to assignment.py if false.
+        /// </summary>
         private void saveAssignment()
         {
             if (isjava)
@@ -1056,6 +1079,11 @@ namespace Code_Trather
 
         private bool isLight = true;
 
+        /// <summary>
+        /// switches the syntax coloring to java and sets <see cref="isjava"/> to true.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void switchToJava_Click(object sender, EventArgs e)
         {
             isjava = true;
@@ -1064,6 +1092,11 @@ namespace Code_Trather
             switchToJava.Checked = true;
         }
 
+        /// <summary>
+        /// switches the syntax coloring to python and sets <see cref="isjava"/> to false.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void switchToPy_Click(object sender, EventArgs e)
         {
             isjava = false;

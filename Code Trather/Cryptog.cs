@@ -13,13 +13,16 @@ using System.Windows.Forms.Design;
 
 namespace Code_Trather
 {
+    /// <summary>
+    /// A class containing all the methods for encryption and decryption
+    /// </summary>
     internal class Cryptog
     {
         ///<summary>
         /// Encrypts a file using AES.
         /// inputFile is the path to the file to be encrypted.
         /// outputFile is the path to where the encrypted file is written to.
-        /// The AES key and IV are encrypted with RSA and written to the output file for decryption later.
+        /// The AES key and IV are encrypted with RSA and written to the beginning of the output file for decryption later.
         ///</summary>
         ///<param name="inputFile"></param>
         ///<param name="outputFile"></param>
@@ -37,8 +40,6 @@ namespace Code_Trather
             // Create an Aes object
             using (Aes myAes = Aes.Create())
             {
-                //ICryptoTransform transform = myAes.CreateEncryptor();
-
                 // Create an encryptor to perform the stream transform.
                 ICryptoTransform encryptor = myAes.CreateEncryptor(myAes.Key, myAes.IV);
 
@@ -83,8 +84,7 @@ namespace Code_Trather
 
                         using (var inFs = new FileStream(inputFile, FileMode.Open))
                         {
-                            do
-                            {
+                            do {
                                 count = inFs.Read(data, 0, blockSizeBytes);
                                 offset += count;
                                 outStreamEncrypted.Write(data, 0, count);
@@ -183,8 +183,7 @@ namespace Code_Trather
                         inFs.Seek(startC, SeekOrigin.Begin);
                         using (var outStreamDecrypted = new CryptoStream(outFs, transform, CryptoStreamMode.Write))
                         {
-                            do
-                            {
+                            do {
                                 count = inFs.Read(data, 0, blockSizeBytes);
                                 offset += count;
                                 outStreamDecrypted.Write(data, 0, count);
@@ -198,8 +197,8 @@ namespace Code_Trather
         }
 
         /// <summary>
-        /// Creates a zip file from the TratherLogs folder
-        /// creates encrypted file in Cryptog folder from zip file
+        /// Creates a zip file from the TratherLogs folder,
+        /// creates encrypted file in Cryptog folder from zip file,
         /// then deletes TratherLogs and TratherLogs.zip
         /// </summary>
         public static void encryptSubmit()
@@ -271,7 +270,7 @@ namespace Code_Trather
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="variation"></param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         private static string GetFileNameAppendVariation(string fileName, string variation)
         {
             string finalPath = Path.GetDirectoryName(fileName);
