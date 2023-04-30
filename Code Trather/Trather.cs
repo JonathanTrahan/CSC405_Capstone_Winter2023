@@ -56,7 +56,7 @@ namespace Code_Trather
         /// <summary>
         /// Defines the python syntax coloring for dark mode
         /// </summary>
-        private void enableDarkMode()
+        private void pythonDark()
         {
             int BackColor = 0x282C34;
             // Configure the default style
@@ -230,7 +230,7 @@ namespace Code_Trather
         /// <summary>
         /// Defines the python syntax coloring for light mode
         /// </summary>
-        private void enableLightMode()
+        private void pythonLight()
         {
             // Configure the default style
             textInput.StyleResetDefault();
@@ -1087,7 +1087,14 @@ namespace Code_Trather
         private void switchToJava_Click(object sender, EventArgs e)
         {
             isjava = true;
-            CreateJavaLexer();
+            if (isLight)
+            {
+                JavaLight();
+            }
+            else
+            {
+                JavaDark();
+            }
             switchToPy.Checked = false;
             switchToJava.Checked = true;
         }
@@ -1102,17 +1109,22 @@ namespace Code_Trather
             isjava = false;
             if (isLight)
             {
-                enableLightMode();
+                pythonLight();
             }
             else
             {
-                enableDarkMode();
+                pythonDark();
             }
             switchToPy.Checked = true;
             switchToJava.Checked = false;
         }
 
-        private void DarkMode(object sender, EventArgs e)
+        /// <summary>
+        /// switches the syntax coloring to dark mode and sets <see cref="isLight"/> to false.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DarkMode_Click(object sender, EventArgs e)
         {
             if (isjava) 
             {
@@ -1120,12 +1132,17 @@ namespace Code_Trather
             }
             else
             {
-                enableDarkMode();
+                pythonDark();
             }
             isLight = false;
         }
 
-        private void LightMode(object sender, EventArgs e)
+        /// <summary>
+        /// switches the syntax coloring to light mode and sets <see cref="isLight"/> to true.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LightMode_Click(object sender, EventArgs e)
         {
             if (isjava)
             {
@@ -1133,7 +1150,7 @@ namespace Code_Trather
             }
             else
             {
-                enableLightMode();
+                pythonLight();
             }
             isLight = true;
         }

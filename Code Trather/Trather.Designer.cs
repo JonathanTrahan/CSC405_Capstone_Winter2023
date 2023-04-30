@@ -30,34 +30,37 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Trather));
-            splitContainer1 = new SplitContainer();
-            textInput = new ScintillaNET.Scintilla();
-            stopBTN = new Button();
-            enterInput = new Button();
-            userInput = new TextBox();
-            textOutput = new TextBox();
-            UpdateTimer = new System.Windows.Forms.Timer(components);
-            toolStrip1 = new ToolStrip();
-            File = new ToolStripDropDownButton();
-            saveTSM = new ToolStripMenuItem();
-            submitTSM = new ToolStripMenuItem();
-            Test = new ToolStripDropDownButton();
-            runTSM = new ToolStripMenuItem();
-            unitTestTSM = new ToolStripMenuItem();
-            toolsDropDown = new ToolStripDropDownButton();
-            magnifyTSM = new ToolStripMenuItem();
-            zoomInTSM = new ToolStripMenuItem();
-            zoomOutTSM = new ToolStripMenuItem();
-            zoom100TSM = new ToolStripMenuItem();
-            lang = new ToolStripDropDownButton();
-            switchToPy = new ToolStripMenuItem();
-            switchToJava = new ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            toolStrip1.SuspendLayout();
-            SuspendLayout();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.textInput = new ScintillaNET.Scintilla();
+            this.stopBTN = new System.Windows.Forms.Button();
+            this.enterInput = new System.Windows.Forms.Button();
+            this.userInput = new System.Windows.Forms.TextBox();
+            this.textOutput = new System.Windows.Forms.TextBox();
+            this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.File = new System.Windows.Forms.ToolStripDropDownButton();
+            this.saveTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.Test = new System.Windows.Forms.ToolStripDropDownButton();
+            this.runTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.unitTestTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.magnifyTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomInTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoomOutTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoom100TSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.themesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lang = new System.Windows.Forms.ToolStripDropDownButton();
+            this.switchToPy = new System.Windows.Forms.ToolStripMenuItem();
+            this.switchToJava = new System.Windows.Forms.ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // splitContainer1
             // 
@@ -73,16 +76,14 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(stopBTN);
-            splitContainer1.Panel2.Controls.Add(enterInput);
-            splitContainer1.Panel2.Controls.Add(userInput);
-            splitContainer1.Panel2.Controls.Add(textOutput);
-            splitContainer1.Panel2.Paint += splitContainer1_Panel2_Paint;
-            splitContainer1.Size = new Size(1335, 611);
-            splitContainer1.SplitterDistance = 908;
-            splitContainer1.SplitterWidth = 5;
-            splitContainer1.TabIndex = 2;
-            splitContainer1.SplitterMoved += splitContainer1_SplitterMoved;
+            this.splitContainer1.Panel2.Controls.Add(this.stopBTN);
+            this.splitContainer1.Panel2.Controls.Add(this.enterInput);
+            this.splitContainer1.Panel2.Controls.Add(this.userInput);
+            this.splitContainer1.Panel2.Controls.Add(this.textOutput);
+            this.splitContainer1.Size = new System.Drawing.Size(1335, 611);
+            this.splitContainer1.SplitterDistance = 908;
+            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.TabIndex = 2;
             // 
             // textInput
             // 
@@ -97,48 +98,51 @@
             // 
             // stopBTN
             // 
-            stopBTN.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            stopBTN.Location = new Point(290, 519);
-            stopBTN.Margin = new Padding(3, 4, 3, 4);
-            stopBTN.Name = "stopBTN";
-            stopBTN.Size = new Size(86, 31);
-            stopBTN.TabIndex = 3;
-            stopBTN.Text = "Stop";
-            stopBTN.UseVisualStyleBackColor = true;
-            stopBTN.Click += stopBTN_Click;
+            this.stopBTN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.stopBTN.Location = new System.Drawing.Point(286, 519);
+            this.stopBTN.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.stopBTN.Name = "stopBTN";
+            this.stopBTN.Size = new System.Drawing.Size(86, 31);
+            this.stopBTN.TabIndex = 3;
+            this.stopBTN.Text = "Stop";
+            this.stopBTN.UseVisualStyleBackColor = true;
+            this.stopBTN.Click += new System.EventHandler(this.stopBTN_Click);
             // 
             // enterInput
             // 
-            enterInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            enterInput.Enabled = false;
-            enterInput.Location = new Point(289, 557);
-            enterInput.Margin = new Padding(3, 4, 3, 4);
-            enterInput.Name = "enterInput";
-            enterInput.Size = new Size(86, 29);
-            enterInput.TabIndex = 2;
-            enterInput.Text = "Enter";
-            enterInput.UseVisualStyleBackColor = true;
-            enterInput.Click += enterInput_Click;
+            this.enterInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.enterInput.Enabled = false;
+            this.enterInput.Location = new System.Drawing.Point(285, 557);
+            this.enterInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.enterInput.Name = "enterInput";
+            this.enterInput.Size = new System.Drawing.Size(86, 29);
+            this.enterInput.TabIndex = 2;
+            this.enterInput.Text = "Enter";
+            this.enterInput.UseVisualStyleBackColor = true;
+            this.enterInput.Click += new System.EventHandler(this.enterInput_Click);
             // 
             // userInput
             // 
-            userInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            userInput.Location = new Point(18, 541);
-            userInput.Margin = new Padding(3, 4, 3, 4);
-            userInput.Name = "userInput";
-            userInput.ReadOnly = true;
-            userInput.Size = new Size(240, 27);
-            userInput.TabIndex = 1;
+            this.userInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userInput.Location = new System.Drawing.Point(18, 541);
+            this.userInput.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.userInput.Name = "userInput";
+            this.userInput.ReadOnly = true;
+            this.userInput.Size = new System.Drawing.Size(236, 27);
+            this.userInput.TabIndex = 1;
             // 
             // textOutput
             // 
-            textOutput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textOutput.Location = new Point(0, 0);
-            textOutput.Multiline = true;
-            textOutput.Name = "textOutput";
-            textOutput.ReadOnly = true;
-            textOutput.Size = new Size(405, 511);
-            textOutput.TabIndex = 0;
+            this.textOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textOutput.Location = new System.Drawing.Point(0, 0);
+            this.textOutput.Multiline = true;
+            this.textOutput.Name = "textOutput";
+            this.textOutput.ReadOnly = true;
+            this.textOutput.Size = new System.Drawing.Size(401, 511);
+            this.textOutput.TabIndex = 0;
             // 
             // UpdateTimer
             // 
@@ -173,17 +177,17 @@
             // 
             // saveTSM
             // 
-            saveTSM.Name = "saveTSM";
-            saveTSM.Size = new Size(139, 26);
-            saveTSM.Text = "Save";
-            saveTSM.Click += saveTSM_Click;
+            this.saveTSM.Name = "saveTSM";
+            this.saveTSM.Size = new System.Drawing.Size(224, 26);
+            this.saveTSM.Text = "Save";
+            this.saveTSM.Click += new System.EventHandler(this.saveTSM_Click);
             // 
             // submitTSM
             // 
-            submitTSM.Name = "submitTSM";
-            submitTSM.Size = new Size(139, 26);
-            submitTSM.Text = "Submit";
-            submitTSM.Click += submitTSM_Click;
+            this.submitTSM.Name = "submitTSM";
+            this.submitTSM.Size = new System.Drawing.Size(224, 26);
+            this.submitTSM.Text = "Submit";
+            this.submitTSM.Click += new System.EventHandler(this.submitTSM_Click);
             // 
             // Test
             // 
@@ -199,17 +203,17 @@
             // 
             // runTSM
             // 
-            runTSM.Name = "runTSM";
-            runTSM.Size = new Size(149, 26);
-            runTSM.Text = "Run";
-            runTSM.Click += runTSM_Click;
+            this.runTSM.Name = "runTSM";
+            this.runTSM.Size = new System.Drawing.Size(149, 26);
+            this.runTSM.Text = "Run";
+            this.runTSM.Click += new System.EventHandler(this.runTSM_Click);
             // 
             // unitTestTSM
             // 
-            unitTestTSM.Name = "unitTestTSM";
-            unitTestTSM.Size = new Size(149, 26);
-            unitTestTSM.Text = "Unit Test";
-            unitTestTSM.Click += unitTestTSM_Click;
+            this.unitTestTSM.Name = "unitTestTSM";
+            this.unitTestTSM.Size = new System.Drawing.Size(149, 26);
+            this.unitTestTSM.Text = "Unit Test";
+            this.unitTestTSM.Click += new System.EventHandler(this.unitTestTSM_Click);
             // 
             // toolsDropDown
             // 
@@ -235,24 +239,47 @@
             // 
             // zoomInTSM
             // 
-            zoomInTSM.Name = "zoomInTSM";
-            zoomInTSM.Size = new Size(172, 26);
-            zoomInTSM.Text = "Zoom In";
-            zoomInTSM.Click += zoomInTSM_Click;
+            this.zoomInTSM.Name = "zoomInTSM";
+            this.zoomInTSM.Size = new System.Drawing.Size(172, 26);
+            this.zoomInTSM.Text = "Zoom In";
+            this.zoomInTSM.Click += new System.EventHandler(this.zoomInTSM_Click);
             // 
             // zoomOutTSM
             // 
-            zoomOutTSM.Name = "zoomOutTSM";
-            zoomOutTSM.Size = new Size(172, 26);
-            zoomOutTSM.Text = "Zoom Out";
-            zoomOutTSM.Click += zoomOutTSM_Click;
+            this.zoomOutTSM.Name = "zoomOutTSM";
+            this.zoomOutTSM.Size = new System.Drawing.Size(172, 26);
+            this.zoomOutTSM.Text = "Zoom Out";
+            this.zoomOutTSM.Click += new System.EventHandler(this.zoomOutTSM_Click);
             // 
             // zoom100TSM
             // 
-            zoom100TSM.Name = "zoom100TSM";
-            zoom100TSM.Size = new Size(172, 26);
-            zoom100TSM.Text = "Zoom 100%";
-            zoom100TSM.Click += zoom100TSM_Click;
+            this.zoom100TSM.Name = "zoom100TSM";
+            this.zoom100TSM.Size = new System.Drawing.Size(172, 26);
+            this.zoom100TSM.Text = "Zoom 100%";
+            this.zoom100TSM.Click += new System.EventHandler(this.zoom100TSM_Click);
+            // 
+            // themesToolStripMenuItem
+            // 
+            this.themesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.darkToolStripMenuItem,
+            this.lightToolStripMenuItem});
+            this.themesToolStripMenuItem.Name = "themesToolStripMenuItem";
+            this.themesToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.themesToolStripMenuItem.Text = "Themes";
+            // 
+            // darkToolStripMenuItem
+            // 
+            this.darkToolStripMenuItem.Name = "darkToolStripMenuItem";
+            this.darkToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.darkToolStripMenuItem.Text = "Dark";
+            this.darkToolStripMenuItem.Click += new System.EventHandler(this.DarkMode_Click);
+            // 
+            // lightToolStripMenuItem
+            // 
+            this.lightToolStripMenuItem.Name = "lightToolStripMenuItem";
+            this.lightToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.lightToolStripMenuItem.Text = "Light";
+            this.lightToolStripMenuItem.Click += new System.EventHandler(this.LightMode_Click);
             // 
             // lang
             // 
@@ -268,43 +295,44 @@
             // 
             // switchToPy
             // 
-            switchToPy.Checked = true;
-            switchToPy.CheckState = CheckState.Checked;
-            switchToPy.Name = "switchToPy";
-            switchToPy.Size = new Size(137, 26);
-            switchToPy.Text = "Python";
-            switchToPy.Click += switchToPy_Click;
+            this.switchToPy.Checked = true;
+            this.switchToPy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.switchToPy.Name = "switchToPy";
+            this.switchToPy.Size = new System.Drawing.Size(137, 26);
+            this.switchToPy.Text = "Python";
+            this.switchToPy.Click += new System.EventHandler(this.switchToPy_Click);
             // 
             // switchToJava
             // 
-            switchToJava.Name = "switchToJava";
-            switchToJava.Size = new Size(137, 26);
-            switchToJava.Text = "Java";
-            switchToJava.Click += switchToJava_Click;
+            this.switchToJava.Name = "switchToJava";
+            this.switchToJava.Size = new System.Drawing.Size(137, 26);
+            this.switchToJava.Text = "Java";
+            this.switchToJava.Click += new System.EventHandler(this.switchToJava_Click);
             // 
             // Trather
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1359, 691);
-            Controls.Add(toolStrip1);
-            Controls.Add(splitContainer1);
-            MinimizeBox = false;
-            Name = "Trather";
-            Text = "Trather";
-            TopMost = true;
-            WindowState = FormWindowState.Maximized;
-            FormClosing += Trather_FormClosing;
-            FormClosed += Trather_FormClosed;
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel2.ResumeLayout(false);
-            splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1359, 691);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.splitContainer1);
+            this.MinimizeBox = false;
+            this.Name = "Trather";
+            this.Text = "Trather";
+            this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Trather_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Trather_FormClosed);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
