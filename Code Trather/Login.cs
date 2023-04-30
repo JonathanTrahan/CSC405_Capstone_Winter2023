@@ -46,7 +46,7 @@ namespace Code_Trather
         private void startUT_Click(object sender, EventArgs e)
         {
             //check if inputs are full
-            /*if (string.IsNullOrEmpty(nameTextBox.Text))
+            if (string.IsNullOrEmpty(nameTextBox.Text))
             {
                 warningLabel.Text = "Please enter your name.";
                 return;
@@ -60,7 +60,7 @@ namespace Code_Trather
             {
                 warningLabel.Text = "Please enter your CWID.";
                 return;
-            }*/
+            }
 
             //get inputs
             Program.studentName = nameTextBox.Text;
